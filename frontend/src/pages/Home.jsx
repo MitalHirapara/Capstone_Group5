@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Navbar from '../components/user/Navbar';
+
 import MainSection from '../components/user/MainSection';
-import Footer from '../components/user/Footer';
+import Faqs from '../components/user/Faqs';
 
 export default function Home() {
 
@@ -40,6 +40,7 @@ export default function Home() {
         <>
 
         <MainSection/>
+        <Faqs/>
            
         </>
 
