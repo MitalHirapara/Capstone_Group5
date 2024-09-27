@@ -1,41 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react'
 
-export default function Home() {
-
-    const [data, setData] = useState(null);
-    const [number, setNumber] = useState(1);
-
-    const handleSubmit = () => {
-        fetch(`http://127.0.0.1:8000/api/user-number/${number}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                setData(data)
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    };
-
-    // useEffect(() => {
-    //     // Example with fetch API
-    //     fetch(`http://127.0.0.1:8000/api/user-number/3`)
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             console.log(data);
-    //             setData(data)
-    //         })
-    //         .catch(error => console.error('Error fetching data:', error));
-
-    //     // Example with axios (if using axios)
-    //     //     axios.get('http://127.0.0.1:8000/api/hello/')
-    //     //       .then(response => setData(response.data))
-    //     //       .catch(error => console.error('Error fetching data:', error));
-    // }, []);
-
-
+export default function () {
     return (
         <>
-
             <div className="relative pb-50 overflow-hidden before:absolute before:top-0 before:start-1/2 before:bg-[url('https://preline.co/assets/svg/examples/polygon-bg-element.svg')]  before:bg-no-repeat before:bg-top before:bg-cover before:size-full before:-z-[1] before:transform before:-translate-x-1/2">
                 <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-10">
                     <div className="flex flex-col lg:flex-row items-center gap-12">
@@ -44,7 +11,7 @@ export default function Home() {
                             <h1 className="block font-bold text-gray-800 text-4xl md:text-5xl lg:text-6xl dark:text-neutral-200">
                                 Unlock Your Career Potential with<p> </p>
                                 <span className="bg-clip-text bg-gradient-to-tl from-blue-600 to-violet-600 text-transparent">
-                                     CAREERTRAIL
+                                    CAREERTRAIL
                                 </span>
                             </h1>
                             <div className="mt-5 max-w-3xl">
@@ -95,6 +62,5 @@ export default function Home() {
 
             </div>
         </>
-
     )
 }
