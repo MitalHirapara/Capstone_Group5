@@ -1,9 +1,8 @@
 import React from 'react'
-import Navbar from './components/Navbar'
-import Home from './components/Home'
-import Login from './components/Login'
+import Home from './pages/Home'
+import Login from './pages/Login'
 import { BrowserRouter as Router} from 'react-router-dom'
-import Container from './components/Container'
+import Container from './components/user/Container'
 import { Route, Routes } from 'react-router-dom'
 export default function App() {
 
