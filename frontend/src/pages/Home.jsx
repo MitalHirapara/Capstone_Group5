@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-import MainSection from '../components/user/MainSection';
-import Faqs from '../components/user/Faqs';
+import MainSection from "../components/user/MainSection";
+import Faqs from "../components/user/Faqs";
+import ResumeSlider from "../components/user/ResumeSlider";
 
 export default function Home() {
-
     const [data, setData] = useState(null);
     const [number, setNumber] = useState(1);
 
     const handleSubmit = () => {
         fetch(`http://127.0.0.1:8000/api/user-number/${number}`)
-            .then(response => response.json())
-            .then(data => {
+            .then((response) => response.json())
+            .then((data) => {
                 console.log(data);
-                setData(data)
+                setData(data);
             })
-            .catch(error => console.error('Error fetching data:', error));
+            .catch((error) => console.error("Error fetching data:", error));
     };
 
     // useEffect(() => {
@@ -35,14 +35,11 @@ export default function Home() {
     //     //       .catch(error => console.error('Error fetching data:', error));
     // }, []);
 
-
     return (
         <>
-
-        <MainSection/>
-        <Faqs/>
-           
+            <MainSection />
+            <ResumeSlider />
+            <Faqs />
         </>
-
-    )
+    );
 }
