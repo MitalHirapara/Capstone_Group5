@@ -15,3 +15,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.right-arrow {
+  transform: translateX(26rem) !important;
+}
+
+.left-arrow {
+  transform: translateX(-23rem) !important;
+}
