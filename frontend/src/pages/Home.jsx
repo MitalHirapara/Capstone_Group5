@@ -38,10 +38,8 @@ export default function Home() {
 
     return (
         <>
-
         <MainSection/>
         <Faqs/>
-           
         </>
 
     )
