@@ -23,3 +23,272 @@
 .left-arrow {
   transform: translateX(-23rem) !important;
 }
+
+.slick-dots li button:before {
+  font-size: 12px;
+}
+
+.slick-dots li.slick-active button:before {
+  opacity: 1;
+  color: #2563eb;
+}
+
+.slick-dots {
+  bottom: -50px;
+}
+
+.slick-prev,
+.slick-prev:focus,
+.slick-prev:active {
+  left: -60px;
+  width: 40px;
+  height: 40px;
+  background: url('../public/prevslide.svg') no-repeat 0px 0px;
+}
+
+.slick-prev:hover {
+  background: url('../public/prev-active.svg') no-repeat 0px 0px;
+}
+
+.slick-next,
+.slick-next:active,
+.slick-next:focus {
+  right: -60px;
+  width: 40px;
+  height: 40px;
+  background: url('../public/nextslide.svg') no-repeat 0px 0px;
+}
+
+.slick-next:hover {
+  background: url('../public/next-active.svg') no-repeat 0px 0px;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 0px !important;
+  color: transparent !important;
+}
+
+.sub-heading::before {
+  content: " ";
+  height: 2px;
+  width: 50px;
+  background-color: #f97316;
+  position: absolute;
+}
+
+.sub-heading::after {
+  content: " ";
+  height: 2px;
+  width: 50px;
+  background-color: #f97316;
+  position: absolute;
+}
+
+.resume .sub-heading::before {
+  left: 39%;
+  top: 9.8%;
+}
+
+.resume .sub-heading::after {
+  right: 39%;
+  top: 9.8%;
+}
+
+.faq .sub-heading::before {
+  left: 20%;
+  top: 0.9%;
+}
+
+.faq .sub-heading::after {
+  right: 20%;
+  top: 0.9%;
+}
+
+.category .sub-heading::before {
+  left: 34.5%;
+  top: 19.5%;
+}
+
+.category .sub-heading::after {
+  right: 34.5%;
+  top: 19.5%;
+}
+
+.guidesec .sub-heading::before {
+  left: 28%;
+  top: 13%;
+}
+
+.guidesec .sub-heading::after {
+  right: 28%;
+  top: 13%;
+}
+
+.hirejobsec {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.jobimgcons::before {
+  content: " ";
+  position: absolute;
+  height: 150px;
+  left: 14%;
+  width: 170px;
+  background: url('/bg-left-hiring.svg');
+  background-size: cover;
+}
+
+.jobimgcons::after {
+  content: " ";
+  position: absolute;
+  height: 150px;
+  right: 14%;
+  width: 230px;
+  background: url('/bg-right-hiring.svg');
+  background-size: cover;
+}
+
+.hirejob {
+  height: 300px;
+}
+
+.hirehighlight {
+  color: #05264e !important;
+}
+
+.hireadsechead {
+  font-size: 16px;
+  line-height: 20px;
+  color: #a0abb8;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: block;
+}
+
+.hireadheading {
+  font-size: 49px;
+  line-height: 51px;
+  color: #05264e;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.hireadtext {
+  font-size: 18px;
+  line-height: 23px;
+  color: #66789c;
+  font-weight: 500;
+  padding: 29px 20px 0;
+}
+
+.dashimg1::before {
+  content: "";
+  width: 360px;
+  height: 64px;
+  position: absolute;
+  top: 40%;
+  left: 24%;
+  background: url('../public/guide_steps.svg') no-repeat;
+  background-size: contain;
+  z-index: 1;
+}
+
+.dashimg2::before {
+  content: "";
+  width: 360px;
+  height: 64px;
+  position: absolute;
+  top: 40%;
+  left: 54%;
+  background: url('../public/guide_steps.svg') no-repeat;
+  background-size: contain;
+  z-index: 1;
+}
+
+.jobfilterhead {
+  padding: 40px 20px 60px 20px;
+  background: #F2F6FD;
+  border-radius: 16px;
+  position: relative;
+}
+
+.jobfilterheading:before {
+  content: "";
+  height: 22px;
+  width: 180px;
+  background: linear-gradient(to bottom, #d6630e, #f97316, #ffb74d);
+  position: absolute;
+  top: 19%;
+  left: 41%;
+  transform: translateX(-50%);
+  opacity: 0.2;
+}
+
+.guideprocesssec::after {
+  content: "";
+  background-image: url('../public/FAQ-bg-side.png');
+  height: 360px;
+  width: 360px;
+  position: absolute;
+  bottom: -250px;
+  right: 0;
+  z-index: 1 !important;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.jobsearchfilter {
+  background: #ffffff;
+  box-shadow: 0px 18px 40px rgba(25, 15, 9, 0.1);
+  border-radius: 8px;
+  width: 100%;
+  padding: 15px 10px;
+  margin-top: 40px;
+}
+
+.jobfilterhead::before {
+  content: "";
+  background: url('../public/Hired-emp.svg') no-repeat;
+  width: 230px;
+  height: 230px;
+  position: absolute;
+  top: 45%;
+  left: 8%;
+  transform: translateX(-50%);
+}
+
+.jobfilterhead::after {
+  content: "";
+  background: url('../public/job-Interview.svg') no-repeat;
+  width: 230px;
+  height: 230px;
+  position: absolute;
+  top: 45%;
+  right: -8%;
+  transform: translateX(-50%);
+}
+
+.jobsearchfilter input:focus-visible {
+  outline: 1px solid transparent !important;
+}
+
+.card {
+  border-radius: 8px;
+  border: 1px solid #E0E6F7;
+  overflow: hidden;
+  margin-bottom: 24px;
+  position: relative;
+  background: #F8FAFF;
+}
+
+.skill-badge {
+  background-color: #EFF3FC;
+  font-size: 12px;
+  padding: 7px 10px;
+  border-radius: 5px;
+  color: #4F5E64 !important;
+}
