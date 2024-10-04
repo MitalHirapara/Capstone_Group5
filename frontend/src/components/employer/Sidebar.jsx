@@ -12,7 +12,7 @@ export default function Sidebar() {
                     hidden bg-slate-950
                     fixed inset-y-0 start-0 z-[60]
                     bg-white  border-gray-200
-                    lg:block lg:translate-x-0 lg:end-auto lg:bottom-0"
+                    lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 bg-slate-950"
                 role="dialog"
                 tabIndex={-1}
                 aria-label="Sidebar"
