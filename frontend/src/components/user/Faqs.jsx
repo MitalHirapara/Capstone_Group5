@@ -8,13 +8,13 @@ export default function Faqs() {
                     <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-20">
                         <div className="relative mx-auto max-w-4xl grid space-y-5 sm:space-y-10">
                             {/* Title */}
-                            <div className="text-center pb-10">
-                                <p className="text-xs font-semibold text-gray-500 tracking-wide uppercase mb-3">
+                            <div className="faq text-center pb-10">
+                                <p className="sub-heading text-xs font-semibold text-gray-500 tracking-wide uppercase mb-3">
                                     Answers to Your Questins for a Smoother Career Journey
                                 </p>
-                                <h1 className="text-3xl text-gray-800 font-bold sm:text-5xl lg:text-6xl lg:leading-tight">
+                                <h3 className="block font-semibold text-gray-800 text-2xl md:text-3xl lg:text-4xl dark:text-neutral-200">
                                     CareerTrail FAQs
-                                </h1>
+                                </h3>
                             </div>
                             {/* End Title */}
                             <div className="hs-accordion-group divide-y divide-gray-200 dark:divide-neutral-700">
