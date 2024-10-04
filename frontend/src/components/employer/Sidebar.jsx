@@ -17,7 +17,7 @@ export default function Sidebar() {
                 tabIndex={-1}
                 aria-label="Sidebar"
             >
-                <div className="relative flex flex-col h-full max-h-full">
+                <div className="relative flex flex-col h-full max-h-full bg-slate-950">
                     <div className="px-6 pt-4">
                         <a
                             className="flex-none rounded-xl text-xl inline-block font-semibold focus:outline-none focus:opacity-80"
