@@ -9,7 +9,7 @@ export default function Footer() {
                         <div className="col-span-full lg:col-span-1">
                             <a
                                 className="flex-none text-xl font-semibold text-white focus:outline-none focus:opacity-80"
-                                href="#"
+                                href="/"
                                 aria-label="Brand"
                             >
                                 <img src='./public/footer_white_logo.png' alt='Logo' />
@@ -21,7 +21,7 @@ export default function Footer() {
                                 <p>
                                     <a
                                         className="inline-flex gap-x-2 text-gray-400 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
-                                        href="#"
+                                        href="/"
                                     >
                                         Home
                                     </a>

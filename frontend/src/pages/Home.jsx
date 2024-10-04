@@ -4,6 +4,9 @@ import axios from "axios";
 import MainSection from "../components/user/MainSection";
 import Faqs from "../components/user/Faqs";
 import ResumeSlider from "../components/user/ResumeSlider";
+import CategorySlider from "../components/user/CategorySlider";
+import HireAdSection from "../components/user/HireAdSection";
+import GuideSection from "../components/user/GuideSection";
 
 export default function Home() {
     const [data, setData] = useState(null);
@@ -38,7 +41,10 @@ export default function Home() {
     return (
         <>
             <MainSection />
+            <CategorySlider />
+            <HireAdSection />
             <ResumeSlider />
+            <GuideSection />
             <Faqs />
         </>
     );
