@@ -4,7 +4,6 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 // import Signup from "./pages/Signup";
-// import Jobs from "./pages/Jobs";
 // import ResumeBuild from "./pages/ResumeBuild";
 import EmployerDashboard from "./pages/EmployerDashboard";
 import CreateJobPost from "./components/employer/CreateJob";
@@ -12,6 +11,8 @@ import ManageJobs from "./components/employer/ManageJobs";
 // import Applications from "./components/employer/Applications";
 import UserLayout from "./layouts/UserLayout";
 import EmployerLayout from "./layouts/EmloyerLayout";
+import Jobs from "./pages/Jobs";
+
 export default function App() {
     return (
         <Routes>
@@ -20,7 +21,7 @@ export default function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 {/* <Route path="/signup" element={<Signup />} /> */}
-                {/* <Route path="/jobs" element={<Jobs />} /> */}
+                <Route path="/jobs" element={<Jobs />} />
                 {/* <Route path="/resume-build" element={<ResumeBuild />} /> */}
             </Route>
 

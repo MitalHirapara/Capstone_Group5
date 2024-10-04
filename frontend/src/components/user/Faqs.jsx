@@ -2,408 +2,388 @@ import React from 'react'
 
 export default function Faqs() {
     return (
-        <>
             <>
-                {/* Features */}
-                <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-                    <div className="relative p-6 md:p-16">
-                        {/* Grid */}
-                        <div className="relative z-10 lg:grid lg:grid-cols-12 lg:gap-16 lg:items-end">
-                            <div className="mb-10 lg:mb-0 lg:col-span-6 lg:col-start-7 lg:order-2">
-                                <>
-                                    {/* Accordion */}
-                                    <div className="hs-accordion-group divide-y divide-gray-200 dark:divide-neutral-700">
-                                        <div
-                                            className="hs-accordion pb-3 active"
-                                            id="hs-basic-with-title-and-arrow-stretched-heading-one"
-                                        >
-                                            <button
-                                                className="hs-accordion-toggle group pb-3 inline-flex items-center justify-between gap-x-3 w-full md:text-lg font-semibold text-start text-gray-800 rounded-lg transition hover:text-gray-500 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400"
-                                                aria-expanded="true"
-                                                aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-one"
-                                            >
-                                                What is CareerTrail?
-                                                <svg
-                                                    className="hs-accordion-active:hidden block shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width={24}
-                                                    height={24}
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    strokeWidth={2}
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                >
-                                                    <path d="m6 9 6 6 6-6" />
-                                                </svg>
-                                                <svg
-                                                    className="hs-accordion-active:block hidden shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width={24}
-                                                    height={24}
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    strokeWidth={2}
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                >
-                                                    <path d="m18 15-6-6-6 6" />
-                                                </svg>
-                                            </button>
-                                            <div
-                                                id="hs-basic-with-title-and-arrow-stretched-collapse-one"
-                                                className="hs-accordion-content w-full overflow-hidden transition-[height] duration-300"
-                                                role="region"
-                                                aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-one"
-                                            >
-                                                <p className="text-gray-600 dark:text-neutral-400">
-                                                    CareerTrail is an online platform that helps users create AI-generated resumes tailored to their career goals. Additionally, it acts as a job portal where users can browse and apply for relevant job opportunities.
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div
-                                            className="hs-accordion pt-6 pb-3"
-                                            id="hs-basic-with-title-and-arrow-stretched-heading-two"
-                                        >
-                                            <button
-                                                className="hs-accordion-toggle group pb-3 inline-flex items-center justify-between gap-x-3 w-full md:text-lg font-semibold text-start text-gray-800 rounded-lg transition hover:text-gray-500 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400"
-                                                aria-expanded="false"
-                                                aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-two"
-                                            >
-                                                Can I apply to jobs directly through CareerTrail?
-                                                <svg
-                                                    className="hs-accordion-active:hidden block shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width={24}
-                                                    height={24}
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    strokeWidth={2}
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                >
-                                                    <path d="m6 9 6 6 6-6" />
-                                                </svg>
-                                                <svg
-                                                    className="hs-accordion-active:block hidden shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width={24}
-                                                    height={24}
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    strokeWidth={2}
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                >
-                                                    <path d="m18 15-6-6-6 6" />
-                                                </svg>
-                                            </button>
-                                            <div
-                                                id="hs-basic-with-title-and-arrow-stretched-collapse-two"
-                                                className="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
-                                                role="region"
-                                                aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-two"
-                                            >
-                                                <p className="text-gray-600 dark:text-neutral-400">
-                                                    Yes! CareerTrail not only helps you build a resume but also allows you to browse job listings and apply directly to jobs using your AI-generated resume.
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div
-                                            className="hs-accordion pt-6 pb-3"
-                                            id="hs-basic-with-title-and-arrow-stretched-heading-three"
-                                        >
-                                            <button
-                                                className="hs-accordion-toggle group pb-3 inline-flex items-center justify-between gap-x-3 w-full md:text-lg font-semibold text-start text-gray-800 rounded-lg transition hover:text-gray-500 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400"
-                                                aria-expanded="false"
-                                                aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-three"
-                                            >
-                                                Is CareerTrail free to use?
-                                                <svg
-                                                    className="hs-accordion-active:hidden block shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width={24}
-                                                    height={24}
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    strokeWidth={2}
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                >
-                                                    <path d="m6 9 6 6 6-6" />
-                                                </svg>
-                                                <svg
-                                                    className="hs-accordion-active:block hidden shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width={24}
-                                                    height={24}
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    strokeWidth={2}
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                >
-                                                    <path d="m18 15-6-6-6 6" />
-                                                </svg>
-                                            </button>
-                                            <div
-                                                id="hs-basic-with-title-and-arrow-stretched-collapse-three"
-                                                className="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
-                                                role="region"
-                                                aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-three"
-                                            >
-                                                <p className="text-gray-600 dark:text-neutral-400">
-                                                    CareerTrail offers a free version with basic features for resume building and job searches. We also provide premium plans that unlock additional features such as advanced resume templates, cover letter creation, and priority job matching.
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div
-                                            className="hs-accordion pt-6 pb-3"
-                                            id="hs-basic-with-title-and-arrow-stretched-heading-four"
-                                        >
-                                            <button
-                                                className="hs-accordion-toggle group pb-3 inline-flex items-center justify-between gap-x-3 w-full md:text-lg font-semibold text-start text-gray-800 rounded-lg transition hover:text-gray-500 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400"
-                                                aria-expanded="false"
-                                                aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-four"
-                                            >
-                                                How secure is my personal information?
-                                                <svg
-                                                    className="hs-accordion-active:hidden block shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width={24}
-                                                    height={24}
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    strokeWidth={2}
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                >
-                                                    <path d="m6 9 6 6 6-6" />
-                                                </svg>
-                                                <svg
-                                                    className="hs-accordion-active:block hidden shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width={24}
-                                                    height={24}
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    strokeWidth={2}
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                >
-                                                    <path d="m18 15-6-6-6 6" />
-                                                </svg>
-                                            </button>
-                                            <div
-                                                id="hs-basic-with-title-and-arrow-stretched-collapse-four"
-                                                className="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
-                                                role="region"
-                                                aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-four"
-                                            >
-                                                <p className="text-gray-600 dark:text-neutral-400">
-                                                    Your privacy is our top priority. CareerTrail uses industry-standard encryption to protect your data. We do not share your personal information with third parties without your consent.
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div
-                                            className="hs-accordion pt-6 pb-3"
-                                            id="hs-basic-with-title-and-arrow-stretched-heading-five"
-                                        >
-                                            <button
-                                                className="hs-accordion-toggle group pb-3 inline-flex items-center justify-between gap-x-3 w-full md:text-lg font-semibold text-start text-gray-800 rounded-lg transition hover:text-gray-500 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400"
-                                                aria-expanded="false"
-                                                aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-five"
-                                            >
-                                                How can I improve my chances of getting hired using CareerTrail?
-                                                <svg
-                                                    className="hs-accordion-active:hidden block shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width={24}
-                                                    height={24}
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    strokeWidth={2}
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                >
-                                                    <path d="m6 9 6 6 6-6" />
-                                                </svg>
-                                                <svg
-                                                    className="hs-accordion-active:block hidden shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width={24}
-                                                    height={24}
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    strokeWidth={2}
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                >
-                                                    <path d="m18 15-6-6-6 6" />
-                                                </svg>
-                                            </button>
-                                            <div
-                                                id="hs-basic-with-title-and-arrow-stretched-collapse-five"
-                                                className="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
-                                                role="region"
-                                                aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-five"
-                                            >
-                                                <p className="text-gray-600 dark:text-neutral-400">
-                                                    To improve your chances, make sure your profile is complete and up-to-date with accurate information about your skills, experience, and education. Customize your AI-generated resume for each job application by tailoring the content to the job description. Take advantage of the platform’s recommendations for resume improvement, and apply to jobs that match your qualifications closely. Consistently updating your profile and applying for relevant jobs increases your visibility to recruiters.
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div
-                                            className="hs-accordion pt-6 pb-3"
-                                            id="hs-basic-with-title-and-arrow-stretched-heading-six"
-                                        >
-                                            <button
-                                                className="hs-accordion-toggle group pb-3 inline-flex items-center justify-between gap-x-3 w-full md:text-lg font-semibold text-start text-gray-800 rounded-lg transition hover:text-gray-500 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400"
-                                                aria-expanded="false"
-                                                aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-six"
-                                            >
-                                                What should I do if I’m not getting responses from employers?
-                                                <svg
-                                                    className="hs-accordion-active:hidden block shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width={24}
-                                                    height={24}
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    strokeWidth={2}
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                >
-                                                    <path d="m6 9 6 6 6-6" />
-                                                </svg>
-                                                <svg
-                                                    className="hs-accordion-active:block hidden shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width={24}
-                                                    height={24}
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    strokeWidth={2}
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                >
-                                                    <path d="m18 15-6-6-6 6" />
-                                                </svg>
-                                            </button>
-                                            <div
-                                                id="hs-basic-with-title-and-arrow-stretched-collapse-six"
-                                                className="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
-                                                role="region"
-                                                aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-six"
-                                            >
-                                                <p className="text-gray-600 dark:text-neutral-400">
-                                                    If you’re not getting responses, first review your resume to ensure it highlights your most relevant skills and experience. You can use CareerTrail’s AI suggestions to make your resume more competitive. Additionally, consider applying to jobs that closely match your experience level and skills. You can also reach out to CareerTrail’s support team for personalized assistance on improving your job search strategy, including optimizing your resume and cover letter.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </>
+                {/* Hero */}
+                <div className="overflow-hidden">
+                    <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                        <div className="relative mx-auto max-w-4xl grid space-y-5 sm:space-y-10">
+                            {/* Title */}
+                            <div className="faq text-center pb-10">
+                                <p className="sub-heading text-xs font-semibold text-gray-500 tracking-wide uppercase mb-3">
+                                    Answers to Your Questins for a Smoother Career Journey
+                                </p>
+                                <h3 className="block font-semibold text-gray-800 text-2xl md:text-3xl lg:text-4xl dark:text-neutral-200">
+                                    CareerTrail FAQs
+                                </h3>
                             </div>
-                            {/* End Col */}
-                            <div className="lg:col-span-6">
-                                <div className="relative">
-                                    {/* Tab Content */}
-                                    <div>
-                                        <div
-                                            id="tabs-with-card-1"
-                                            role="tabpanel"
-                                            aria-labelledby="tabs-with-card-item-1"
-                                        >
-                                            <img
-                                                className="shadow-xl shadow-gray-200 rounded-xl"
-                                                src="https://images.unsplash.com/photo-1605629921711-2f6b00c6bbf4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=560&h=720&q=80"
-                                                alt="Features Image"
-                                            />
-                                        </div>
-                                        <div
-                                            id="tabs-with-card-2"
-                                            className="hidden"
-                                            role="tabpanel"
-                                            aria-labelledby="tabs-with-card-item-2"
-                                        >
-                                            <img
-                                                className="shadow-xl shadow-gray-200 rounded-xl"
-                                                src="https://images.unsplash.com/photo-1665686306574-1ace09918530?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=560&h=720&q=80"
-                                                alt="Features Image"
-                                            />
-                                        </div>
-                                        <div
-                                            id="tabs-with-card-3"
-                                            className="hidden"
-                                            role="tabpanel"
-                                            aria-labelledby="tabs-with-card-item-3"
-                                        >
-                                            <img
-                                                className="shadow-xl shadow-gray-200 rounded-xl"
-                                                src="https://images.unsplash.com/photo-1598929213452-52d72f63e307?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=560&h=720&q=80"
-                                                alt="Features Image"
-                                            />
-                                        </div>
-                                    </div>
-                                    {/* End Tab Content */}
-                                    {/* SVG Element */}
-                                    <div className="hidden absolute top-0 end-0 translate-x-20 md:block lg:translate-x-20">
+                            {/* End Title */}
+                            <div className="hs-accordion-group divide-y divide-gray-200 dark:divide-neutral-700">
+                                <div
+                                    className="hs-accordion pb-3 active"
+                                    id="hs-basic-with-title-and-arrow-stretched-heading-one"
+                                >
+                                    <button
+                                        className="hs-accordion-toggle group pb-3 inline-flex items-center justify-between gap-x-3 w-full md:text-lg font-semibold text-start text-gray-800 rounded-lg transition hover:text-gray-500 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400"
+                                        aria-expanded="true"
+                                        aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-one"
+                                    >
+                                        What is CareerTrail?
                                         <svg
-                                            className="w-16 h-auto text-orange-500"
-                                            width={121}
-                                            height={135}
-                                            viewBox="0 0 121 135"
-                                            fill="none"
+                                            className="hs-accordion-active:hidden block shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
                                             xmlns="http://www.w3.org/2000/svg"
+                                            width={24}
+                                            height={24}
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth={2}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
                                         >
-                                            <path
-                                                d="M5 16.4754C11.7688 27.4499 21.2452 57.3224 5 89.0164"
-                                                stroke="currentColor"
-                                                strokeWidth={10}
-                                                strokeLinecap="round"
-                                            />
-                                            <path
-                                                d="M33.6761 112.104C44.6984 98.1239 74.2618 57.6776 83.4821 5"
-                                                stroke="currentColor"
-                                                strokeWidth={10}
-                                                strokeLinecap="round"
-                                            />
-                                            <path
-                                                d="M50.5525 130C68.2064 127.495 110.731 117.541 116 78.0874"
-                                                stroke="currentColor"
-                                                strokeWidth={10}
-                                                strokeLinecap="round"
-                                            />
+                                            <path d="m6 9 6 6 6-6" />
                                         </svg>
+                                        <svg
+                                            className="hs-accordion-active:block hidden shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width={24}
+                                            height={24}
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth={2}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path d="m18 15-6-6-6 6" />
+                                        </svg>
+                                    </button>
+                                    <div
+                                        id="hs-basic-with-title-and-arrow-stretched-collapse-one"
+                                        className="hs-accordion-content w-full overflow-hidden transition-[height] duration-300"
+                                        role="region"
+                                        aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-one"
+                                    >
+                                        <p className="text-gray-600 dark:text-neutral-400">
+                                            CareerTrail is an online platform that helps users create AI-generated resumes tailored to their career goals. Additionally, it acts as a job portal where users can browse and apply for relevant job opportunities.
+                                        </p>
                                     </div>
-                                    {/* End SVG Element */}
+                                </div>
+                                <div
+                                    className="hs-accordion pt-6 pb-3"
+                                    id="hs-basic-with-title-and-arrow-stretched-heading-two"
+                                >
+                                    <button
+                                        className="hs-accordion-toggle group pb-3 inline-flex items-center justify-between gap-x-3 w-full md:text-lg font-semibold text-start text-gray-800 rounded-lg transition hover:text-gray-500 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400"
+                                        aria-expanded="false"
+                                        aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-two"
+                                    >
+                                        Can I apply to jobs directly through CareerTrail?
+                                        <svg
+                                            className="hs-accordion-active:hidden block shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width={24}
+                                            height={24}
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth={2}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path d="m6 9 6 6 6-6" />
+                                        </svg>
+                                        <svg
+                                            className="hs-accordion-active:block hidden shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width={24}
+                                            height={24}
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth={2}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path d="m18 15-6-6-6 6" />
+                                        </svg>
+                                    </button>
+                                    <div
+                                        id="hs-basic-with-title-and-arrow-stretched-collapse-two"
+                                        className="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
+                                        role="region"
+                                        aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-two"
+                                    >
+                                        <p className="text-gray-600 dark:text-neutral-400">
+                                            Yes! CareerTrail not only helps you build a resume but also allows you to browse job listings and apply directly to jobs using your AI-generated resume.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div
+                                    className="hs-accordion pt-6 pb-3"
+                                    id="hs-basic-with-title-and-arrow-stretched-heading-three"
+                                >
+                                    <button
+                                        className="hs-accordion-toggle group pb-3 inline-flex items-center justify-between gap-x-3 w-full md:text-lg font-semibold text-start text-gray-800 rounded-lg transition hover:text-gray-500 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400"
+                                        aria-expanded="false"
+                                        aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-three"
+                                    >
+                                        Is CareerTrail free to use?
+                                        <svg
+                                            className="hs-accordion-active:hidden block shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width={24}
+                                            height={24}
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth={2}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path d="m6 9 6 6 6-6" />
+                                        </svg>
+                                        <svg
+                                            className="hs-accordion-active:block hidden shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width={24}
+                                            height={24}
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth={2}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path d="m18 15-6-6-6 6" />
+                                        </svg>
+                                    </button>
+                                    <div
+                                        id="hs-basic-with-title-and-arrow-stretched-collapse-three"
+                                        className="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
+                                        role="region"
+                                        aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-three"
+                                    >
+                                        <p className="text-gray-600 dark:text-neutral-400">
+                                            CareerTrail offers a free version with basic features for resume building and job searches. We also provide premium plans that unlock additional features such as advanced resume templates, cover letter creation, and priority job matching.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div
+                                    className="hs-accordion pt-6 pb-3"
+                                    id="hs-basic-with-title-and-arrow-stretched-heading-four"
+                                >
+                                    <button
+                                        className="hs-accordion-toggle group pb-3 inline-flex items-center justify-between gap-x-3 w-full md:text-lg font-semibold text-start text-gray-800 rounded-lg transition hover:text-gray-500 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400"
+                                        aria-expanded="false"
+                                        aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-four"
+                                    >
+                                        How secure is my personal information?
+                                        <svg
+                                            className="hs-accordion-active:hidden block shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width={24}
+                                            height={24}
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth={2}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path d="m6 9 6 6 6-6" />
+                                        </svg>
+                                        <svg
+                                            className="hs-accordion-active:block hidden shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width={24}
+                                            height={24}
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth={2}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path d="m18 15-6-6-6 6" />
+                                        </svg>
+                                    </button>
+                                    <div
+                                        id="hs-basic-with-title-and-arrow-stretched-collapse-four"
+                                        className="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
+                                        role="region"
+                                        aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-four"
+                                    >
+                                        <p className="text-gray-600 dark:text-neutral-400">
+                                            Your privacy is our top priority. CareerTrail uses industry-standard encryption to protect your data. We do not share your personal information with third parties without your consent.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div
+                                    className="hs-accordion pt-6 pb-3"
+                                    id="hs-basic-with-title-and-arrow-stretched-heading-five"
+                                >
+                                    <button
+                                        className="hs-accordion-toggle group pb-3 inline-flex items-center justify-between gap-x-3 w-full md:text-lg font-semibold text-start text-gray-800 rounded-lg transition hover:text-gray-500 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400"
+                                        aria-expanded="false"
+                                        aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-five"
+                                    >
+                                        How can I improve my chances of getting hired using CareerTrail?
+                                        <svg
+                                            className="hs-accordion-active:hidden block shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width={24}
+                                            height={24}
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth={2}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path d="m6 9 6 6 6-6" />
+                                        </svg>
+                                        <svg
+                                            className="hs-accordion-active:block hidden shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width={24}
+                                            height={24}
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth={2}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path d="m18 15-6-6-6 6" />
+                                        </svg>
+                                    </button>
+                                    <div
+                                        id="hs-basic-with-title-and-arrow-stretched-collapse-five"
+                                        className="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
+                                        role="region"
+                                        aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-five"
+                                    >
+                                        <p className="text-gray-600 dark:text-neutral-400">
+                                            To improve your chances, make sure your profile is complete and up-to-date with accurate information about your skills, experience, and education. Customize your AI-generated resume for each job application by tailoring the content to the job description. Take advantage of the platform’s recommendations for resume improvement, and apply to jobs that match your qualifications closely. Consistently updating your profile and applying for relevant jobs increases your visibility to recruiters.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div
+                                    className="hs-accordion pt-6 pb-3"
+                                    id="hs-basic-with-title-and-arrow-stretched-heading-six"
+                                >
+                                    <button
+                                        className="hs-accordion-toggle group pb-3 inline-flex items-center justify-between gap-x-3 w-full md:text-lg font-semibold text-start text-gray-800 rounded-lg transition hover:text-gray-500 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400"
+                                        aria-expanded="false"
+                                        aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-six"
+                                    >
+                                        What should I do if I’m not getting responses from employers?
+                                        <svg
+                                            className="hs-accordion-active:hidden block shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width={24}
+                                            height={24}
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth={2}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path d="m6 9 6 6 6-6" />
+                                        </svg>
+                                        <svg
+                                            className="hs-accordion-active:block hidden shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width={24}
+                                            height={24}
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth={2}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path d="m18 15-6-6-6 6" />
+                                        </svg>
+                                    </button>
+                                    <div
+                                        id="hs-basic-with-title-and-arrow-stretched-collapse-six"
+                                        className="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
+                                        role="region"
+                                        aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-six"
+                                    >
+                                        <p className="text-gray-600 dark:text-neutral-400">
+                                            If you’re not getting responses, first review your resume to ensure it highlights your most relevant skills and experience. You can use CareerTrail’s AI suggestions to make your resume more competitive. Additionally, consider applying to jobs that closely match your experience level and skills. You can also reach out to CareerTrail’s support team for personalized assistance on improving your job search strategy, including optimizing your resume and cover letter.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                            {/* End Col */}
+                            <div
+                                className="left-arrow hidden absolute top-4/4 start-0 transform -translate-y-2/4 -translate-x-40 md:block lg:-translate-x-80"
+                                aria-hidden="true"
+                            >
+                                <svg
+                                    className="w-52 h-auto"
+                                    width={717}
+                                    height={653}
+                                    viewBox="0 0 717 653"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M170.176 228.357C177.176 230.924 184.932 227.329 187.498 220.329C190.064 213.329 186.47 205.574 179.47 203.007L170.176 228.357ZM98.6819 71.4156L85.9724 66.8638L85.8472 67.2136L85.7413 67.5698L98.6819 71.4156ZM336.169 77.9736L328.106 88.801L328.288 88.9365L328.475 89.0659L336.169 77.9736ZM616.192 128.685C620.658 122.715 619.439 114.254 613.469 109.788L516.183 37.0035C510.213 32.5371 501.753 33.756 497.286 39.726C492.82 45.696 494.039 54.1563 500.009 58.6227L586.485 123.32L521.788 209.797C517.322 215.767 518.541 224.227 524.511 228.694C530.481 233.16 538.941 231.941 543.407 225.971L616.192 128.685ZM174.823 215.682C179.47 203.007 179.475 203.009 179.48 203.011C179.482 203.012 179.486 203.013 179.489 203.014C179.493 203.016 179.496 203.017 179.498 203.018C179.501 203.019 179.498 203.018 179.488 203.014C179.469 203.007 179.425 202.99 179.357 202.964C179.222 202.912 178.991 202.822 178.673 202.694C178.035 202.437 177.047 202.026 175.768 201.456C173.206 200.314 169.498 198.543 165.106 196.099C156.27 191.182 144.942 183.693 134.609 173.352C114.397 153.124 97.7311 122.004 111.623 75.2614L85.7413 67.5698C68.4512 125.748 89.856 166.762 115.51 192.436C128.11 205.047 141.663 213.953 151.976 219.692C157.158 222.575 161.591 224.698 164.777 226.118C166.371 226.828 167.659 227.365 168.578 227.736C169.038 227.921 169.406 228.065 169.675 228.168C169.809 228.22 169.919 228.261 170.002 228.293C170.044 228.309 170.08 228.322 170.109 228.333C170.123 228.338 170.136 228.343 170.147 228.347C170.153 228.349 170.16 228.352 170.163 228.353C170.17 228.355 170.176 228.357 174.823 215.682ZM111.391 75.9674C118.596 55.8511 137.372 33.9214 170.517 28.6833C204.135 23.3705 255.531 34.7533 328.106 88.801L344.233 67.1462C268.876 11.0269 210.14 -4.91361 166.303 2.01428C121.993 9.01681 95.9904 38.8917 85.9724 66.8638L111.391 75.9674ZM328.475 89.0659C398.364 137.549 474.018 153.163 607.307 133.96L603.457 107.236C474.34 125.837 406.316 110.204 343.864 66.8813L328.475 89.0659Z"
+                                        fill="currentColor"
+                                        className="fill-gray-800"
+                                    />
+                                    <path
+                                        d="M17.863 238.22C10.4785 237.191 3.6581 242.344 2.62917 249.728C1.60024 257.113 6.75246 263.933 14.137 264.962L17.863 238.22ZM117.548 265.74L119.421 252.371L119.411 252.37L117.548 265.74ZM120.011 466.653L132.605 471.516L132.747 471.147L132.868 470.771L120.011 466.653ZM285.991 553.767C291.813 549.109 292.756 540.613 288.098 534.792L212.193 439.92C207.536 434.098 199.04 433.154 193.218 437.812C187.396 442.47 186.453 450.965 191.111 456.787L258.582 541.118L174.251 608.589C168.429 613.247 167.486 621.742 172.143 627.564C176.801 633.386 185.297 634.329 191.119 629.672L285.991 553.767ZM14.137 264.962L115.685 279.111L119.411 252.37L17.863 238.22L14.137 264.962ZM115.675 279.11C124.838 280.393 137.255 284.582 145.467 291.97C149.386 295.495 152.093 299.505 153.39 304.121C154.673 308.691 154.864 314.873 152.117 323.271L177.779 331.665C181.924 318.993 182.328 307.301 179.383 296.818C176.451 286.381 170.485 278.159 163.524 271.897C149.977 259.71 131.801 254.105 119.421 252.371L115.675 279.11ZM152.117 323.271C138.318 365.454 116.39 433.697 107.154 462.535L132.868 470.771C142.103 441.936 164.009 373.762 177.779 331.665L152.117 323.271ZM107.417 461.79C103.048 473.105 100.107 491.199 107.229 508.197C114.878 526.454 132.585 539.935 162.404 543.488L165.599 516.678C143.043 513.99 135.175 505.027 132.132 497.764C128.562 489.244 129.814 478.743 132.605 471.516L107.417 461.79ZM162.404 543.488C214.816 549.734 260.003 554.859 276.067 556.643L279.047 529.808C263.054 528.032 217.939 522.915 165.599 516.678L162.404 543.488Z"
+                                        fill="currentColor"
+                                        className="fill-orange-500"
+                                    />
+                                    <path
+                                        d="M229.298 165.61C225.217 159.371 216.85 157.621 210.61 161.702C204.371 165.783 202.621 174.15 206.702 180.39L229.298 165.61ZM703.921 410.871C711.364 410.433 717.042 404.045 716.605 396.602L709.47 275.311C709.032 267.868 702.643 262.189 695.2 262.627C687.757 263.065 682.079 269.454 682.516 276.897L688.858 384.71L581.045 391.052C573.602 391.49 567.923 397.879 568.361 405.322C568.799 412.765 575.187 418.444 582.63 418.006L703.921 410.871ZM206.702 180.39C239.898 231.14 343.567 329.577 496.595 322.758L495.394 295.785C354.802 302.049 259.09 211.158 229.298 165.61L206.702 180.39ZM496.595 322.758C567.523 319.598 610.272 335.61 637.959 353.957C651.944 363.225 662.493 373.355 671.17 382.695C675.584 387.447 679.351 391.81 683.115 396.047C686.719 400.103 690.432 404.172 694.159 407.484L712.097 387.304C709.691 385.166 706.92 382.189 703.298 378.113C699.837 374.217 695.636 369.362 690.951 364.319C681.43 354.07 669.255 342.306 652.874 331.451C619.829 309.553 571.276 292.404 495.394 295.785L496.595 322.758Z"
+                                        fill="currentColor"
+                                        className="fill-cyan-500"
+                                    />
+                                </svg>
+                            </div>
+                            {/* End SVG Element */}
+                            {/* SVG Element */}
+                            <div
+                                className="right-arrow hidden absolute top-3/4 end-0 transform -translate-y-2/4 translate-x-40 md:block lg:translate-x-80"
+                                aria-hidden="true"
+                            >
+                                <svg
+                                    className="w-72 h-auto"
+                                    width={1115}
+                                    height={636}
+                                    viewBox="0 0 1115 636"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M0.990203 279.321C-1.11035 287.334 3.68307 295.534 11.6966 297.634L142.285 331.865C150.298 333.965 158.497 329.172 160.598 321.158C162.699 313.145 157.905 304.946 149.892 302.845L33.8132 272.418L64.2403 156.339C66.3409 148.326 61.5475 140.127 53.5339 138.026C45.5204 135.926 37.3213 140.719 35.2207 148.733L0.990203 279.321ZM424.31 252.289C431.581 256.26 440.694 253.585 444.664 246.314C448.635 239.044 445.961 229.931 438.69 225.96L424.31 252.289ZM23.0706 296.074C72.7581 267.025 123.056 230.059 187.043 212.864C249.583 196.057 325.63 198.393 424.31 252.289L438.69 225.96C333.77 168.656 249.817 164.929 179.257 183.892C110.144 202.465 54.2419 243.099 7.92943 270.175L23.0706 296.074Z"
+                                        fill="currentColor"
+                                        className="fill-orange-500"
+                                    />
+                                    <path
+                                        d="M451.609 382.417C446.219 388.708 446.95 398.178 453.241 403.567L555.763 491.398C562.054 496.788 571.524 496.057 576.913 489.766C582.303 483.474 581.572 474.005 575.281 468.615L484.15 390.544L562.222 299.413C567.612 293.122 566.881 283.652 560.59 278.263C554.299 272.873 544.829 273.604 539.44 279.895L451.609 382.417ZM837.202 559.655C841.706 566.608 850.994 568.593 857.947 564.09C864.9 559.586 866.885 550.298 862.381 543.345L837.202 559.655ZM464.154 407.131C508.387 403.718 570.802 395.25 638.136 410.928C704.591 426.401 776.318 465.66 837.202 559.655L862.381 543.345C797.144 442.631 718.724 398.89 644.939 381.709C572.033 364.734 504.114 373.958 461.846 377.22L464.154 407.131Z"
+                                        fill="currentColor"
+                                        className="fill-cyan-500"
+                                    />
+                                    <path
+                                        d="M447.448 0.194357C439.203 -0.605554 431.87 5.43034 431.07 13.6759L418.035 148.045C417.235 156.291 423.271 163.623 431.516 164.423C439.762 165.223 447.095 159.187 447.895 150.942L459.482 31.5025L578.921 43.0895C587.166 43.8894 594.499 37.8535 595.299 29.6079C596.099 21.3624 590.063 14.0296 581.818 13.2297L447.448 0.194357ZM1086.03 431.727C1089.68 439.166 1098.66 442.239 1106.1 438.593C1113.54 434.946 1116.62 425.96 1112.97 418.521L1086.03 431.727ZM434.419 24.6572C449.463 42.934 474.586 81.0463 521.375 116.908C568.556 153.07 637.546 187.063 742.018 200.993L745.982 171.256C646.454 157.985 582.444 125.917 539.625 93.0974C496.414 59.978 474.537 26.1903 457.581 5.59138L434.419 24.6572ZM742.018 200.993C939.862 227.372 1054.15 366.703 1086.03 431.727L1112.97 418.521C1077.85 346.879 956.138 199.277 745.982 171.256L742.018 200.993Z"
+                                        fill="currentColor"
+                                        className="fill-gray-800"
+                                    />
+                                </svg>
+                            </div>
+                            {/* End SVG Element */}
                         </div>
-                        {/* End Grid */}
-                        {/* Background Color */}
-                        <div className="absolute inset-0 grid grid-cols-12 size-full">
-                            <div className="col-span-full lg:col-span-7 lg:col-start-6 bg-gray-100 w-full h-5/6 rounded-xl sm:h-3/4 lg:h-full" />
-                        </div>
-                        {/* End Background Color */}
                     </div>
                 </div>
-                {/* End Features */}
+                {/* End Hero */}
             </>
-
-        </>
     )
 }
