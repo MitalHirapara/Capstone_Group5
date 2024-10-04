@@ -20,7 +20,6 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -32,11 +31,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-CORS_ALLOW_ALL_ORIGINS = True  # Use this for development purposes only.
+# CORS configuration
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',  # URL of your React app
+    'http://127.0.0.1:5173',  # Handle both localhost and 127.0.0.1
 ]
-
 
 # Application definition
 
@@ -49,18 +48,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'user'
+    'user',
+    'job'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Ensure this is before CommonMiddleware
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'career_trail.urls'
@@ -83,18 +83,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'career_trail.wsgi.application'
 
-
 # Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -106,12 +95,7 @@ DATABASES = {
     }
 }
 
-# user=postgres.pwysfthxmfriuyggeegk password=[YOUR-PASSWORD] host=aws-0-ca-central-1.pooler.supabase.com port=6543 dbname=postgres
-
-
 # Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -127,10 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -139,13 +120,8 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
 STATIC_URL = 'static/'
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
