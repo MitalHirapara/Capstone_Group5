@@ -24,7 +24,7 @@ export default function Badge({
   size = 'md', 
   className = '' 
 }) {
-  const baseStyles = 'skill-badge inline-flex items-center rounded-full font-semibold'
+  const baseStyles = 'skill-badge inline-flex items-center'
   
   const sizeStyles = {
     sm: 'text-xs px-2.5 py-0.5',
