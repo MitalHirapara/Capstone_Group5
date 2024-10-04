@@ -12,12 +12,12 @@ export default function Sidebar() {
                     hidden bg-slate-950
                     fixed inset-y-0 start-0 z-[60]
                     bg-white  border-gray-200
-                    lg:block lg:translate-x-0 lg:end-auto lg:bottom-0"
+                    lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 bg-slate-950"
                 role="dialog"
                 tabIndex={-1}
                 aria-label="Sidebar"
             >
-                <div className="relative flex flex-col h-full max-h-full">
+                <div className="relative flex flex-col h-full max-h-full bg-slate-950">
                     <div className="px-6 pt-4">
                         <a
                             className="flex-none rounded-xl text-xl inline-block font-semibold focus:outline-none focus:opacity-80"
