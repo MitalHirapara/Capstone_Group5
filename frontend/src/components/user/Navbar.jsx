@@ -13,7 +13,7 @@ export default function Navbar() {
                         <a
                             aria-label="Brand"
                             className="flex-none font-semibold text-xl text-black focus:outline-none focus:opacity-80 dark:text-white"
-                            href="#"
+                            href="/"
                         >
                             <img src='./public/logo.png'  alt="Logo" />
 
@@ -86,7 +86,7 @@ export default function Navbar() {
                                     <div className="flex flex-col md:flex-row md:justify-end md:items-center gap-0.5 md:gap-1"> 
                                         <a
                                             className="p-2 flex items-center text-sm text-gray-800 hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                                            href="#"
+                                            href="/"
                                         >
                                             <svg
                                                 className="shrink-0 size-4 me-3 md:me-2 block md:hidden"

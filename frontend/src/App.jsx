@@ -1,27 +1,37 @@
-import React from 'react'
-import Navbar from './components/Navbar'
-import Home from './components/Home'
-import Login from './components/Login'
-import { BrowserRouter as Router} from 'react-router-dom'
-import Container from './components/Container'
-import { Route, Routes } from 'react-router-dom'
-import Signup from './components/Signup'
-import ForgotPassword from './components/ForgotPassword'
-import GoogleAuth from './components/GoogleAuth'
+// App.jsx
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+// import Signup from "./pages/Signup";
+// import ResumeBuild from "./pages/ResumeBuild";
+import EmployerDashboard from "./pages/EmployerDashboard";
+import CreateJobPost from "./components/employer/CreateJob";
+import ManageJobs from "./components/employer/ManageJobs";
+// import Applications from "./components/employer/Applications";
+import UserLayout from "./layouts/UserLayout";
+import EmployerLayout from "./layouts/EmloyerLayout";
+import Jobs from "./pages/Jobs";
+
 export default function App() {
-
-  return (
-    <Router>
-      <Container>
+    return (
         <Routes>
-          <Route path='/' element={<Home/>}/>
-          <Route path='/login' element={<Login/>}/>
-          <Route path='/signup' element={<Signup/>}/>
-          <Route path='/forgot-password' element={<ForgotPassword/>}/>
-          <Route path='/google-auth' element={<GoogleAuth/>}/>
-        </Routes>
-      </Container>
-    </Router>
-  )
+            {/* Public routes - accessible by everyone */}
+            <Route element={<UserLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                {/* <Route path="/signup" element={<Signup />} /> */}
+                <Route path="/jobs" element={<Jobs />} />
+                {/* <Route path="/resume-build" element={<ResumeBuild />} /> */}
+            </Route>
 
+            {/* Private routes - only accessible by authenticated employers */}
+            <Route element={<EmployerLayout />}>
+                <Route path="/dashboard/*" element={<EmployerDashboard />} />
+                <Route path="/create-job-post" element={<CreateJobPost />} />
+                <Route path="/manage-jobs" element={<ManageJobs />} />
+                {/* <Route path="/applications" element={<Applications />} /> */}
+            </Route>
+        </Routes>
+    );
 }
