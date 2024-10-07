@@ -1,5 +1,5 @@
-import React from 'react'
-
+import React from 'react';
+import {Link} from 'react-router-dom';
 export default function Navbar() {
     return (
         <>
@@ -168,7 +168,7 @@ export default function Navbar() {
                                 <div className=" flex flex-wrap items-center gap-x-1.5">
                                     <a
                                         className="py-[7px] px-2.5 inline-flex items-center font-medium text-sm rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 focus:outline-none focus:bg-gray-100 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                                        href="/signup"
+                                        href="/login"
                                     >
                                         Sign in
                                     </a>
