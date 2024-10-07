@@ -1,17 +1,62 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [formData, setFormData] = useState({
-    username: '',
-    password: ''
+    username: "",
+    password: "",
   });
 
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate(); 
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: '' });
+    }
+  };
+
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.username) {
+      newErrors.username = 'Username or email is required.';
+    } else if (!/^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.username)&& formData.username.length < 3) {
+      newErrors.username = 'Please enter a valid email address or a valid username.';
+    }
+
+    if (!formData.password) {
+      newErrors.password = 'Password is required.';
+    } else if (formData.password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters long.';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Return true if no errors
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:8000/api/token/', formData)
-      .then(response => console.log(response.data))
-      .catch(error => console.error(error));
+    if (!validateForm()) return;
+    axios
+      .post("http://localhost:8000/api/token/", formData)
+      .then((response) => {
+        console.log(response.data);
+        // Assuming a successful login returns a token
+        if (response.data.access) {
+          localStorage.setItem("token", response.data.access); // Store token 
+          alert("Login successful! Redirecting to home...");
+          navigate("/"); // Redirect to home page after successful login
+        } else {
+          console.error("Login failed");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        alert("Login failed. Please check your credentials."); // Alert the user about the login failure
+      });
   };
 
   return (
@@ -87,9 +132,13 @@ function Login() {
                             id="email"
                             name="username"
                             className="text-gray-800 w-full px-4 py-2 border rounded-lg border-gray-300"
-                            required
+                            value={formData.username}
+                            onChange={handleInputChange}
                             aria-describedby="email-error"
                           />
+                           <div className={`text-red-500 text-xs ${errors.username ? 'block' : 'hidden'}`}>
+                            {errors.username}
+                          </div>
                           <div className="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
                             <svg
                               className="size-5 text-red-500"
@@ -126,8 +175,12 @@ function Login() {
                             id="password"
                             name="password"
                             className="text-gray-800 w-full px-4 py-2 border rounded-lg border-gray-300"
-                            required
+                            value={formData.password}
+                            onChange={handleInputChange}
                           />
+                          <div className={`text-red-500 text-xs ${errors.password ? 'block' : 'hidden'}`}>
+                            {errors.password}
+                          </div>
                           <div className="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
                             <svg
                               className="size-5 text-red-500"
@@ -177,7 +230,7 @@ function Login() {
                         type="submit"
                         className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
                       >
-                        Login 
+                        Login
                       </button>
                     </div>
                     <a
@@ -187,7 +240,6 @@ function Login() {
                       Back
                     </a>
                   </form>
-                 
                 </div>
               </div>
             </div>
