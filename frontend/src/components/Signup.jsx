@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -8,12 +9,30 @@ function Signup() {
     password: '',
     password2: '',
   });
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:8000/user/signup/', formData)
-      .then(response => console.log(response.data))
-      .catch(error => console.error(error));
+    axios
+      .post('http://localhost:8000/user/signup/', formData)
+      .then((response) => {
+        setMessage('User registered successfully!');
+        setTimeout(() => {
+          navigate('/login'); // Redirect to login page after successful registration
+        }, 2000); // Delay for 2 seconds to show the message before redirecting
+      })
+      .catch((error) => {
+        console.error(error);
+        setMessage('Registration failed. Please try again.');
+      });
   };
 
   return (
