@@ -17,6 +17,8 @@ import os
 # Load environment variables from .env file
 load_dotenv()
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,6 +39,12 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:5173',  # Handle both localhost and 127.0.0.1
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -47,10 +55,27 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',
     'corsheaders',
     'user',
+    'allauth',             
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'job'
 ]
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",  # Django default backend
+    "allauth.account.auth_backends.AuthenticationBackend",  # allauth backend
+)
+
+# REST framework configuration
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -61,6 +86,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'career_trail.urls'
@@ -111,6 +138,24 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Google OAuth setup
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+SITE_ID = 1  # Required for django-allauth
+
+# Email backend for password reset
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # For development
+
 # Internationalization
 LANGUAGE_CODE = 'en-us'
 
@@ -125,3 +170,11 @@ STATIC_URL = 'static/'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'auth.User'
+
+# Add this in your settings.py
+DEFAULT_FROM_EMAIL = 'no-reply@example.com'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
