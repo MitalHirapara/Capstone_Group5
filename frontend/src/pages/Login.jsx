@@ -1,19 +1,63 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-    const [formData, setFormData] = useState({
-        username: "",
-        password: "",
-    });
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        axios
-            .post("http://localhost:8000/api/token/", formData)
-            .then((response) => console.log(response.data))
-            .catch((error) => console.error(error));
-    };
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate(); 
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: '' });
+    }
+  };
+
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.username) {
+      newErrors.username = 'Username or email is required.';
+    } else if (!/^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.username)&& formData.username.length < 3) {
+      newErrors.username = 'Please enter a valid email address or a valid username.';
+    }
+
+    if (!formData.password) {
+      newErrors.password = 'Password is required.';
+    } else if (formData.password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters long.';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Return true if no errors
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+    axios
+      .post("http://localhost:8000/api/token/", formData)
+      .then((response) => {
+        console.log(response.data);
+        // Assuming a successful login returns a token
+        if (response.data.access) {
+          localStorage.setItem("token", response.data.access); // Store token 
+          alert("Login successful! Redirecting to home...");
+          navigate("/"); // Redirect to home page after successful login
+        } else {
+          console.error("Login failed");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        alert("Login failed. Please check your credentials."); // Alert the user about the login failure
+      });
+  };
 
     return (
         <div>
@@ -70,129 +114,132 @@ function Login() {
                                         Sign in with Google
                                     </button>
 
-                                    <div className="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-1 before:border-t before:border-gray-200 before:me-6 after:flex-1 after:border-t after:border-gray-200 after:ms-6 dark:text-neutral-500 dark:before:border-neutral-600 dark:after:border-neutral-600">
-                                        Or
-                                    </div>
-                                    <form onSubmit={handleSubmit}>
-                                        <div className="grid gap-y-4">
-                                            <div>
-                                                <label
-                                                    for="email"
-                                                    className="block text-sm mb-2 text-gray-900 dark:text-white"
-                                                >
-                                                    Username or Email
-                                                </label>
-                                                <div className="relative">
-                                                    <input
-                                                        type="text"
-                                                        id="email"
-                                                        name="username"
-                                                        className="text-gray-800 w-full px-4 py-2 border rounded-lg border-gray-300"
-                                                        required
-                                                        aria-describedby="email-error"
-                                                    />
-                                                    <div className="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
-                                                        <svg
-                                                            className="size-5 text-red-500"
-                                                            width="16"
-                                                            height="16"
-                                                            fill="currentColor"
-                                                            viewBox="0 0 16 16"
-                                                            aria-hidden="true"
-                                                        >
-                                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                                <p
-                                                    className="hidden text-xs text-red-600 mt-2"
-                                                    id="email-error"
-                                                >
-                                                    Please include a valid email
-                                                    address so we can get back
-                                                    to you
-                                                </p>
-                                            </div>
-                                            <div>
-                                                <div className="flex justify-between items-center">
-                                                    <label
-                                                        for="password"
-                                                        className="block text-sm mb-2 text-gray-900 dark:text-white"
-                                                    >
-                                                        Password
-                                                    </label>
-                                                </div>
-                                                <div className="relative">
-                                                    <input
-                                                        type="password"
-                                                        id="password"
-                                                        name="password"
-                                                        className="text-gray-800 w-full px-4 py-2 border rounded-lg border-gray-300"
-                                                        required
-                                                    />
-                                                    <div className="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
-                                                        <svg
-                                                            className="size-5 text-red-500"
-                                                            width="16"
-                                                            height="16"
-                                                            fill="currentColor"
-                                                            viewBox="0 0 16 16"
-                                                            aria-hidden="true"
-                                                        >
-                                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                                <p
-                                                    className="hidden text-xs text-red-600 mt-2"
-                                                    id="password-error"
-                                                >
-                                                    8+ characters required
-                                                </p>
-                                            </div>
-                                            <div className="flex items-center">
-                                                <div className="flex">
-                                                    <input
-                                                        id="remember-me"
-                                                        name="remember-me"
-                                                        type="checkbox"
-                                                        className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                                                    />
-                                                </div>
-                                                <div className="flex justify-between items-center ms-3">
-                                                    <label
-                                                        for="remember-me"
-                                                        className="text-sm text-gray-900 dark:text-white"
-                                                    >
-                                                        Remember me
-                                                    </label>
-                                                    <a
-                                                        className="inline-flex items-end  gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
-                                                        href="/forgot-password"
-                                                    >
-                                                        Forgot password?
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <button
-                                                type="submit"
-                                                className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
-                                            >
-                                                Login
-                                            </button>
-                                        </div>
-                                        <a
-                                            className="mt-4 text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
-                                            href="/"
-                                        >
-                                            Back
-                                        </a>
-                                    </form>
-                                </div>
-                            </div>
+                  <div className="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-1 before:border-t before:border-gray-200 before:me-6 after:flex-1 after:border-t after:border-gray-200 after:ms-6 dark:text-neutral-500 dark:before:border-neutral-600 dark:after:border-neutral-600">
+                    Or
+                  </div>
+                  <form onSubmit={handleSubmit}>
+                    <div className="grid gap-y-4">
+                      <div>
+                        <label
+                          for="email"
+                          className="block text-sm mb-2 text-gray-900 dark:text-white"
+                        >
+                          Username or Email
+                        </label>
+                        <div className="relative">
+                          <input
+                            type="text"
+                            id="email"
+                            name="username"
+                            className="text-gray-800 w-full px-4 py-2 border rounded-lg border-gray-300"
+                            value={formData.username}
+                            onChange={handleInputChange}
+                            aria-describedby="email-error"
+                          />
+                           <div className={`text-red-500 text-xs ${errors.username ? 'block' : 'hidden'}`}>
+                            {errors.username}
+                          </div>
+                          <div className="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
+                            <svg
+                              className="size-5 text-red-500"
+                              width="16"
+                              height="16"
+                              fill="currentColor"
+                              viewBox="0 0 16 16"
+                              aria-hidden="true"
+                            >
+                              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                            </svg>
+                          </div>
                         </div>
+                        <p
+                          className="hidden text-xs text-red-600 mt-2"
+                          id="email-error"
+                        >
+                          Please include a valid email address so we can get
+                          back to you
+                        </p>
+                      </div>
+                      <div>
+                        <div className="flex justify-between items-center">
+                          <label
+                            for="password"
+                            className="block text-sm mb-2 text-gray-900 dark:text-white"
+                          >
+                            Password
+                          </label>
+                        </div>
+                        <div className="relative">
+                          <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            className="text-gray-800 w-full px-4 py-2 border rounded-lg border-gray-300"
+                            value={formData.password}
+                            onChange={handleInputChange}
+                          />
+                          <div className={`text-red-500 text-xs ${errors.password ? 'block' : 'hidden'}`}>
+                            {errors.password}
+                          </div>
+                          <div className="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
+                            <svg
+                              className="size-5 text-red-500"
+                              width="16"
+                              height="16"
+                              fill="currentColor"
+                              viewBox="0 0 16 16"
+                              aria-hidden="true"
+                            >
+                              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                            </svg>
+                          </div>
+                        </div>
+                        <p
+                          className="hidden text-xs text-red-600 mt-2"
+                          id="password-error"
+                        >
+                          8+ characters required
+                        </p>
+                      </div>
+                      <div className="flex items-center">
+                        <div className="flex">
+                          <input
+                            id="remember-me"
+                            name="remember-me"
+                            type="checkbox"
+                            className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                          />
+                        </div>
+                        <div className="flex justify-between items-center ms-3">
+                          <label
+                            for="remember-me"
+                            className="text-sm text-gray-900 dark:text-white"
+                          >
+                            Remember me
+                          </label>
+                          <a
+                            className="inline-flex items-end  gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
+                            href="/forgot-password"
+                          >
+                            Forgot password?
+                          </a>
+                        </div>
+                      </div>
+
+                      <button
+                        type="submit"
+                        className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                      >
+                        Login
+                      </button>
                     </div>
+                    <a
+                      className="mt-4 text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
+                      href="/"
+                    >
+                      Back
+                    </a>
+                  </form>
                 </div>
                 <div className="hidden md:block md:absolute md:top-0 md:start-1/2 md:end-0 h-full bg-[url('../public/login.svg')] bg-no-repeat bg-center bg-cover bg-[length:70%] md:bg-[length:80%]"></div>
             </div>
