@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 export default function () {
     return (
@@ -16,7 +16,12 @@ export default function () {
                             </h1>
                             <div className="mt-5 max-w-3xl">
                                 <p className="text-lg text-gray-600 dark:text-neutral-400">
-                                    Whether you're building your resume, posting a job, or searching for the perfect opportunity, CareerTrail is your one-stop platform to simplify and accelerate your career journey. Start today and take the next step towards success!
+                                    Whether you're building your resume, posting
+                                    a job, or searching for the perfect
+                                    opportunity, CareerTrail is your one-stop
+                                    platform to simplify and accelerate your
+                                    career journey. Start today and take the
+                                    next step towards success!
                                 </p>
                             </div>
                             <div className="mt-8 gap-3 flex">
@@ -59,8 +64,7 @@ export default function () {
                         </div>
                     </div>
                 </div>
-
             </div>
         </>
-    )
+    );
 }
