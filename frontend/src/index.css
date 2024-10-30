@@ -59,6 +59,11 @@
     background: url("../public/nextslide.svg") no-repeat 0px 0px;
 }
 
+.slick-slide .bg-sky-100 img {
+    width: 252px !important;
+    height: 356.50px !important;
+}
+
 .slick-next:hover {
     background: url("../public/next-active.svg") no-repeat 0px 0px;
 }
@@ -127,6 +132,35 @@
 
 .hirejobsec {
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.resume-list {
+    border-radius: 8px;
+    border: 1px solid #e0e6f7;
+    overflow: hidden;
+    position: relative;
+    background: #f8faff;
+    transition: all 0.5s ease-in-out;
+    height: 100%;
+    width: 100%;
+    padding: 16px;
+}
+
+.resume-list:hover {
+    background: #fff;
+    border-color: #b4c0e0;
+    transform: translateY(-3px);
+    transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
+}
+
+.resume-photo {
+    margin-bottom: 15px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.resume-photo img {
+    width: 286px !important;
+    height: 370px !important;
 }
 
 .jobimgcons::before {
@@ -208,7 +242,19 @@
     z-index: 1;
 }
 
-.jobfilterhead {
+.inspo-text {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    display: flex;
+    margin-bottom: 30px;
+    margin-top: 30px !important;
+}
+
+.inspo-text p {
+    padding-left: 20px;
+}
+
+.jobfilterhead,
+.joblisthead {
     padding: 40px 20px 60px 20px;
     background: #f2f6fd;
     border-radius: 16px;
@@ -344,10 +390,30 @@
     font-size: 12px;
     color: #212529 !important;
 }
+
 .dropdown-sort:focus-visible {
     outline: 1px solid transparent !important;
 }
 
 .job-sort-num {
     width: 115px !important;
+}
+
+.resume10{
+    background-color: #FCFBF8 !important;
+}
+.mt-0{
+    margin-top: 0px !important;
+}
+
+.resume-preview{
+    transform: scale(0.502941) !important;
+    width: 800px !important;
+    margin-left: -110px !important;
+    margin-top: -252.647px !important;
+}
+
+.jobtitle-location{
+    display: flex;
+    justify-content: space-between;
 }
