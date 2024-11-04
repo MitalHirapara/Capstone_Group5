@@ -3,8 +3,12 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
+
 from .models import Job
 from .serializers import JobSerializer
+from .models import Employer
+from .serializers import EmployerSerializer
+
 
 @api_view(['GET'])
 def get_jobs(request):
@@ -38,3 +42,42 @@ def job_detail(request, id):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def get_employer_profile(request):
+    try:
+        # Try to fetch the existing employer profile for the user
+        employer = Employer.objects.get(user=request.user)
+        serializer = EmployerSerializer(employer)
+        return Response(serializer.data)
+    except Employer.DoesNotExist:
+        # If profile does not exist, return an empty profile structure
+        empty_profile = {
+            "company_name": "",
+            "company_description": "",
+            "company_email": "",
+            "industry_type": "",
+            "company_size": None,
+            "website_url": "",
+            "location": ""
+        }
+        return Response(empty_profile, status=status.HTTP_200_OK)
+
+
+@api_view(['PUT'])
+def update_employer_profile(request):
+    try:
+        # Try to update the existing employer profile
+        employer = Employer.objects.get(user=request.user)
+        serializer = EmployerSerializer(employer, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Employer.DoesNotExist:
+        # If the profile does not exist, create a new one
+        serializer = EmployerSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)  # Associate the profile with the user
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
