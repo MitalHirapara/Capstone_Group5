@@ -62,7 +62,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'job'
+    'job',
+    'resume'
 ]
 
 AUTHENTICATION_BACKENDS = (

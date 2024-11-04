@@ -1,27 +1,40 @@
-from django.shortcuts import render
-import openai
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+import os
 import json
+from dotenv import load_dotenv
+from django.http import JsonResponse
+from django.views import View
+from openai import OpenAI
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
-openai.api_key = 'your_openai_api_key'
+# Load environment variables
+load_dotenv()
 
-@csrf_exempt
-def enhance_work_experience(request):
-    if request.method == "POST":
-        data = json.loads(request.body)
-        work_experience = data.get('work_experience')
+# Initialize OpenAI client
+client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
-        if work_experience:
-            # Send the request to ChatGPT API
-            response = openai.Completion.create(
-                engine="text-davinci-003",
-                prompt=f"Improve and add more detail to this work experience section: {work_experience}",
-                max_tokens=150,
-                temperature=0.7
+@method_decorator(csrf_exempt, name='dispatch')
+class EnhanceWorkExperienceView(View):
+    def post(self, request):
+        try:
+            data = json.loads(request.body)
+            job_title = data.get("jobTitle")
+            description = data.get("description")
+
+            messages = [
+                {"role": "user", "content": f"Enhance this job title: {job_title} and description: {description}"}
+            ]
+
+            chat_completion = client.chat.completions.create(
+                messages=messages,
+                model="gpt-3.5-turbo",
             )
-            # Extract the content from GPT response
-            generated_text = response.choices[0].text.strip()
-            return JsonResponse({"enhanced_experience": generated_text})
 
-        return JsonResponse({"error": "No work experience provided."}, status=400)
+            enhanced_content = chat_completion.choices[0].message.content.strip()
+            return JsonResponse({"enhanced_experience": enhanced_content})
+
+        except Exception as e:
+            # Check if it's a quota error
+            if 'insufficient_quota' in str(e):
+                return JsonResponse({"error": "Your OpenAI API quota is exhausted. Please check your billing plan."}, status=403)
+            return JsonResponse({"error": str(e)}, status=500)
