@@ -61,7 +61,7 @@
 
 .slick-slide .bg-sky-100 img {
     width: 252px !important;
-    height: 356.50px !important;
+    height: 356.5px !important;
 }
 
 .slick-next:hover {
@@ -243,7 +243,7 @@
 }
 
 .inspo-text {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
     display: flex;
     margin-bottom: 30px;
     margin-top: 30px !important;
@@ -399,21 +399,24 @@
     width: 115px !important;
 }
 
-.resume10{
-    background-color: #FCFBF8 !important;
+input {
+    color: black !important;
 }
-.mt-0{
+.resume10 {
+    background-color: #fcfbf8 !important;
+}
+.mt-0 {
     margin-top: 0px !important;
 }
 
-.resume-preview{
+.resume-preview {
     transform: scale(0.502941) !important;
     width: 800px !important;
     margin-left: -110px !important;
     margin-top: -252.647px !important;
 }
 
-.jobtitle-location{
+.jobtitle-location {
     display: flex;
     justify-content: space-between;
 }
