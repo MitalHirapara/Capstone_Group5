@@ -351,3 +351,7 @@
 .job-sort-num {
     width: 115px !important;
 }
+
+input {
+    color: black !important;
+}
