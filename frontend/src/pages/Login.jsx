@@ -219,7 +219,7 @@ function Login() {
                           </label>
                           <a
                             className="inline-flex items-end  gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
-                            href="../examples/html/recover-account.html"
+                            href="/forgot-password"
                           >
                             Forgot password?
                           </a>
