@@ -32,7 +32,6 @@ const ResumeBuilderSteps = () => {
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
-            {/* Form Side */}
             <div className="space-y-8">
                 {currentStep === 1 && (
                     <div className="p-6 border border-gray-200 rounded-lg shadow-md">
@@ -48,7 +47,7 @@ const ResumeBuilderSteps = () => {
                                     type="text"
                                     name="fullName"
                                     placeholder="John Doe"
-                                    // value={contactInfo.fullName}
+                                    value={contactInfo.fullName}
                                     onChange={handleInputChange}
                                     className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                                     required
