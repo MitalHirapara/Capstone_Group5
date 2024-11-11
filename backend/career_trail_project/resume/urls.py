@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import EnhanceWorkExperienceView
+from .views import enhance_work_experience
 
 urlpatterns = [
-    path('api/enhance-work-experience/', EnhanceWorkExperienceView.as_view(), name='enhance_work_experience'),
+    path('api/enhance-work-experience/', enhance_work_experience, name='enhance_work_experience'),
 ]
