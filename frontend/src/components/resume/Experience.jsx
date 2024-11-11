@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     selectExperience,
@@ -10,17 +10,35 @@ const Experience = () => {
     const experience = useSelector(selectExperience);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [currentlyWorking, setCurrentlyWorking] = useState(false);
+    const [currentlyWorking, setCurrentlyWorking] = useState(
+        experience.currentlyWorking || false
+    );
+    const [enhancedExperience, setEnhancedExperience] = useState(""); // State for enhanced experience
+    const [showEnhanced, setShowEnhanced] = useState(false); // State to show the enhanced experience textbox
+
+    useEffect(() => {
+        // Ensure the component initializes with the experience data from the store
+        setCurrentlyWorking(experience.currentlyWorking || false);
+    }, [experience]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        dispatch(updateExperience({ [name]: value }));
+        // Update only the specific field without resetting the entire form
+        dispatch(updateExperience({ ...experience, [name]: value }));
     };
 
     const handleCheckboxChange = () => {
-        setCurrentlyWorking(!currentlyWorking);
-        if (!currentlyWorking) {
-            dispatch(updateExperience({ endMonth: "", endYear: "" }));
+        const newCurrentlyWorking = !currentlyWorking;
+        setCurrentlyWorking(newCurrentlyWorking);
+
+        // If currently working, we don't need an end date, so we clear it
+        if (!newCurrentlyWorking) {
+            dispatch(updateExperience({ ...experience, endDate: "" }));
+        } else {
+            // Set 'currentlyWorking' to true, ensure no endDate exists
+            dispatch(
+                updateExperience({ ...experience, currentlyWorking: true })
+            );
         }
     };
 
@@ -28,13 +46,26 @@ const Experience = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch("/api/enhance-work-experience/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ experience }),
-            });
+            // Ensure the body is sent in the correct format for the API
+            const requestPayload = {
+                jobTitle: experience.jobTitle || "",
+                company: experience.company || "",
+                startDate: experience.startDate || "",
+                endDate: experience.endDate || "",
+                currentlyWorking: currentlyWorking,
+                description: experience.description || "",
+            };
+
+            const response = await fetch(
+                "http://127.0.0.1:8000/resume/api/enhance-work-experience/",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(requestPayload),
+                }
+            );
 
             if (!response.ok) {
                 throw new Error(
@@ -44,7 +75,15 @@ const Experience = () => {
 
             const data = await response.json();
             if (data.enhanced_experience) {
-                dispatch(updateExperience(data.enhanced_experience));
+                // Update the experience with the enhanced data from the response
+                setEnhancedExperience(data.enhanced_experience); // Set enhanced experience
+                setShowEnhanced(true); // Show the enhanced experience text box
+                dispatch(
+                    updateExperience({
+                        ...experience,
+                        enhancedExperience: data.enhanced_experience,
+                    })
+                );
             } else {
                 setError("No enhancement data returned from AI.");
             }
@@ -148,6 +187,23 @@ const Experience = () => {
                 {loading ? "Enhancing..." : "Enhance with AI"}
             </button>
             {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
+
+            {/* Conditionally render enhanced experience */}
+            {showEnhanced && (
+                <div className="space-y-4 mt-6">
+                    <div className="flex flex-col space-y-2">
+                        <label className="block text-sm font-medium text-gray-600">
+                            Enhanced Experience
+                        </label>
+                        <textarea
+                            value={enhancedExperience || ""}
+                            readOnly
+                            className="form-input w-full px-4 py-2 border rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                            placeholder="Enhanced work experience will appear here"
+                        />
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
