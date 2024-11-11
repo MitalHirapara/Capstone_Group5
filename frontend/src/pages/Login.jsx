@@ -86,7 +86,6 @@ function Login() {
                                         </a>
                                     </p>
                                 </div>
-
                                 <div className="mt-5">
                                     <button
                                         type="button"

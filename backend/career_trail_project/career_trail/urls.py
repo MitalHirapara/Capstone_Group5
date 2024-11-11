@@ -26,3 +26,5 @@ urlpatterns = [
     path('job/', include('job.urls')),
     path('resume/', include('resume.urls')),
 ]
+
+
