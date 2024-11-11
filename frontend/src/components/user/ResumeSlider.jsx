@@ -3,11 +3,16 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import resume1 from "../../../public/resume1.png";
-import resume2 from "../../../public/resume2.png";
-import resume3 from "../../../public/resume3.png";
-import resume4 from "../../../public/resume4.png";
-import resume5 from "../../../public/resume5.png";
+import resume1 from "/ResumeT1.png";
+import resume2 from "/ResumeT2.png";
+import resume3 from "/ResumeT3.png";
+import resume4 from "/ResumeT4.png";
+import resume5 from "/ResumeT14.png";
+import resume6 from "/ResumeT6.jpg";
+import resume7 from "/ResumeT7.jpg";
+import resume8 from "/ResumeT8.png";
+import resume9 from "/ResumeT9.png";
+import resume10 from "/ResumeT10.png";
 
 export default function ResumeSlider() {
     const settings = {
@@ -79,6 +84,36 @@ export default function ResumeSlider() {
                                     {renderTemplate(
                                         resume5,
                                         "Resume Template 5"
+                                    )}
+                                </div>
+                                <div>
+                                    {renderTemplate(
+                                        resume6,
+                                        "Resume Template 6"
+                                    )}
+                                </div>
+                                <div>
+                                    {renderTemplate(
+                                        resume7,
+                                        "Resume Template 7"
+                                    )}
+                                </div>
+                                <div>
+                                    {renderTemplate(
+                                        resume8,
+                                        "Resume Template 8"
+                                    )}
+                                </div>
+                                <div>
+                                    {renderTemplate(
+                                        resume9,
+                                        "Resume Template 9"
+                                    )}
+                                </div>
+                                <div>
+                                    {renderTemplate(
+                                        resume10,
+                                        "Resume Template 10"
                                     )}
                                 </div>
                             </Slider>

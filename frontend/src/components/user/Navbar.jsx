@@ -1,8 +1,9 @@
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
+
 export default function Navbar() {
     return (
         <>
-
             <header
                 key="1"
                 className="flex flex-wrap  md:justify-start md:flex-nowrap z-50 w-full bg-white border-b border-gray-200 dark:bg-neutral-800 dark:border-neutral-700"
@@ -14,8 +15,7 @@ export default function Navbar() {
                             className="flex-none font-semibold text-xl text-black focus:outline-none focus:opacity-80 dark:text-white"
                             href="/"
                         >
-                            <img src='./public/logo.png'  alt="Logo" />
-
+                            <img src="./public/logo.png" alt="Logo" />
                         </a>
                         <button
                             aria-controls="hs-header-base"
@@ -38,24 +38,9 @@ export default function Navbar() {
                                 width="24"
                                 xmlns="http://www.w3.org/2000/svg"
                             >
-                                <line
-                                    x1="3"
-                                    x2="21"
-                                    y1="6"
-                                    y2="6"
-                                />
-                                <line
-                                    x1="3"
-                                    x2="21"
-                                    y1="12"
-                                    y2="12"
-                                />
-                                <line
-                                    x1="3"
-                                    x2="21"
-                                    y1="18"
-                                    y2="18"
-                                />
+                                <line x1="3" x2="21" y1="6" y2="6" />
+                                <line x1="3" x2="21" y1="12" y2="12" />
+                                <line x1="3" x2="21" y1="18" y2="18" />
                             </svg>
                             <svg
                                 className="hs-collapse-open:block shrink-0 hidden size-4"
@@ -82,10 +67,10 @@ export default function Navbar() {
                         <div className="overflow-hidden overflow-y-auto max-h-[75vh] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
                             <div className="py-2 md:py-0  flex flex-col md:flex-row md:items-center gap-0.5 md:gap-1">
                                 <div className="grow">
-                                    <div className="flex flex-col md:flex-row md:justify-end md:items-center gap-0.5 md:gap-1"> 
-                                        <a
+                                    <div className="flex flex-col md:flex-row md:justify-end md:items-center gap-0.5 md:gap-1">
+                                        <Link
                                             className="p-2 flex items-center text-sm text-gray-800 hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                                            href="/"
+                                            to="/"
                                         >
                                             <svg
                                                 className="shrink-0 size-4 me-3 md:me-2 block md:hidden"
@@ -100,17 +85,13 @@ export default function Navbar() {
                                                 xmlns="http://www.w3.org/2000/svg"
                                             >
                                                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                                                <circle
-                                                    cx="12"
-                                                    cy="7"
-                                                    r="4"
-                                                />
+                                                <circle cx="12" cy="7" r="4" />
                                             </svg>
                                             Home
-                                        </a>
-                                        <a
+                                        </Link>
+                                        <Link
                                             className="p-2 flex items-center text-sm text-gray-800 hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                                            href="#"
+                                            to="#"
                                         >
                                             <svg
                                                 className="shrink-0 size-4 me-3 md:me-2 block md:hidden"
@@ -136,10 +117,10 @@ export default function Navbar() {
                                                 />
                                             </svg>
                                             Company Reviews
-                                        </a>
-                                        <a
+                                        </Link>
+                                        <Link
                                             className="p-2 flex items-center text-sm text-gray-800 hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                                            href="#"
+                                            to="/resume-builder"
                                         >
                                             <svg
                                                 className="shrink-0 size-4 me-3 md:me-2 block md:hidden"
@@ -158,7 +139,31 @@ export default function Navbar() {
                                                 <path d="M15 18h-5" />
                                                 <path d="M10 6h8v4h-8V6Z" />
                                             </svg>
-                                            Build Resume                                        </a>
+                                            Build Resume{" "}
+                                        </Link>
+                                        <a
+                                            className="p-2 flex items-center text-sm text-gray-800 hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                                            href="/resume1"
+                                        >
+                                            <svg
+                                                className="shrink-0 size-4 me-3 md:me-2 block md:hidden"
+                                                fill="none"
+                                                height="24"
+                                                stroke="currentColor"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="2"
+                                                viewBox="0 0 24 24"
+                                                width="24"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2" />
+                                                <path d="M18 14h-8" />
+                                                <path d="M15 18h-5" />
+                                                <path d="M10 6h8v4h-8V6Z" />
+                                            </svg>
+                                            Build Resume 1{" "}
+                                        </a>
                                     </div>
                                 </div>
                                 <div className="my-2 md:my-0 md:mx-2">
@@ -183,8 +188,6 @@ export default function Navbar() {
                     </div>
                 </nav>
             </header>
-
         </>
-
-    )
+    );
 }
