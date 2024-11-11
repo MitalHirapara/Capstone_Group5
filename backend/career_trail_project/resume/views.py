@@ -1,40 +1,39 @@
-import os
 import json
-from dotenv import load_dotenv
-from django.http import JsonResponse
-from django.views import View
-from openai import OpenAI
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
+import os
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+import google.generativeai as genai
 
-# Load environment variables
-load_dotenv()
+# Configure the Gemini API with the API key
+genai.configure(api_key=os.getenv("API_KEY"))
 
-# Initialize OpenAI client
-client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+@api_view(['POST'])
+def enhance_work_experience(request):
+    try:
+        # Parse the incoming data from the request
+        data = request.data
+        job_title = data.get("jobTitle")
+        company = data.get("company")
+        start_date = data.get("startDate")
+        end_date = data.get("endDate")
+        currently_working = data.get("currentlyWorking", False)
+        description = data.get("description")
 
-@method_decorator(csrf_exempt, name='dispatch')
-class EnhanceWorkExperienceView(View):
-    def post(self, request):
-        try:
-            data = json.loads(request.body)
-            job_title = data.get("jobTitle")
-            description = data.get("description")
+        # Ensure all required fields are present
+        if not job_title or not company or not start_date or not description:
+            return Response({"error": "Missing required fields"}, status=status.HTTP_400_BAD_REQUEST)
 
-            messages = [
-                {"role": "user", "content": f"Enhance this job title: {job_title} and description: {description}"}
-            ]
+        # Construct the prompt for the Gemini API
+        prompt = f"Enhance the following job experience: Job title: {job_title}, Company: {company}, Start Date: {start_date}, End Date: {end_date if not currently_working else 'Present'}, Description: {description}, only provide me with enhanced description and the key achievements nothing else in simple text formatting."
 
-            chat_completion = client.chat.completions.create(
-                messages=messages,
-                model="gpt-3.5-turbo",
-            )
+        # Initialize the Gemini model and generate content
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        response = model.generate_content(prompt)
 
-            enhanced_content = chat_completion.choices[0].message.content.strip()
-            return JsonResponse({"enhanced_experience": enhanced_content})
+        # Extract and return the generated content
+        enhanced_content = response.text
+        return Response({"enhanced_experience": enhanced_content}, status=status.HTTP_200_OK)
 
-        except Exception as e:
-            # Check if it's a quota error
-            if 'insufficient_quota' in str(e):
-                return JsonResponse({"error": "Your OpenAI API quota is exhausted. Please check your billing plan."}, status=403)
-            return JsonResponse({"error": str(e)}, status=500)
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
