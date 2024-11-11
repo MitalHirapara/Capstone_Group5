@@ -2,11 +2,18 @@ from datetime import datetime, timedelta
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.response import Response
+from rest_framework import status
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
 
 
 from .serializers import RegisterSerializer
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.core.mail import send_mail
+from django.conf import settings
+from rest_framework.views import APIView 
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -29,17 +36,48 @@ class ForgotPasswordView(generics.GenericAPIView):
         # Logic to handle password reset email sending
         return Response({"message": "Password reset email sent."})
 
-'''class VerifyEmailView(generics.GenericAPIView):
-    def get(self, request, token, *args, **kwargs):
-        # Retrieve the token and check if it exists and is valid
-        verification_token = get_object_or_404(EmailVerificationToken, token=token)
-        if datetime.now() > verification_token.created_at + timedelta(hours=24):
-            return Response({"error": "Token has expired"}, status=status.HTTP_400_BAD_REQUEST) 
+class ForgotPasswordView(APIView):
+    def post(self, request):
+        email = request.data.get('email')
+        if not email:
+            return Response({"error": "Email is required."}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            user = User.objects.get(email=email)
+            token = default_token_generator.make_token(user)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            reset_link = f"{request.build_absolute_uri('/user/reset-password/')}{uid}/{token}/"
+            
+            # Compose the email
+            subject = 'Password Reset Request'
+            message = f'''
+            Hi {user.username},
 
-        # Activate the user and delete the token
-        user = verification_token.user
-        user.is_active = True
-        user.save()
-        verification_token.delete()
+            You requested a password reset. Please click the link below to reset your password:
 
-        return Response({"message": "Email verified successfully"}, status=status.HTTP_200_OK)'''
+            {reset_link}
+
+            If you did not request this, please ignore this email.
+
+            Thank you!
+            '''
+            # Send email
+            send_mail(
+                subject,
+                message,
+                settings.DEFAULT_FROM_EMAIL,
+                [email],
+                fail_silently=False,
+            )
+            return Response({"message": "Password reset email sent."}, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            return Response({"error": "No user associated with this account. Please sign up."}, status=status.HTTP_404_NOT_FOUND)
+
+    def get(self, request):
+        return Response({"error": "GET method not allowed."}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+class ResetPasswordView(APIView):
+    def post(self, request, uidb64, token):
+        # Logic to reset the user's password goes here
+        return Response({"message": "Password has been reset."}, status=status.HTTP_200_OK)
+
