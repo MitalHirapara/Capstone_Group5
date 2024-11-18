@@ -174,7 +174,7 @@ const Experience = () => {
                         name="description"
                         value={experience.description || ""}
                         onChange={handleInputChange}
-                        className="form-input w-full px-4 py-2 border rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        className="form-input w-full px-4 py-2 border text-slate-950 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         placeholder="Describe your roles and responsibilities"
                     />
                 </div>
@@ -198,7 +198,7 @@ const Experience = () => {
                         <textarea
                             value={enhancedExperience || ""}
                             readOnly
-                            className="form-input w-full px-4 py-2 border rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                            className="form-input w-full px-4 py-2 border text-slate-950 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
                             placeholder="Enhanced work experience will appear here"
                         />
                     </div>

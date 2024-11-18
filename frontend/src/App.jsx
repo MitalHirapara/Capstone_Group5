@@ -2,7 +2,6 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Navbar from "./components/user/Navbar";
 import Signup from "./components/Signup";
 import UserProfile from "./components/user/UserProfile";
 import VerifyEmail from "./components/user/VerifyEmail";
@@ -21,6 +20,7 @@ import store from "./store/store";
 import ResumeTemplates from "./pages/ResumeTemplates";
 import ResumeBuilderSteps from "./pages/ResumeBuilderSteps";
 
+import ApplyJobPage from "./pages/ApplyJobPage";
 
 export default function App() {
     return (
@@ -37,7 +37,10 @@ export default function App() {
                         element={<ForgotPassword />}
                     />
                     <Route path="/user-profile" element={<UserProfile />} />
-                    <Route path="/verify-email/:token" element={<VerifyEmail />} />
+                    <Route
+                        path="/verify-email/:token"
+                        element={<VerifyEmail />}
+                    />
                     <Route
                         path="/resume-builder"
                         element={<ResumeTemplates />}
@@ -46,7 +49,8 @@ export default function App() {
                         path="/resume-builder/:templateId"
                         element={<ResumeBuilderSteps />}
                     />{" "}
-                    {/* Add this route */}
+                    {/* <Route path="/apply-job/:jobId" element={<ApplyJobPage />} /> */}
+                    <Route path="/apply-job/" element={<ApplyJobPage />} />
                 </Route>
 
                 {/* Private routes - only accessible by authenticated employers */}
@@ -59,7 +63,10 @@ export default function App() {
                         path="/create-job-post"
                         element={<CreateJobPost />}
                     />
-                    <Route path="/employer-profile" element={<EmployerProfile />} />
+                    <Route
+                        path="/employer-profile"
+                        element={<EmployerProfile />}
+                    />
                     <Route path="/manage-jobs" element={<ManageJobs />} />
                 </Route>
             </Routes>
