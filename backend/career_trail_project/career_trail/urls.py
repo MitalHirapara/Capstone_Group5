@@ -25,6 +25,7 @@ urlpatterns = [
     path('user/', include('user.urls')),
     path('job/', include('job.urls')),
     path('resume/', include('resume.urls')),
+    path('api/', include('common.urls')),
 ]
 
 

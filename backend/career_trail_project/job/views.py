@@ -7,7 +7,15 @@ from rest_framework import status
 from .models import Job
 from .serializers import JobSerializer
 from .models import Employer
+from common.models import Location
 from .serializers import EmployerSerializer
+from .serializers import LocationSerializer
+
+@api_view(['GET'])
+def get_locations(request):
+    locations = Location.objects.all()
+    serializer = LocationSerializer(locations, many=True)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
