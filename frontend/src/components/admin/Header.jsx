@@ -4,7 +4,7 @@ export default function Header() {
   return (
     <>
       {/* Header */}
-      <header className="bg-slate-950 sticky top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-[48] w-full bg-slate-950 border-b text-sm py-2.5 lg:ps-[260px] dark:bg-neutral-800 dark:border-neutral-700">
+      <header className="bg-slate-950 sticky top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-[48] w-full bg-white border-b text-sm py-2.5 lg:ps-[260px] dark:bg-neutral-800 dark:border-neutral-700">
         <nav className="px-4 sm:px-6 flex basis-full items-center w-full mx-auto">
           <div className="me-5 lg:me-0 lg:hidden">
             <a
@@ -28,7 +28,7 @@ export default function Header() {
                   aria-expanded="false"
                   aria-label="Dropdown"
                 >
-                  <a href="/employer-profile">
+                  <a href="#">
                     <img
                       className="shrink-0 size-[50px] rounded-full"
                       src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"

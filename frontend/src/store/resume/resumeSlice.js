@@ -5,8 +5,8 @@ const initialState = {
     contactInfo: {
         fullName: "Foram",
         email: "",
-        phone: "",
-        jobTitle: "",
+        phone: "123",
+        jobTitle: "admin",
         location: "",
     },
     education: [],
