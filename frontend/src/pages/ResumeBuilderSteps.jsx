@@ -147,7 +147,7 @@ const ResumeBuilderSteps = () => {
                     {currentStep === 3 && (
                         <>
                             <Experience />
-                            <div className="flex justify-between">
+                            <div className="flex justify-between mt-5">
                                 <button
                                     type="button"
                                     className="px-6 py-2 text-white bg-gray-600 rounded-lg hover:bg-gray-700 focus:ring-4 focus:ring-gray-500 focus:ring-opacity-50"
