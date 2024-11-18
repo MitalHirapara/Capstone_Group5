@@ -20,6 +20,9 @@ import store from "./store/store";
 // Resume builder imports
 import ResumeTemplates from "./pages/ResumeTemplates";
 import ResumeBuilderSteps from "./pages/ResumeBuilderSteps";
+import Admin from "./components/admin/Admin";
+import AdminLayout from "./layouts/AdminLayout";
+import Users from "./components/admin/Users";
 
 
 export default function App() {
@@ -48,6 +51,10 @@ export default function App() {
                     />{" "}
                     {/* Add this route */}
                 </Route>
+                <Route element={<AdminLayout/>}>
+                <Route path="/admin" element={<Admin />} />
+                <Route path="/users" element={<Users />} />
+                </Route>
 
                 {/* Private routes - only accessible by authenticated employers */}
                 <Route element={<EmployerLayout />}>
@@ -61,6 +68,7 @@ export default function App() {
                     />
                     <Route path="/employer-profile" element={<EmployerProfile />} />
                     <Route path="/manage-jobs" element={<ManageJobs />} />
+                    
                 </Route>
             </Routes>
         </Provider>
