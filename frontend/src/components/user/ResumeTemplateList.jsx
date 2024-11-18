@@ -13,28 +13,24 @@ const ResumeTemplates = () => {
         const fetchTemplates = async () => {
             // For demonstration, you can replace this with your API call
             const fetchedTemplates = [
-                { id: 1, imgSrc: "/resume1.png" },
-                { id: 2, imgSrc: "/resume2.png" },
-                { id: 3, imgSrc: "/ResumeT1.png" },
-                { id: 4, imgSrc: "/ResumeT2.png" },
-                { id: 5, imgSrc: "/ResumeT3.png" },
-                { id: 6, imgSrc: "/ResumeT4.png" },
-                { id: 7, imgSrc: "/ResumeT5.png" },
-                { id: 8, imgSrc: "/ResumeT6.jpg" },
-                { id: 9, imgSrc: "/ResumeT7.jpg" },
-                { id: 10, imgSrc: "/ResumeT8.png" },
-                { id: 11, imgSrc: "/ResumeT9.png" },
-                { id: 12, imgSrc: "/ResumeT10.png" },
-                { id: 13, imgSrc: "/ResumeT11.png" },
-                { id: 14, imgSrc: "/ResumeT12.jpg" },
-                { id: 15, imgSrc: "/ResumeT13.png" },
-                { id: 16, imgSrc: "/ResumeT14.png" },
-                { id: 17, imgSrc: "/ResumeT15.png" },
-                { id: 18, imgSrc: "/ResumeT16.png" },
-                { id: 19, imgSrc: "/ResumeT17.png" },
-
-
-                // Add more templates as needed
+                    { id: 1, imgSrc: "/ResumeT1.png" },
+                    { id: 2, imgSrc: "/ResumeT2.png" },
+                    { id: 3, imgSrc: "/ResumeT3.png" },
+                    { id: 4, imgSrc: "/ResumeT4.png" },
+                    { id: 5, imgSrc: "/ResumeT5.png" },
+                    { id: 6, imgSrc: "/ResumeT6.jpg" },
+                    { id: 7, imgSrc: "/ResumeT7.jpg" },
+                    { id: 8, imgSrc: "/ResumeT8.png" },
+                    { id: 9, imgSrc: "/ResumeT9.png" },
+                    { id: 10, imgSrc: "/ResumeT10.png" },
+                    { id: 11, imgSrc: "/ResumeT11.png" },
+                    { id: 12, imgSrc: "/ResumeT12.jpg" },
+                    { id: 13, imgSrc: "/ResumeT13.png" },
+                    { id: 14, imgSrc: "/ResumeT14.png" },
+                    { id: 15, imgSrc: "/ResumeT15.png" },
+                    { id: 16, imgSrc: "/ResumeT16.png" },
+                    { id: 17, imgSrc: "/ResumeT17.png" }
+                
             ];
             setTemplates(fetchedTemplates);
         };

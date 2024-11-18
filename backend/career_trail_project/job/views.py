@@ -3,6 +3,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
+from django.db.models import Count
+
 from .models import Job
 from .serializers import JobSerializer
 
@@ -11,6 +13,7 @@ def get_jobs(request):
     jobs = Job.objects.all()
     serializedData = JobSerializer(jobs, many=True).data
     return Response(serializedData)
+
 
 @api_view(['POST'])
 def create_job(request):

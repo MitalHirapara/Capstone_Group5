@@ -13,6 +13,7 @@ const resumeTemplates = {
     1: React.lazy(() => import("./Resume1")),
     2: React.lazy(() => import("./Resume2")),
     10: React.lazy(() => import("./Resume10")),
+    11: React.lazy(() => import("./Resume11")),
     // Continue for other templates up to "16"
     // 3: React.lazy(() => import("./Resume3")),
     // 4: React.lazy(() => import("./Resume4")),
