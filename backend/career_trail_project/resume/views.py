@@ -1,9 +1,10 @@
-import json
-import os
+from django.shortcuts import render
+import openai
 from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework import status
-import google.generativeai as genai
+from django.http import JsonResponse, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+from weasyprint import HTML
 
 # Configure the Gemini API with the API key
 genai.configure(api_key=os.getenv("API_KEY"))
@@ -24,16 +25,23 @@ def enhance_work_experience(request):
         if not job_title or not company or not start_date or not description:
             return Response({"error": "Missing required fields"}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Construct the prompt for the Gemini API
-        prompt = f"Enhance the following job experience: Job title: {job_title}, Company: {company}, Start Date: {start_date}, End Date: {end_date if not currently_working else 'Present'}, Description: {description}, only provide me with enhanced description and the key achievements nothing else in simple text formatting."
+        return JsonResponse({"error": "No work experience provided."}, status=400)
 
-        # Initialize the Gemini model and generate content
-        model = genai.GenerativeModel("gemini-1.5-flash")
-        response = model.generate_content(prompt)
 
-        # Extract and return the generated content
-        enhanced_content = response.text
-        return Response({"enhanced_experience": enhanced_content}, status=status.HTTP_200_OK)
 
-    except Exception as e:
-        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+@api_view(['POST'])
+def generate_pdf(request):
+    if request.method == 'POST':
+        # Parse JSON data from the request
+        data = json.loads(request.body)
+        html_content = data.get("html", "")
+        
+        # Generate PDF
+        pdf_file = HTML(string=html_content, base_url=request.build_absolute_uri()).write_pdf(stylesheets=["/path/to/your/tailwind.css"])
+
+        # Send PDF as response
+        response = HttpResponse(pdf_file, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="resume.pdf"'
+        return response
+    return HttpResponse(status=400)
+

@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaBuilding, FaMapMarkerAlt, FaPen, FaSearch } from "react-icons/fa";
 
-export default function JobFilterHead() {
+export default function JobFilterHead({ params }) {
     return (
         <div className='jobfilterhead max-w-[85rem] mt-6 mb-6 mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-6'>
             <div className=" p-6">
@@ -16,9 +16,9 @@ export default function JobFilterHead() {
                         Find your next career move among thousands of open positions tailored to your skills and experience.
                     </p>
                 </div>
-                <div className="jobsearchfilter max-w-[55rem] mx-auto flex items-center space-x-4">
+                <div className="jobsearchfilter max-w-[50rem] mx-auto flex items-center space-x-4">
                     {/* Search Input */}
-                    <div className="flex-1 relative border-r border-gray-400 ">
+                    <div className="flex-1 relative border-r border-gray-400 text-gray-600">
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                             <FaBuilding className="text-gray-700" />
                         </span>
@@ -26,6 +26,8 @@ export default function JobFilterHead() {
                             className="w-full pl-10 py-2 placeholder-gray-600"
                             type="text"
                             placeholder="Industry or Company"
+                            onChange={(e) => params.setQueryIndustry(e.target.value)}
+                            value={params.setQueryIndustry}
                         />
                     </div>
                     {/* Location Input */}
@@ -37,6 +39,8 @@ export default function JobFilterHead() {
                             className="w-full pl-7 py-2 placeholder-gray-600"
                             type="text"
                             placeholder="Job, title, or Keywords"
+                            onChange={(e) => params.setQueryJobTitle(e.target.value)}
+                            value={params.queryJobTitle}
                         />
                     </div>
                     {/* Category Dropdown */}
@@ -48,10 +52,12 @@ export default function JobFilterHead() {
                             className="w-full pl-7 py-2 placeholder-gray-600"
                             type="text"
                             placeholder="City, Province or location"
+                            onChange={(e) => params.setQueryLocation(e.target.value)}
+                            value={params.queryLocation}
                         />
                     </div>
                     {/* Search Button */}
-                    <div>
+                    {/* <div>
                         <a
                             className="inline-flex justify-center items-center gap-x-3 text-center bg-blue-600 from-blue-600 to-violet-600 hover:from-violet-600 hover:to-blue-600 border border-transparent text-white text-sm font-medium rounded-md focus:outline-none focus:from-violet-600 focus:to-blue-600 py-3 px-4"
                             href="/jobs"
@@ -59,28 +65,36 @@ export default function JobFilterHead() {
                             <FaSearch className="text-white" />
                             Search Jobs
                         </a>
-                    </div>
+                    </div> */}
                 </div>
                 {/* Filter Options */}
                 <div className="mt-4 max-w-[60rem] mx-auto flex items-center justify-center space-x-4">
                     <div className="relative">
-                        <button className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-zinc-700 flex items-center">
-                            <span className='text-gray-600'>Job Type</span>
-                            <svg
-                                className="h-5 w-5 text-zinc-700 ml-2"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
+                        <div className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-zinc-700 flex items-center">
+                            <select className='text-gray-600 bg-transparent border-none outline-none'
+                                value={params.queryJobType}
+                                onChange={(e) => params.setQueryJobType(e.target.value)}
                             >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M19 9l-7 7-7-7"
-                                />
-                            </svg>
-                        </button>
+                                <option value="full-time">Full Time</option>
+                                <option value="part-time">Part Time</option>
+                                <option value="hybrid">Hybrid</option>
+                            
+                                <svg
+                                    className="h-5 w-5 text-zinc-700 ml-2"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M19 9l-7 7-7-7"
+                                    />
+                                </svg>
+                            </select>
+                        </div>
                     </div>
                     <div className="relative">
                         <button className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-zinc-700 flex items-center">
@@ -141,6 +155,6 @@ export default function JobFilterHead() {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }

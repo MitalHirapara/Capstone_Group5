@@ -402,9 +402,7 @@
 input {
     color: black !important;
 }
-.resume10 {
-    background-color: #fcfbf8 !important;
-}
+
 .mt-0 {
     margin-top: 0px !important;
 }
@@ -420,3 +418,52 @@ input {
     display: flex;
     justify-content: space-between;
 }
+
+.box-border-single {
+    padding: 20px;
+    display: inline-block;
+    width: 100%;
+    border: 1px solid #e0e6f7;
+    border-radius: 8px;
+}
+
+.box-border-right {
+    border: 1px solid #e0e6f7;
+    border-radius: 8px;
+}
+
+.job-det-border {
+    border-bottom: 1px solid #dee2e6 !important;
+}
+
+.job-header-img img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.job-overview {
+    border: 1px solid #e0e6f7 !important;
+    border-radius: 8px;
+    padding: 20px 30px 30px;
+}
+
+.job-overview-icon {
+    margin-right: 25px;
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.job-overview-icon p {
+    width: 100px;
+}
+
+.job-overview-icon span {
+    display: inline-block;
+    word-break: break-all;
+}
+
+.job-description-page p,
+.job-description-page li {
+    font-size: 17px;
+}
+
