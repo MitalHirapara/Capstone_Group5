@@ -61,7 +61,7 @@
 
 .slick-slide .bg-sky-100 img {
     width: 252px !important;
-    height: 356.50px !important;
+    height: 356.5px !important;
 }
 
 .slick-next:hover {
@@ -243,7 +243,7 @@
 }
 
 .inspo-text {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
     display: flex;
     margin-bottom: 30px;
     margin-top: 30px !important;
@@ -399,8 +399,8 @@
     width: 115px !important;
 }
 
-.resume10 {
-    background-color: #FCFBF8 !important;
+input {
+    color: black !important;
 }
 
 .mt-0 {
@@ -410,7 +410,7 @@
 .resume-preview {
     transform: scale(0.502941) !important;
     width: 800px !important;
-    margin-left: -110px !important;
+    margin-left: -200px !important;
     margin-top: -252.647px !important;
 }
 
@@ -466,3 +466,4 @@
 .job-description-page li {
     font-size: 17px;
 }
+

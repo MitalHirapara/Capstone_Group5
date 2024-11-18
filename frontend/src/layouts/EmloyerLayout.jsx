@@ -11,13 +11,13 @@ export default function EmployerLayout() {
     const isAuthenticated = useSelector(selectIsAuthenticated);
     const user = useSelector(selectUser);
 
-    if (!isAuthenticated) {
-        return <Navigate to="/login" />;
-    }
+    // if (!isAuthenticated) {
+    //     return <Navigate to="/login" />;
+    // }
 
-    if (user?.role !== "employer") {
-        return <Navigate to="/" />;
-    }
+    // if (user?.role !== "employer") {
+    //     return <Navigate to="/" />;
+    // }
 
     return (
         <div>
