@@ -10,6 +10,7 @@ import CreateJobPost from "./components/employer/CreateJob";
 import ManageJobs from "./components/employer/ManageJobs";
 import UserLayout from "./layouts/UserLayout";
 import EmployerLayout from "./layouts/EmloyerLayout";
+import JobDetails from "./pages/JobDetail";
 import Jobs from "./pages/Jobs";
 import { Provider } from "react-redux";
 import store from "./store/store";
@@ -28,6 +29,7 @@ export default function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/jobs" element={<Jobs />} />
+                    <Route path="/job/:id" element={<JobDetails />} />
                     <Route
                         path="/forgot-password"
                         element={<ForgotPassword />}

@@ -1,8 +1,11 @@
 from django.shortcuts import render
 import openai
-from django.http import JsonResponse
+from rest_framework.decorators import api_view
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from weasyprint import HTML
+
 
 openai.api_key = 'your_openai_api_key'
 
@@ -25,3 +28,21 @@ def enhance_work_experience(request):
             return JsonResponse({"enhanced_experience": generated_text})
 
         return JsonResponse({"error": "No work experience provided."}, status=400)
+
+
+
+@api_view(['POST'])
+def generate_pdf(request):
+    if request.method == 'POST':
+        # Parse JSON data from the request
+        data = json.loads(request.body)
+        html_content = data.get("html", "")
+        
+        # Generate PDF
+        pdf_file = HTML(string=html_content, base_url=request.build_absolute_uri()).write_pdf(stylesheets=["/path/to/your/tailwind.css"])
+
+        # Send PDF as response
+        response = HttpResponse(pdf_file, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="resume.pdf"'
+        return response
+    return HttpResponse(status=400)
