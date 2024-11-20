@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from common.models import Location  # Import global Location model
+from common.models import Location, Industry, Skill, Certificate  # Import necessary models
 
 class Employer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -33,16 +33,17 @@ class Job(models.Model):
         ('Senior Level', 'Senior Level'),
     ]
 
-    # Fields for the Job model
     employer = models.ForeignKey(Employer, on_delete=models.CASCADE, related_name='jobs')
-    title = models.CharField(max_length=60)  # Updated character limit
-    description = models.TextField()  # 300-500 words; frontend validation will handle it
-    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True)  # Dropdown
-    job_type = models.CharField(max_length=50, choices=JOB_TYPES, default='Full-time')  # Dropdown with default value
+    title = models.CharField(max_length=60)
+    short_description = models.CharField(max_length=150, blank=True, null=True)
+    description = models.TextField()
+    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True)
+    job_type = models.CharField(max_length=50, choices=JOB_TYPES, default='Full-time')
     salary_range = models.CharField(max_length=50, blank=True, null=True)
-    certificates = models.CharField(max_length=50, blank=True, null=True)
-    skills = models.CharField(max_length=50, blank=True, null=True)
-    experience_level = models.CharField(max_length=50, choices=EXPERIENCE_LEVELS, default='Entry Level')  # Dropdown
+    certificates = models.ManyToManyField(Certificate, blank=True)  # Reference to Certificate model
+    skill = models.ManyToManyField(Skill, blank=True)  # Reference to Skill model
+    industry = models.ForeignKey(Industry, on_delete=models.SET_NULL, null=True)  # Reference to Industry model
+    experience_level = models.CharField(max_length=50, choices=EXPERIENCE_LEVELS, default='Entry Level')
     posted_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
     number_of_openings = models.PositiveIntegerField(default=1)
