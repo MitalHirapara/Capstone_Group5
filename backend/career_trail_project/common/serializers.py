@@ -1,6 +1,6 @@
 # serializers.py
 from rest_framework import serializers
-from .models import Location, Certificate, Skill
+from .models import Location, Certificate, Skill, Industry
 
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,3 +16,8 @@ class SkillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Skill
         fields = ['id', 'skill_name']
+
+class IndustrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Industry
+        fields = ['id', 'name']
