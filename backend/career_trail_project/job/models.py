@@ -1,22 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from common.models import Location, Industry, Skill, Certificate  # Import necessary models
-
-class Employer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    company_name = models.CharField(max_length=255)
-    company_description = models.TextField(blank=True, null=True)
-    company_email = models.EmailField(max_length=255)
-    company_logo = models.BinaryField(blank=True, null=True)
-    company_banner = models.BinaryField(blank=True, null=True)
-    industry_type = models.CharField(max_length=255, blank=True, null=True)
-    company_size = models.IntegerField(blank=True, null=True)
-    website_url = models.URLField(max_length=255, blank=True, null=True)
-    location = models.CharField(max_length=255, blank=True, null=True)
-
-    def __str__(self):
-        return self.company_name
-
+from common.models import Location, Industry, Skill, Certificate, Employer
 
 class Job(models.Model):
     # Choices for job type and experience level
@@ -39,10 +23,11 @@ class Job(models.Model):
     description = models.TextField()
     location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True)
     job_type = models.CharField(max_length=50, choices=JOB_TYPES, default='Full-time')
-    salary_range = models.CharField(max_length=50, blank=True, null=True)
-    certificates = models.ManyToManyField(Certificate, blank=True)  # Reference to Certificate model
-    skill = models.ManyToManyField(Skill, blank=True)  # Reference to Skill model
-    industry = models.ForeignKey(Industry, on_delete=models.SET_NULL, null=True)  # Reference to Industry model
+    min_salary = models.PositiveIntegerField(null=True, blank=True)
+    max_salary = models.PositiveIntegerField(null=True, blank=True)
+    certificates = models.ManyToManyField(Certificate, blank=True)
+    skill = models.ManyToManyField(Skill, blank=True)
+    industry = models.ForeignKey(Industry, on_delete=models.SET_NULL, null=True)
     experience_level = models.CharField(max_length=50, choices=EXPERIENCE_LEVELS, default='Entry Level')
     posted_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
