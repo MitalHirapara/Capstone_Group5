@@ -125,29 +125,29 @@ const Resume10 = ({
         <>
             <button
                 onClick={generatePDF}
-                className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                className="bg-blue-500 hover:bg-blue-600 mt-4 px-6 py-2 rounded-lg text-white"
             >
                 Download as PDF
             </button>
 
-            <div id="resume" ref={resumeRef} className="max-w-3xl mx-auto p-8 resume10 text-gray-800 font-sans leading-relaxed">
+            <div id="resume" ref={resumeRef} className="mx-auto p-8 max-w-3xl font-sans text-gray-800 leading-relaxed resume10">
                 {/* Name and Title */}
-                <div className="text-left mb-8">
-                    <h1 className="text-4xl font-bold">{data.name}</h1>
-                    <h2 className="text-lg font-medium mt-2">{data.title}</h2>
+                <div className="mb-8 text-left">
+                    <h1 className="font-bold text-4xl">{data.name}</h1>
+                    <h2 className="mt-2 font-medium text-lg">{data.title}</h2>
                     <p className="mt-4 text-sm">{data.careerObjective}</p>
                 </div>
 
                 {/* Divider */}
-                <div className="border-t-2 border-gray-800 my-6"></div>
+                <div className="border-gray-800 my-6 border-t-2"></div>
 
                 {/* Skills Section */}
-                <section className="mb-8 flex">
-                    <div className="w-3/12 pr-4">
+                <section className="flex mb-8">
+                    <div className="pr-4 w-3/12">
                         <h3 className="font-semibold text-sm uppercase tracking-wider">SKILLS</h3>
                     </div>
                     <div className="w-9/12">
-                        <ul className="list-disc list-inside ml-4 text-sm">
+                        <ul className="ml-4 text-sm list-disc list-inside">
                             {data.skills.map((skill, index) => (
                                 <li key={index}>{skill}</li>
                             ))}
@@ -156,15 +156,15 @@ const Resume10 = ({
                 </section>
 
                 {/* Divider */}
-                <div className="border-t-2 border-gray-800 my-6"></div>
+                <div className="border-gray-800 my-6 border-t-2"></div>
 
                 {/* Education Section */}
-                <section className="mb-8 flex">
-                    <div className="w-3/12 pr-4">
+                <section className="flex mb-8">
+                    <div className="pr-4 w-3/12">
                         <h3 className="font-semibold text-sm uppercase tracking-wider">EDUCATION</h3>
                     </div>
                     <div className="w-9/12" style={{ paddingLeft: '15px' }}>
-                        <ul className="list-none text-sm">
+                        <ul className="text-sm list-none">
                             {data.education.map((edu, index) => (
                                 <li key={index} className="mb-4">
                                     <p className="font-semibold">{edu.degree}</p>
@@ -176,20 +176,20 @@ const Resume10 = ({
                 </section>
 
                 {/* Divider */}
-                <div className="border-t-2 border-gray-800 my-6"></div>
+                <div className="border-gray-800 my-6 border-t-2"></div>
 
                 {/* Experience Section */}
-                <section className="mb-8 flex">
-                    <div className="w-3/12 pr-4">
+                <section className="flex mb-8">
+                    <div className="pr-4 w-3/12">
                         <h3 className="font-semibold text-sm uppercase tracking-wider">EXPERIENCE</h3>
                     </div>
                     <div className="w-9/12" style={{ paddingLeft: '15px' }}>
-                        <ul className="list-none text-sm">
+                        <ul className="text-sm list-none">
                             {data.workExperience.map((job, index) => (
                                 <li key={index} className="mb-4">
-                                    <p className="jobtitle-location mb-1 pb-1 font-semibold border-b border-gray-300"><span>{job.title}</span><span>{job.location}</span></p>
+                                    <p className="border-gray-300 mb-1 pb-1 border-b font-semibold jobtitle-location"><span>{job.title}</span><span>{job.location}</span></p>
                                     <p className="text-sm">{job.company} | {job.duration}</p>
-                                    <ul className="text-sm list-disc list-inside ml-4 mt-1">
+                                    <ul className="mt-1 ml-4 text-sm list-disc list-inside">
                                         {job.responsibilities.map((res, resIndex) => (
                                             <li key={resIndex}>{res}</li>
                                         ))}
@@ -201,11 +201,11 @@ const Resume10 = ({
                 </section>
 
                 {/* Divider */}
-                <div className="border-t-2 border-gray-800 my-6"></div>
+                <div className="border-gray-800 my-6 border-t-2"></div>
 
                 {/* Contact Section */}
-                <section className="mb-8 flex">
-                    <div className="w-3/12 pr-4">
+                <section className="flex mb-8">
+                    <div className="pr-4 w-3/12">
                         <h3 className="font-semibold text-sm uppercase tracking-wider">CONTACT</h3>
                     </div>
                     <div className="w-9/12 text-sm" style={{ paddingLeft: '15px' }}>
