@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
+import MarkdownEditor from "react-markdown-editor-lite";
+import "react-markdown-editor-lite/lib/index.css";
+import Select from "react-select";
 
 const initialFormData = {
     title: "",
     description: "",
-    location: "",
+    location: null,
     job_type: "",
-    salary_range: "",
+    salary_min: "",
+    salary_max: "",
     certificates: [],
     skills: [],
     is_active: true,
     experience_level: "",
     number_of_openings: 1,
+    industry: null,
 };
 
 const JobForm = () => {
@@ -19,33 +24,36 @@ const JobForm = () => {
     const [locations, setLocations] = useState([]);
     const [certificates, setCertificates] = useState([]);
     const [skills, setSkills] = useState([]);
+    const [industries, setIndustries] = useState([]);
 
     useEffect(() => {
-        const fetchLocations = async () => {
-            const response = await fetch(
+        const fetchData = async () => {
+            const fetchLocations = fetch(
                 "http://127.0.0.1:8000/api/locations/"
             );
-            const data = await response.json();
-            setLocations(data);
-        };
-
-        const fetchCertificates = async () => {
-            const response = await fetch(
+            const fetchCertificates = fetch(
                 "http://127.0.0.1:8000/api/certificates/"
             );
-            const data = await response.json();
-            setCertificates(data);
+            const fetchSkills = fetch("http://127.0.0.1:8000/api/skills/");
+            const fetchIndustries = fetch(
+                "http://127.0.0.1:8000/api/industries/"
+            );
+
+            const [locationsRes, certificatesRes, skillsRes, industriesRes] =
+                await Promise.all([
+                    fetchLocations,
+                    fetchCertificates,
+                    fetchSkills,
+                    fetchIndustries,
+                ]);
+
+            setLocations(await locationsRes.json());
+            setCertificates(await certificatesRes.json());
+            setSkills(await skillsRes.json());
+            setIndustries(await industriesRes.json());
         };
 
-        const fetchSkills = async () => {
-            const response = await fetch("http://127.0.0.1:8000/api/skills/");
-            const data = await response.json();
-            setSkills(data);
-        };
-
-        fetchLocations();
-        fetchCertificates();
-        fetchSkills();
+        fetchData();
     }, []);
 
     const handleChange = (e) => {
@@ -56,50 +64,36 @@ const JobForm = () => {
         });
     };
 
-    const handleSelectChange = (e) => {
-        const { name, value } = e.target;
+    const handleSelectChange = (value, name) => {
         setFormData({
             ...formData,
-            [name]: value.split(","),
+            [name]: value,
         });
+    };
+
+    const handleMarkdownChange = ({ text }) => {
+        setFormData({ ...formData, description: text });
     };
 
     const validate = () => {
         const newErrors = {};
-
-        if (!formData.title || formData.title.length > 255) {
-            newErrors.title =
-                "Job title is required and must be less than 255 characters.";
+        if (!formData.title) {
+            newErrors.title = "Job title is required.";
         }
         if (!formData.description) {
-            newErrors.description = "Job description is required.";
+            newErrors.description = "Description is required.";
         }
-        if (formData.location && formData.location.length > 255) {
-            newErrors.location = "Location must be less than 255 characters.";
+        if (!formData.salary_min || !formData.salary_max) {
+            newErrors.salary = "Both salary range fields are required.";
+        } else if (Number(formData.salary_min) >= Number(formData.salary_max)) {
+            newErrors.salary =
+                "Minimum salary must be less than maximum salary.";
         }
-        if (formData.job_type && formData.job_type.length > 50) {
-            newErrors.job_type = "Job type must be less than 50 characters.";
+        if (!formData.location) {
+            newErrors.location = "Location is required.";
         }
-        if (
-            !formData.salary_range ||
-            formData.salary_range < 17 ||
-            formData.salary_range > 150
-        ) {
-            newErrors.salary_range = "Salary range must be between 17 and 150.";
-        }
-        if (
-            formData.number_of_openings < 1 ||
-            formData.number_of_openings > 8
-        ) {
-            newErrors.number_of_openings =
-                "Number of openings must be between 1 and 8.";
-        }
-        if (formData.certificates && formData.certificates.length > 50) {
-            newErrors.certificates =
-                "Certificates must be less than 50 characters.";
-        }
-        if (formData.skills && formData.skills.length > 50) {
-            newErrors.skills = "Skills must be less than 50 characters.";
+        if (!formData.industry) {
+            newErrors.industry = "Industry is required.";
         }
 
         setErrors(newErrors);
@@ -109,7 +103,14 @@ const JobForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validate()) {
-            const data = { ...formData, employer: 1 };
+            const data = {
+                ...formData,
+                location: formData.location.value,
+                industry: formData.industry.value,
+                certificates: formData.certificates.map((cert) => cert.value),
+                skills: formData.skills.map((skill) => skill.value),
+                employer: 1,
+            };
             const response = await fetch("http://127.0.0.1:8000/job/create/", {
                 method: "POST",
                 headers: {
@@ -122,7 +123,7 @@ const JobForm = () => {
     };
 
     return (
-        <div className=" mx-auto bg-white p-8 shadow-lg shadow-slate-400	 rounded-lg ">
+        <div className=" mx-auto bg-white p-8 shadow-lg shadow-slate-400 rounded-lg">
             <h2 className="text-2xl font-semibold mb-6 text-slate-950">
                 Create Job Posting
             </h2>
@@ -135,9 +136,7 @@ const JobForm = () => {
                     name="title"
                     value={formData.title}
                     onChange={handleChange}
-                    className={`text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg ${
-                        errors.title ? "border-red-500" : "border-gray-300"
-                    }`}
+                    className="text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg"
                 />
                 {errors.title && (
                     <p className="text-red-500 text-sm mt-1">{errors.title}</p>
@@ -147,15 +146,10 @@ const JobForm = () => {
                 <label className="text-slate-800 block text-sm font-medium mb-1">
                     Description:
                 </label>
-                <textarea
-                    name="description"
+                <MarkdownEditor
                     value={formData.description}
-                    onChange={handleChange}
-                    className={`text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg ${
-                        errors.description
-                            ? "border-red-500"
-                            : "border-gray-300"
-                    }`}
+                    onChange={handleMarkdownChange}
+                    style={{ height: "200px" }}
                 />
                 {errors.description && (
                     <p className="text-red-500 text-sm mt-1">
@@ -167,109 +161,98 @@ const JobForm = () => {
                 <label className="text-slate-800 block text-sm font-medium mb-1">
                     Location:
                 </label>
-                <select
-                    name="location"
+                <Select
+                    options={locations.map((loc) => ({
+                        label: `${loc.city}, ${loc.state}`,
+                        value: loc.id,
+                    }))}
+                    onChange={(value) => handleSelectChange(value, "location")}
                     value={formData.location}
-                    onChange={handleChange}
-                    className="text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg"
-                >
-                    {locations.map((loc) => (
-                        <option key={loc.id} value={loc.id}>
-                            {loc.city}, {loc.state}
-                        </option>
-                    ))}
-                </select>
-
-                {/* Salary Range */}
-                <label className="text-slate-800 block text-sm font-medium mb-1">
-                    Salary Range:
-                </label>
-                <input
-                    type="number"
-                    name="salary_range"
-                    value={formData.salary_range}
-                    onChange={handleChange}
-                    min="17"
-                    max="150"
-                    step="0.01"
-                    className={`text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg ${
-                        errors.salary_range
-                            ? "border-red-500"
-                            : "border-gray-300"
-                    }`}
                 />
-                {errors.salary_range && (
+                {errors.location && (
                     <p className="text-red-500 text-sm mt-1">
-                        {errors.salary_range}
+                        {errors.location}
                     </p>
                 )}
 
-                {/* Job Type */}
+                {/* Industry */}
                 <label className="text-slate-800 block text-sm font-medium mb-1">
-                    Job Type:
+                    Industry:
                 </label>
-                <select
-                    name="job_type"
-                    value={formData.job_type}
-                    onChange={handleChange}
-                    className="text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg"
-                >
-                    <option value="Full-time">Full-time</option>
-                    <option value="Part-time">Part-time</option>
-                    <option value="Contract">Contract</option>
-                    <option value="Permanent">Permanent</option>
-                </select>
+                <Select
+                    options={industries.map((ind) => ({
+                        label: ind.name,
+                        value: ind.id,
+                    }))}
+                    onChange={(value) => handleSelectChange(value, "industry")}
+                    value={formData.industry}
+                />
+                {errors.industry && (
+                    <p className="text-red-500 text-sm mt-1">
+                        {errors.industry}
+                    </p>
+                )}
 
-                {/* Experience Level */}
-                <label className="text-slate-800 block text-sm font-medium mb-1">
-                    Experience Level:
-                </label>
-                <select
-                    name="experience_level"
-                    value={formData.experience_level}
-                    onChange={handleChange}
-                    className="text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg"
-                >
-                    <option value="Entry level">Entry level</option>
-                    <option value="Mid-senior level">Mid-senior level</option>
-                    <option value="Senior level">Senior level</option>
-                </select>
+                {/* Salary Range */}
+                <div className="flex space-x-4">
+                    <div>
+                        <label className="text-slate-800 block text-sm font-medium mb-1">
+                            Minimum Salary:
+                        </label>
+                        <input
+                            type="number"
+                            name="salary_min"
+                            value={formData.salary_min}
+                            onChange={handleChange}
+                            className="text-slate-800 px-4 py-2 mt-0 border border-slate-400 rounded-lg"
+                        />
+                    </div>
+                    <div>
+                        <label className="text-slate-800 block text-sm font-medium mb-1">
+                            Maximum Salary:
+                        </label>
+                        <input
+                            type="number"
+                            name="salary_max"
+                            value={formData.salary_max}
+                            onChange={handleChange}
+                            className="text-slate-800 px-4 py-2 mt-0 border border-slate-400 rounded-lg"
+                        />
+                    </div>
+                </div>
+                {errors.salary && (
+                    <p className="text-red-500 text-sm mt-1">{errors.salary}</p>
+                )}
 
                 {/* Certificates */}
                 <label className="text-slate-800 block text-sm font-medium mb-1">
                     Certificates:
                 </label>
-                <select
-                    name="certificates"
+                <Select
+                    isMulti
+                    options={certificates.map((cert) => ({
+                        label: cert.certificate_name,
+                        value: cert.id,
+                    }))}
+                    onChange={(value) =>
+                        handleSelectChange(value, "certificates")
+                    }
                     value={formData.certificates}
-                    onChange={handleSelectChange}
-                    multiple
-                    className="text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg"
-                >
-                    {certificates.map((cert) => (
-                        <option key={cert.id} value={cert.id}>
-                            {cert.certificate_name}
-                        </option>
-                    ))}
-                </select>
+                />
 
                 {/* Skills */}
                 <label className="text-slate-800 block text-sm font-medium mb-1">
                     Skills:
                 </label>
-                <select
-                    name="skills"
+                <Select
+                    isMulti
+                    options={skills.map((skill) => ({
+                        label: skill.skill_name,
+                        value: skill.id,
+                    }))}
+                    onChange={(value) => handleSelectChange(value, "skills")}
                     value={formData.skills}
-                    onChange={handleSelectChange}
-                    multiple
-                    className="text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg"
-                >
-                    {skills.map((skill) => (
-                        <option key={skill.id} value={skill.id}>
-                            {skill.skill_name}
-                        </option>
-                    ))}
-                </select>
+                />
 
                 {/* Number of Openings */}
                 <label className="text-slate-800 block text-sm font-medium mb-1">
@@ -280,19 +263,8 @@ const JobForm = () => {
                     name="number_of_openings"
                     value={formData.number_of_openings}
                     onChange={handleChange}
-                    min="1"
-                    max="8"
-                    className={`text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg ${
-                        errors.number_of_openings
-                            ? "border-red-500"
-                            : "border-gray-300"
-                    }`}
+                    className="text-slate-800 px-4 py-2 mt-0 border border-slate-400 rounded-lg"
                 />
-                {errors.number_of_openings && (
-                    <p className="text-red-500 text-sm mt-1">
-                        {errors.number_of_openings}
-                    </p>
-                )}
 
                 {/* Active Status */}
                 <label className="text-slate-800 block text-sm font-medium mb-1">
