@@ -23,14 +23,14 @@ class IndustrySerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 class JobSerializer(serializers.ModelSerializer):
-    # Nested serializers
+    # Nested serializers remain unchanged
     location = LocationSerializer(read_only=True)
     location_id = serializers.PrimaryKeyRelatedField(
         source='location', queryset=Location.objects.all(), write_only=True
     )
-    skills = SkillSerializer(many=True, read_only=True)
+    skill = SkillSerializer(many=True, read_only=True)
     skill_ids = serializers.PrimaryKeyRelatedField(
-        source='skills', many=True, queryset=Skill.objects.all(), write_only=True
+        source='skill', many=True, queryset=Skill.objects.all(), write_only=True
     )
     certificates = CertificateSerializer(many=True, read_only=True)
     certificate_ids = serializers.PrimaryKeyRelatedField(
@@ -44,6 +44,13 @@ class JobSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
         fields = '__all__'
+
+    def validate(self, data):
+        min_salary = data.get('min_salary')
+        max_salary = data.get('max_salary')
+        if min_salary is not None and max_salary is not None and min_salary > max_salary:
+            raise serializers.ValidationError("Minimum salary cannot be greater than maximum salary.")
+        return data
 
 class EmployerSerializer(serializers.ModelSerializer):
     class Meta:
