@@ -3,27 +3,27 @@ import { FaBuilding, FaMapMarkerAlt, FaPen, FaSearch } from "react-icons/fa";
 
 export default function JobFilterHead({ params }) {
     return (
-        <div className='jobfilterhead max-w-[85rem] mt-6 mb-6 mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-6'>
-            <div className=" p-6">
-                <div className="guidesec max-w-2xl text-center mb-10 mx-auto">
+        <div className='mx-auto mt-6 mb-6 px-4 sm:px-6 lg:px-8 py-10 lg:py-6 w-full max-w-[90%] md:max-w-[85rem] jobfilterhead'>
+            <div className="p-6">
+                <div className="mx-auto mb-10 max-w-2xl text-center guidesec">
                     <div className="mb-5 max-w-2xl">
-                        <h3 className="jobfilterheading block font-semibold text-gray-800 text-2xl md:text-3xl lg:text-4xl dark:text-neutral-200">
+                        <h3 className="block font-semibold text-2xl text-gray-800 md:text-3xl lg:text-4xl dark:text-neutral-200 jobfilterheading">
                             Your Next Career Awaits
                         </h3>
                     </div>
 
-                    <p className="inline-block text-sm font-medium bg-clip-text text-gray-500 ">
+                    <p className="inline-block bg-clip-text font-medium text-gray-500 text-sm">
                         Find your next career move among thousands of open positions tailored to your skills and experience.
                     </p>
                 </div>
-                <div className="jobsearchfilter max-w-[50rem] mx-auto flex items-center space-x-4">
+                <div className="flex md:flex-row flex-col items-center md:items-center md:space-x-4 space-y-4 md:space-y-0 mx-auto max-w-[50rem] jobsearchfilter">
                     {/* Search Input */}
-                    <div className="flex-1 relative border-r border-gray-400 text-gray-600">
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <div className="relative flex-1 border-gray-400 border-r border-responsive text-gray-600">
+                        <span className="left-0 absolute inset-y-0 flex items-center pl-3">
                             <FaBuilding className="text-gray-700" />
                         </span>
                         <input
-                            className="w-full pl-10 py-2 placeholder-gray-600"
+                            className="py-2 pl-10 w-full placeholder-gray-600"
                             type="text"
                             placeholder="Industry or Company"
                             onChange={(e) => params.setQueryIndustry(e.target.value)}
@@ -31,12 +31,12 @@ export default function JobFilterHead({ params }) {
                         />
                     </div>
                     {/* Location Input */}
-                    <div className="flex-1 relative border-r border-gray-400 text-gray-600">
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-1">
+                    <div className="relative flex-1 border-gray-400 border-r text-gray-600">
+                        <span className="left-0 absolute inset-y-0 flex items-center pl-1">
                             <FaPen className="text-gray-700" />
                         </span>
                         <input
-                            className="w-full pl-7 py-2 placeholder-gray-600"
+                            className="py-2 pl-7 w-full placeholder-gray-600"
                             type="text"
                             placeholder="Job, title, or Keywords"
                             onChange={(e) => params.setQueryJobTitle(e.target.value)}
@@ -44,12 +44,12 @@ export default function JobFilterHead({ params }) {
                         />
                     </div>
                     {/* Category Dropdown */}
-                    <div className="flex-1 relative text-gray-600">
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-1">
-                            <FaMapMarkerAlt className="text-gray-700 mr-2" />
+                    <div className="relative flex-1 text-gray-600">
+                        <span className="left-0 absolute inset-y-0 flex items-center pl-1">
+                            <FaMapMarkerAlt className="mr-2 text-gray-700" />
                         </span>
                         <input
-                            className="w-full pl-7 py-2 placeholder-gray-600"
+                            className="py-2 pl-7 w-full placeholder-gray-600"
                             type="text"
                             placeholder="City, Province or location"
                             onChange={(e) => params.setQueryLocation(e.target.value)}
@@ -59,7 +59,7 @@ export default function JobFilterHead({ params }) {
                     {/* Search Button */}
                     {/* <div>
                         <a
-                            className="inline-flex justify-center items-center gap-x-3 text-center bg-blue-600 from-blue-600 to-violet-600 hover:from-violet-600 hover:to-blue-600 border border-transparent text-white text-sm font-medium rounded-md focus:outline-none focus:from-violet-600 focus:to-blue-600 py-3 px-4"
+                            className="inline-flex justify-center items-center gap-x-3 bg-blue-600 from-blue-600 hover:from-violet-600 focus:from-violet-600 to-violet-600 hover:to-blue-600 focus:to-blue-600 px-4 py-3 border border-transparent rounded-md font-medium text-center text-sm text-white focus:outline-none"
                             href="/jobs"
                         >
                             <FaSearch className="text-white" />
@@ -68,10 +68,10 @@ export default function JobFilterHead({ params }) {
                     </div> */}
                 </div>
                 {/* Filter Options */}
-                <div className="mt-4 max-w-[60rem] mx-auto flex items-center justify-center space-x-4">
+                <div className="flex md:flex-row flex-col justify-center items-center md:space-x-4 space-y-4 md:space-y-0 mx-auto mt-4 max-w-[60rem]">
                     <div className="relative">
-                        <div className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-zinc-700 flex items-center">
-                            <select className='text-gray-600 bg-transparent border-none outline-none'
+                        <div className="flex items-center border-gray-300 px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-zinc-700">
+                            <select className='bg-transparent border-none text-gray-600 outline-none'
                                 value={params.queryJobType}
                                 onChange={(e) => params.setQueryJobType(e.target.value)}
                             >
@@ -80,7 +80,7 @@ export default function JobFilterHead({ params }) {
                                 <option value="hybrid">Hybrid</option>
                             
                                 <svg
-                                    className="h-5 w-5 text-zinc-700 ml-2"
+                                    className="ml-2 w-5 h-5 text-zinc-700"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
                                     viewBox="0 0 24 24"
@@ -97,10 +97,10 @@ export default function JobFilterHead({ params }) {
                         </div>
                     </div>
                     <div className="relative">
-                        <button className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-zinc-700 flex items-center">
+                        <button className="flex items-center border-gray-300 px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-zinc-700">
                             <span className='text-gray-600'>Date Posted</span>
                             <svg
-                                className="h-5 w-5 text-zinc-700 ml-2"
+                                className="ml-2 w-5 h-5 text-zinc-700"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
@@ -116,10 +116,10 @@ export default function JobFilterHead({ params }) {
                         </button>
                     </div>
                     <div className="relative">
-                        <button className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-zinc-700 flex items-center">
+                        <button className="flex items-center border-gray-300 px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-zinc-700">
                             <span className='text-gray-600'>Experience Level</span>
                             <svg
-                                className="h-5 w-5 text-zinc-700 ml-2"
+                                className="ml-2 w-5 h-5 text-zinc-700"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
@@ -135,10 +135,10 @@ export default function JobFilterHead({ params }) {
                         </button>
                     </div>
                     <div className="relative">
-                        <button className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-zinc-700 flex items-center">
+                        <button className="flex items-center border-gray-300 px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-zinc-700">
                             <span className='text-gray-600'>Pay</span>
                             <svg
-                                className="h-5 w-5 text-zinc-700 ml-2"
+                                className="ml-2 w-5 h-5 text-zinc-700"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
