@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import JobFilterHead from '../components/user/JobFilterHead';
-import JobBox from '../components/user/JobBox';
-import JobSortBar from '../components/user/JobSortBar';
+import JobFilterHead from "../components/user/JobFilterHead";
+import JobBox from "../components/user/JobBox";
+import JobSortBar from "../components/user/JobSortBar";
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([]); 
