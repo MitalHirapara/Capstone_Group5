@@ -5,33 +5,33 @@ import JobBox from '../components/user/JobBox';
 import JobSortBar from '../components/user/JobSortBar';
 
 export default function Jobs() {
-  const [jobs, setJobs] = useState([]); // Original fetched jobs
-  const [filteredJobs, setFilteredJobs] = useState([]); // Jobs after filtering
-  const [jobTypes, setJobTypes] = useState([]); // Job types fetched from the API
-  const [postedTimes, setPostedTimes] = useState([]); // Posted times fetched from the API
+  const [jobs, setJobs] = useState([]); 
+  const [filteredJobs, setFilteredJobs] = useState([]); 
+  const [jobTypes, setJobTypes] = useState([]); 
+  const [postedTimes, setPostedTimes] = useState([]); 
   const [queryIndustry, setQueryIndustry] = useState("");
   const [queryLocation, setQueryLocation] = useState("");
   const [queryJobTitle, setQueryJobTitle] = useState("");
-  const [queryJobType, setQueryJobType] = useState(""); // Job Type filter
-  const [queryPostedTime, setQueryPostedTime] = useState(""); // Posted Time filter
+  const [queryJobType, setQueryJobType] = useState(""); 
+  const [queryPostedTime, setQueryPostedTime] = useState(""); 
 
   // Fetch jobs from the API
   const fetchJobs = async () => {
     try {
       const response = await axios.get("http://localhost:8000/jobs/");
       setJobs(response.data);
-      setFilteredJobs(response.data); // Initialize filteredJobs with all jobs
+      setFilteredJobs(response.data); 
     } catch (error) {
       console.error("Error fetching jobs:", error);
     }
   };
 
-  // Fetch job types and posted times from the API
+  // Fetch job filters from the API
   const fetchJobFilters = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/job-filters/"); // Endpoint for job types and posted times
-      setJobTypes(response.data.job_types); // Set the fetched job types
-      setPostedTimes(response.data.posted_times); // Set the fetched posted times
+      const response = await axios.get("http://localhost:8000/job-filters/"); 
+      setJobTypes(response.data.job_types); 
+      setPostedTimes(response.data.posted_times); 
     } catch (error) {
       console.error("Error fetching job filters:", error);
     }
@@ -39,10 +39,9 @@ export default function Jobs() {
 
   useEffect(() => {
     fetchJobs();
-    fetchJobFilters(); // Fetch job types and posted times on component mount
+    fetchJobFilters(); 
   }, []);
-
-  // Apply filters dynamically
+  
   useEffect(() => {
     const filtered = jobs.filter((job) => {
       return (
@@ -70,8 +69,8 @@ export default function Jobs() {
           setQueryJobType,
           queryPostedTime,
           setQueryPostedTime,
-          jobTypes, // Passing the fetched job types
-          postedTimes, // Passing the fetched posted times
+          jobTypes, 
+          postedTimes, 
         }}
       />
       <JobSortBar jobs={filteredJobs} />
