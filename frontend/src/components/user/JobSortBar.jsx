@@ -33,11 +33,11 @@ export default function JobSortBar({ jobs, onShowChange }) {
     const jobsToShow = Math.min(totalJobs, parseInt(selectedOptions.show, 10));
 
     return (
-        <div className="max-w-[85rem] mt-6 mb-6 mx-auto">
+        <div className="jobsortbar max-w-[85rem] mt-6 mb-6 mx-auto">
             <div className="flex justify-between items-center border-b border-gray-200 py-4">
                 <div className="text-gray-700">
                     <span className="text-sm">Showing</span>
-                    <span className="font-semibold text-sm px-1">1-{jobsToShow}</span>
+                    <span className="font-semibold text-sm px-1">0-{jobsToShow}</span>
                     <span className="text-sm">of</span>
                     <span className="font-semibold text-sm px-1">{totalJobs}</span>
                     <span className="text-sm">jobs</span>
