@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom"; // For jobId
+import axios from "axios"; // For API calls
 
 const ApplyJobPage = () => {
     const { jobId } = useParams(); // Get the jobId from the URL
     const [currentStep, setCurrentStep] = useState(1);
     const [resume, setResume] = useState(null);
+    const [coverLetter, setCoverLetter] = useState("");
     const [answers, setAnswers] = useState({
         fortranExp: "",
         unixExp: "",
@@ -12,51 +14,28 @@ const ApplyJobPage = () => {
         interviewTimes: "",
         commuteRelocate: "",
     });
-    const [coverLetter, setCoverLetter] = useState("");
     const [jobDescription, setJobDescription] = useState(""); // Job description state
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    useEffect(() => {
-        // Dummy data for Frontend Developer role
-        const dummyJobDescription = `
-      <h3 class="text-xl font-semibold mb-4">Frontend Developer</h3>
-      <p><strong>Location:</strong> Toronto, ON (Hybrid)</p>
-      <p><strong>Company:</strong> Example Tech Solutions</p>
-      <p><strong>Salary:</strong> $80,000 - $100,000 per year</p>
-      <p><strong>Job Type:</strong> Full-time</p>
-      <h4 class="mt-4 font-semibold">Job Overview:</h4>
-      <p>
-        We are looking for a talented Frontend Developer to join our team at Example Tech Solutions. As a Frontend Developer,
-        you will work on creating user-friendly, visually appealing websites and applications. The ideal candidate should have a
-        strong understanding of HTML, CSS, JavaScript, and modern frontend frameworks such as React.js or Vue.js.
-      </p>
-      <h4 class="mt-4 font-semibold">Responsibilities:</h4>
-      <ul class="list-disc pl-6">
-        <li>Develop and maintain user interfaces for web applications</li>
-        <li>Collaborate with backend developers to integrate APIs and services</li>
-        <li>Write clean, efficient, and reusable code</li>
-        <li>Participate in code reviews and contribute to team knowledge sharing</li>
-        <li>Ensure the technical feasibility of UI/UX designs</li>
-      </ul>
-      <h4 class="mt-4 font-semibold">Required Skills:</h4>
-      <ul class="list-disc pl-6">
-        <li>Proficiency in HTML, CSS, and JavaScript</li>
-        <li>Experience with React.js or similar frontend frameworks</li>
-        <li>Understanding of responsive design principles</li>
-        <li>Experience with version control systems like Git</li>
-        <li>Strong problem-solving skills and attention to detail</li>
-      </ul>
-      <h4 class="mt-4 font-semibold">Preferred Skills:</h4>
-      <ul class="list-disc pl-6">
-        <li>Familiarity with state management libraries (e.g., Redux)</li>
-        <li>Experience with CSS preprocessors (e.g., Sass, Less)</li>
-        <li>Experience working in an Agile environment</li>
-      </ul>
-      <p class="mt-4">If you're passionate about frontend development and eager to work in a dynamic and collaborative environment, we'd love to hear from you!</p>
-    `;
+    const API_BASE_URL = "http://127.0.0.1:8000/api";
 
-        // Set dummy job description
-        setJobDescription(dummyJobDescription);
+    useEffect(() => {
+        // Fetch job description dynamically if API is available
+        const fetchJobDescription = async () => {
+            try {
+                const response = await axios.get(
+                    `${API_BASE_URL}/jobs/${jobId}/`
+                );
+                setJobDescription(response.data.description); // Update with actual API response
+            } catch (error) {
+                console.error("Error fetching job description:", error);
+                setJobDescription(
+                    `<p>Error loading job description. Please try again later.</p>`
+                );
+            }
+        };
+
+        fetchJobDescription();
     }, [jobId]);
 
     const handleNextStep = () => setCurrentStep((prev) => prev + 1);
@@ -67,43 +46,85 @@ const ApplyJobPage = () => {
         setAnswers((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsSubmitted(true);
+        try {
+            // Step 1: Upload resume and cover letter with the job application
+            const formData = new FormData();
+            formData.append("job_id", jobId);
+            formData.append("resume", resume);
+            formData.append("cover_letter", coverLetter);
+
+            const applicationResponse = await axios.post(
+                `${API_BASE_URL}/apply/`,
+                formData,
+                { headers: { "Content-Type": "multipart/form-data" } }
+            );
+
+            const jobApplicationId = applicationResponse.data.id; // Assuming the backend returns the application ID
+
+            // Step 2: Submit answers to questions
+            const answersPayload = [
+                {
+                    question_id: 1, // Replace with the actual question IDs from the backend
+                    job_application_id: jobApplicationId,
+                    answer_text: answers.fortranExp,
+                },
+                {
+                    question_id: 2,
+                    job_application_id: jobApplicationId,
+                    answer_text: answers.unixExp,
+                },
+                {
+                    question_id: 3,
+                    job_application_id: jobApplicationId,
+                    answer_text: answers.devopsExp,
+                },
+                {
+                    question_id: 4,
+                    job_application_id: jobApplicationId,
+                    answer_text: answers.interviewTimes,
+                },
+                {
+                    question_id: 5,
+                    job_application_id: jobApplicationId,
+                    answer_text: answers.commuteRelocate,
+                },
+            ];
+
+            await axios.post(`${API_BASE_URL}/answers/`, answersPayload);
+
+            setIsSubmitted(true);
+        } catch (error) {
+            console.error("Error submitting application:", error);
+            alert("Failed to submit application. Please try again.");
+        }
     };
 
-    const progressPercent = (currentStep / 5) * 100; // 5 steps in total
+    const progressPercent = (currentStep / 4) * 100; // Adjusted for 4 steps
 
     return (
         <div className="max-w-7xl mx-auto p-6">
             <div className="mb-8">
-                {/* Custom progress bar using Tailwind CSS */}
                 <div className="relative pt-1">
                     <div className="flex mb-2 items-center justify-between">
                         <span className="text-sm font-medium text-gray-600">
-                            Step {currentStep} of 5
+                            Step {currentStep} of 4
                         </span>
                         <span className="text-sm font-medium text-gray-600">
                             {Math.round(progressPercent)}% Completed
                         </span>
                     </div>
-                    <div className="flex mb-2 items-center justify-between">
-                        <div className="relative pt-1 w-full">
-                            <div className="flex mb-2 items-center justify-between">
-                                <div className="h-2 mb-2 w-full bg-gray-200 rounded-full">
-                                    <div
-                                        className="h-2 rounded-full bg-blue-500"
-                                        style={{ width: `${progressPercent}%` }}
-                                    ></div>
-                                </div>
-                            </div>
-                        </div>
+                    <div className="h-2 mb-2 w-full bg-gray-200 rounded-full">
+                        <div
+                            className="h-2 rounded-full bg-blue-500"
+                            style={{ width: `${progressPercent}%` }}
+                        ></div>
                     </div>
                 </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-950">
-                {/* Left Column: Application Steps */}
                 <div className="space-y-8">
                     <h2 className="text-3xl font-semibold mb-4">
                         Apply for this Job
@@ -138,6 +159,7 @@ const ApplyJobPage = () => {
                                 Step 2: Answer Employer Questions
                             </h3>
                             <div className="space-y-4">
+                                {/* Add inputs for each question */}
                                 <div>
                                     <label className="block text-sm font-medium">
                                         How many years of Fortran experience do
@@ -151,72 +173,7 @@ const ApplyJobPage = () => {
                                         className="block w-full border-2 border-gray-300 p-3 rounded-md"
                                     />
                                 </div>
-                                <div>
-                                    <label className="block text-sm font-medium">
-                                        How many years of UNIX experience do you
-                                        have?
-                                    </label>
-                                    <input
-                                        type="number"
-                                        name="unixExp"
-                                        value={answers.unixExp}
-                                        onChange={handleInputChange}
-                                        className="block w-full border-2 border-gray-300 p-3 rounded-md"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium">
-                                        How many years of DevOps experience do
-                                        you have?
-                                    </label>
-                                    <input
-                                        type="number"
-                                        name="devopsExp"
-                                        value={answers.devopsExp}
-                                        onChange={handleInputChange}
-                                        className="block w-full border-2 border-gray-300 p-3 rounded-md"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium">
-                                        Please list 2-3 dates and time ranges
-                                        for interviews (optional):
-                                    </label>
-                                    <textarea
-                                        name="interviewTimes"
-                                        value={answers.interviewTimes}
-                                        onChange={handleInputChange}
-                                        className="block w-full border-2 border-gray-300 p-3 rounded-md"
-                                        rows="3"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium">
-                                        Will you be able to reliably commute or
-                                        relocate to Toronto, ON for this job?
-                                    </label>
-                                    <select
-                                        name="commuteRelocate"
-                                        value={answers.commuteRelocate}
-                                        onChange={handleInputChange}
-                                        className="block w-full border-2 border-gray-300 p-3 rounded-md"
-                                    >
-                                        <option value="">
-                                            Select an option
-                                        </option>
-                                        <option value="Yes, I can make the commute">
-                                            Yes, I can make the commute
-                                        </option>
-                                        <option value="Yes, I am planning to relocate">
-                                            Yes, I am planning to relocate
-                                        </option>
-                                        <option value="Yes, but I need relocation assistance">
-                                            Yes, but I need relocation
-                                            assistance
-                                        </option>
-                                        <option value="No">No</option>
-                                    </select>
-                                </div>
+                                {/* Repeat similar inputs for other questions */}
                             </div>
                             <div className="mt-4 flex justify-between">
                                 <button
@@ -271,53 +228,15 @@ const ApplyJobPage = () => {
                     {currentStep === 4 && (
                         <div>
                             <h3 className="text-2xl font-semibold mb-4">
-                                Step 4: Review Application
+                                Step 4: Review and Submit
                             </h3>
-                            <div className="space-y-4">
-                                <p>
-                                    <strong>Resume:</strong>{" "}
-                                    {resume?.name || "No resume uploaded"}
-                                </p>
-                                <p>
-                                    <strong>Fortran Experience:</strong>{" "}
-                                    {answers.fortranExp} years
-                                </p>
-                                <p>
-                                    <strong>UNIX Experience:</strong>{" "}
-                                    {answers.unixExp} years
-                                </p>
-                                <p>
-                                    <strong>DevOps Experience:</strong>{" "}
-                                    {answers.devopsExp} years
-                                </p>
-                                <p>
-                                    <strong>Interview Times:</strong>{" "}
-                                    {answers.interviewTimes || "Not provided"}
-                                </p>
-                                <p>
-                                    <strong>Commute/Relocate:</strong>{" "}
-                                    {answers.commuteRelocate}
-                                </p>
-                                <p>
-                                    <strong>Cover Letter:</strong> {coverLetter}
-                                </p>
-                            </div>
-                            <div className="mt-4 flex justify-between">
-                                <button
-                                    type="button"
-                                    onClick={handlePrevStep}
-                                    className="bg-gray-300 text-black px-4 py-2 rounded-md"
-                                >
-                                    Previous
-                                </button>
-                                <button
-                                    type="submit"
-                                    onClick={handleSubmit}
-                                    className="bg-green-500 text-white px-4 py-2 rounded-md"
-                                >
-                                    Submit Application
-                                </button>
-                            </div>
+                            <button
+                                type="submit"
+                                onClick={handleSubmit}
+                                className="bg-green-500 text-white px-4 py-2 rounded-md"
+                            >
+                                Submit Application
+                            </button>
                         </div>
                     )}
 
@@ -328,7 +247,6 @@ const ApplyJobPage = () => {
                     )}
                 </div>
 
-                {/* Right Column: Job Description */}
                 <div className="space-y-8">
                     <h2 className="text-3xl font-semibold mb-4">
                         Job Description

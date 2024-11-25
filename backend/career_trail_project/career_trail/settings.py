@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'job',
     'resume',
+    'application',
     'common'
 ]
 
