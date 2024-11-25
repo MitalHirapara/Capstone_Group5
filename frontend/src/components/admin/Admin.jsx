@@ -19,7 +19,7 @@ const Admin = () => {
 
             <div className="text-center">
               <h3 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-800 dark:text-neutral-200">
-                150
+                150 
               </h3>
             </div>
 
