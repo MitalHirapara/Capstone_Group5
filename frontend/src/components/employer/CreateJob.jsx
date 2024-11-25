@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from "react";
+import MarkdownEditor from "react-markdown-editor-lite";
+import "react-markdown-editor-lite/lib/index.css";
+import Select from "react-select";
+import ReactMarkdown from "react-markdown"; // To render Markdown
 
 const initialFormData = {
     title: "",
+    short_description: "", // New field
     description: "",
-    location: "",
+    location: null,
     job_type: "",
-    salary_range: "",
+    salary_min: "",
+    salary_max: "",
     certificates: [],
     skills: [],
     is_active: true,
     experience_level: "",
     number_of_openings: 1,
+    industry: null,
 };
 
 const JobForm = () => {
@@ -19,33 +26,37 @@ const JobForm = () => {
     const [locations, setLocations] = useState([]);
     const [certificates, setCertificates] = useState([]);
     const [skills, setSkills] = useState([]);
+    const [industries, setIndustries] = useState([]);
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
     useEffect(() => {
-        const fetchLocations = async () => {
-            const response = await fetch(
+        const fetchData = async () => {
+            const fetchLocations = fetch(
                 "http://127.0.0.1:8000/api/locations/"
             );
-            const data = await response.json();
-            setLocations(data);
-        };
-
-        const fetchCertificates = async () => {
-            const response = await fetch(
+            const fetchCertificates = fetch(
                 "http://127.0.0.1:8000/api/certificates/"
             );
-            const data = await response.json();
-            setCertificates(data);
+            const fetchSkills = fetch("http://127.0.0.1:8000/api/skills/");
+            const fetchIndustries = fetch(
+                "http://127.0.0.1:8000/api/industries/"
+            );
+
+            const [locationsRes, certificatesRes, skillsRes, industriesRes] =
+                await Promise.all([
+                    fetchLocations,
+                    fetchCertificates,
+                    fetchSkills,
+                    fetchIndustries,
+                ]);
+
+            setLocations(await locationsRes.json());
+            setCertificates(await certificatesRes.json());
+            setSkills(await skillsRes.json());
+            setIndustries(await industriesRes.json());
         };
 
-        const fetchSkills = async () => {
-            const response = await fetch("http://127.0.0.1:8000/api/skills/");
-            const data = await response.json();
-            setSkills(data);
-        };
-
-        fetchLocations();
-        fetchCertificates();
-        fetchSkills();
+        fetchData();
     }, []);
 
     const handleChange = (e) => {
@@ -56,50 +67,45 @@ const JobForm = () => {
         });
     };
 
-    const handleSelectChange = (e) => {
-        const { name, value } = e.target;
+    const handleSelectChange = (value, name) => {
         setFormData({
             ...formData,
-            [name]: value.split(","),
+            [name]: value,
         });
+    };
+
+    const handleMarkdownChange = ({ text }) => {
+        setFormData({ ...formData, description: text });
     };
 
     const validate = () => {
         const newErrors = {};
-
-        if (!formData.title || formData.title.length > 255) {
-            newErrors.title =
-                "Job title is required and must be less than 255 characters.";
+        if (!formData.title) {
+            newErrors.title = "Job title is required.";
+        }
+        if (!formData.short_description) {
+            newErrors.short_description = "Short description is required.";
         }
         if (!formData.description) {
-            newErrors.description = "Job description is required.";
+            newErrors.description = "Description is required.";
         }
-        if (formData.location && formData.location.length > 255) {
-            newErrors.location = "Location must be less than 255 characters.";
+        if (!formData.salary_min || !formData.salary_max) {
+            newErrors.salary = "Both salary range fields are required.";
+        } else if (Number(formData.salary_min) >= Number(formData.salary_max)) {
+            newErrors.salary =
+                "Minimum salary must be less than maximum salary.";
         }
-        if (formData.job_type && formData.job_type.length > 50) {
-            newErrors.job_type = "Job type must be less than 50 characters.";
+        if (!formData.location) {
+            newErrors.location = "Location is required.";
         }
-        if (
-            !formData.salary_range ||
-            formData.salary_range < 17 ||
-            formData.salary_range > 150
-        ) {
-            newErrors.salary_range = "Salary range must be between 17 and 150.";
+        if (!formData.industry) {
+            newErrors.industry = "Industry is required.";
         }
-        if (
-            formData.number_of_openings < 1 ||
-            formData.number_of_openings > 8
-        ) {
-            newErrors.number_of_openings =
-                "Number of openings must be between 1 and 8.";
+        if (!formData.job_type) {
+            newErrors.job_type = "Job type is required.";
         }
-        if (formData.certificates && formData.certificates.length > 50) {
-            newErrors.certificates =
-                "Certificates must be less than 50 characters.";
-        }
-        if (formData.skills && formData.skills.length > 50) {
-            newErrors.skills = "Skills must be less than 50 characters.";
+        if (!formData.experience_level) {
+            newErrors.experience_level = "Experience level is required.";
         }
 
         setErrors(newErrors);
@@ -109,7 +115,16 @@ const JobForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validate()) {
-            const data = { ...formData, employer: 1 };
+            const data = {
+                ...formData,
+                location_id: formData.location?.value, // sending the ID for location
+                industry_id: formData.industry?.value, // sending the ID for industry
+                skill_ids: formData.skills.map((skill) => skill.value), // sending array of skill IDs
+                certificate_ids: formData.certificates.map(
+                    (cert) => cert.value
+                ), // sending array of certificate IDs
+                employer: 9, // ensure this is a valid ID
+            };
             const response = await fetch("http://127.0.0.1:8000/job/create/", {
                 method: "POST",
                 headers: {
@@ -117,12 +132,25 @@ const JobForm = () => {
                 },
                 body: JSON.stringify(data),
             });
-            if (response.ok) setFormData(initialFormData);
+            if (response.ok) {
+                setShowSuccessAlert(true);
+                setFormData(initialFormData); // Reset the form on success
+
+                // Hide the success alert after 3 seconds
+                setTimeout(() => {
+                    setShowSuccessAlert(false);
+                }, 3000);
+            }
         }
     };
 
     return (
-        <div className=" mx-auto bg-white p-8 shadow-lg shadow-slate-400	 rounded-lg ">
+        <div className=" mx-auto bg-white p-8 shadow-lg shadow-slate-400 rounded-lg">
+            {showSuccessAlert && (
+                <div className="bg-green-500 text-white p-4 rounded-lg mb-4">
+                    Job post successfully created!
+                </div>
+            )}
             <h2 className="text-2xl font-semibold mb-6 text-slate-950">
                 Create Job Posting
             </h2>
@@ -135,28 +163,46 @@ const JobForm = () => {
                     name="title"
                     value={formData.title}
                     onChange={handleChange}
-                    className={`text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg ${
-                        errors.title ? "border-red-500" : "border-gray-300"
-                    }`}
+                    className="text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg"
                 />
                 {errors.title && (
                     <p className="text-red-500 text-sm mt-1">{errors.title}</p>
+                )}
+
+                {/* Short Description */}
+                <label className="text-slate-800 block text-sm font-medium mb-1">
+                    Short Description:
+                </label>
+                <input
+                    name="short_description"
+                    value={formData.short_description}
+                    onChange={handleChange}
+                    className="text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg"
+                />
+                {errors.short_description && (
+                    <p className="text-red-500 text-sm mt-1">
+                        {errors.short_description}
+                    </p>
                 )}
 
                 {/* Description */}
                 <label className="text-slate-800 block text-sm font-medium mb-1">
                     Description:
                 </label>
-                <textarea
-                    name="description"
+                <MarkdownEditor
                     value={formData.description}
-                    onChange={handleChange}
-                    className={`text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg ${
-                        errors.description
-                            ? "border-red-500"
-                            : "border-gray-300"
-                    }`}
+                    onChange={handleMarkdownChange}
+                    style={{ height: "200px" }}
+                    renderHTML={(text) => <>{text}</>} // Ensures the markdown is rendered correctly
                 />
+                <div className="mt-4">
+                    <h3 className="font-semibold text-slate-800 text-lg">
+                        Preview:
+                    </h3>
+                    <div className="preview-container text-slate-800">
+                        <ReactMarkdown>{formData.description}</ReactMarkdown>
+                    </div>
+                </div>
                 {errors.description && (
                     <p className="text-red-500 text-sm mt-1">
                         {errors.description}
@@ -167,40 +213,18 @@ const JobForm = () => {
                 <label className="text-slate-800 block text-sm font-medium mb-1">
                     Location:
                 </label>
-                <select
-                    name="location"
+                <Select
+                    options={locations.map((loc) => ({
+                        label: `${loc.city}, ${loc.state}`,
+                        value: loc.id,
+                    }))}
+                    onChange={(value) => handleSelectChange(value, "location")}
                     value={formData.location}
-                    onChange={handleChange}
-                    className="text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg"
-                >
-                    {locations.map((loc) => (
-                        <option key={loc.id} value={loc.id}>
-                            {loc.city}, {loc.state}
-                        </option>
-                    ))}
-                </select>
-
-                {/* Salary Range */}
-                <label className="text-slate-800 block text-sm font-medium mb-1">
-                    Salary Range:
-                </label>
-                <input
-                    type="number"
-                    name="salary_range"
-                    value={formData.salary_range}
-                    onChange={handleChange}
-                    min="17"
-                    max="150"
-                    step="0.01"
-                    className={`text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg ${
-                        errors.salary_range
-                            ? "border-red-500"
-                            : "border-gray-300"
-                    }`}
+                    className="text-slate-800"
                 />
-                {errors.salary_range && (
+                {errors.location && (
                     <p className="text-red-500 text-sm mt-1">
-                        {errors.salary_range}
+                        {errors.location}
                     </p>
                 )}
 
@@ -214,11 +238,17 @@ const JobForm = () => {
                     onChange={handleChange}
                     className="text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg"
                 >
-                    <option value="Full-time">Full-time</option>
-                    <option value="Part-time">Part-time</option>
-                    <option value="Contract">Contract</option>
-                    <option value="Permanent">Permanent</option>
+                    <option value="">Select Job Type</option>
+                    <option value="fulltime">Full Time</option>
+                    <option value="parttime">Part Time</option>
+                    <option value="contract">Contract</option>
+                    <option value="permanent">Permanent</option>
                 </select>
+                {errors.job_type && (
+                    <p className="text-red-500 text-sm mt-1">
+                        {errors.job_type}
+                    </p>
+                )}
 
                 {/* Experience Level */}
                 <label className="text-slate-800 block text-sm font-medium mb-1">
@@ -230,83 +260,130 @@ const JobForm = () => {
                     onChange={handleChange}
                     className="text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg"
                 >
-                    <option value="Entry level">Entry level</option>
-                    <option value="Mid-senior level">Mid-senior level</option>
-                    <option value="Senior level">Senior level</option>
+                    <option value="">Select Experience Level</option>
+                    <option value="entry">Junior</option>
+                    <option value="intermediate">Junior</option>
+                    <option value="midsenior">Mid-Level</option>
+                    <option value="senior">Senior</option>
                 </select>
+                {errors.experience_level && (
+                    <p className="text-red-500 text-sm mt-1">
+                        {errors.experience_level}
+                    </p>
+                )}
+
+                {/* Industry */}
+                <label className="text-slate-800 block text-sm font-medium mb-1">
+                    Industry:
+                </label>
+                <Select
+                    options={industries.map((ind) => ({
+                        label: ind.name,
+                        value: ind.id,
+                    }))}
+                    onChange={(value) => handleSelectChange(value, "industry")}
+                    value={formData.industry}
+                    className="text-slate-800"
+                />
+                {errors.industry && (
+                    <p className="text-red-500 text-sm mt-1">
+                        {errors.industry}
+                    </p>
+                )}
+
+                {/* Salary Range */}
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <label className="text-slate-800 block text-sm font-medium mb-1">
+                            Minimum Salary:
+                        </label>
+                        <input
+                            type="number"
+                            name="salary_min"
+                            value={formData.salary_min}
+                            onChange={handleChange}
+                            className="text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg"
+                        />
+                    </div>
+                    <div>
+                        <label className="text-slate-800 block text-sm font-medium mb-1">
+                            Maximum Salary:
+                        </label>
+                        <input
+                            type="number"
+                            name="salary_max"
+                            value={formData.salary_max}
+                            onChange={handleChange}
+                            className="text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg"
+                        />
+                    </div>
+                </div>
+                {errors.salary && (
+                    <p className="text-red-500 text-sm mt-1">{errors.salary}</p>
+                )}
 
                 {/* Certificates */}
                 <label className="text-slate-800 block text-sm font-medium mb-1">
                     Certificates:
                 </label>
-                <select
-                    name="certificates"
+                <Select
+                    isMulti
+                    options={certificates.map((cert) => ({
+                        label: cert.certificate_name,
+                        value: cert.id,
+                    }))}
+                    onChange={(value) =>
+                        handleSelectChange(value, "certificates")
+                    }
                     value={formData.certificates}
-                    onChange={handleSelectChange}
-                    multiple
-                    className="text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg"
-                >
-                    {certificates.map((cert) => (
-                        <option key={cert.id} value={cert.id}>
-                            {cert.certificate_name}
-                        </option>
-                    ))}
-                </select>
+                    className="text-slate-800"
+                />
 
                 {/* Skills */}
                 <label className="text-slate-800 block text-sm font-medium mb-1">
                     Skills:
                 </label>
-                <select
-                    name="skills"
+                <Select
+                    isMulti
+                    options={skills.map((skill) => ({
+                        label: skill.skill_name,
+                        value: skill.id,
+                    }))}
+                    onChange={(value) => handleSelectChange(value, "skills")}
                     value={formData.skills}
-                    onChange={handleSelectChange}
-                    multiple
-                    className="text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg"
-                >
-                    {skills.map((skill) => (
-                        <option key={skill.id} value={skill.id}>
-                            {skill.skill_name}
-                        </option>
-                    ))}
-                </select>
-
-                {/* Number of Openings */}
-                <label className="text-slate-800 block text-sm font-medium mb-1">
-                    Number of Openings:
-                </label>
-                <input
-                    type="number"
-                    name="number_of_openings"
-                    value={formData.number_of_openings}
-                    onChange={handleChange}
-                    min="1"
-                    max="8"
-                    className={`text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg ${
-                        errors.number_of_openings
-                            ? "border-red-500"
-                            : "border-gray-300"
-                    }`}
+                    className="text-slate-800"
                 />
-                {errors.number_of_openings && (
-                    <p className="text-red-500 text-sm mt-1">
-                        {errors.number_of_openings}
-                    </p>
-                )}
 
-                {/* Active Status */}
-                <label className="text-slate-800 block text-sm font-medium mb-1">
-                    Active Status:
-                </label>
-                <select
-                    name="is_active"
-                    value={formData.is_active}
-                    onChange={handleChange}
-                    className="text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg"
-                >
-                    <option value={true}>Active</option>
-                    <option value={false}>Inactive</option>
-                </select>
+                {/* Number of Openings and Active Status */}
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <label className="text-slate-800 block text-sm font-medium mb-1">
+                            Number of Openings:
+                        </label>
+                        <input
+                            type="number"
+                            name="number_of_openings"
+                            value={formData.number_of_openings}
+                            onChange={handleChange}
+                            className="text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="text-slate-800 block text-sm font-medium mb-1">
+                            Active Status:
+                        </label>
+                        <select
+                            name="is_active"
+                            value={formData.is_active}
+                            onChange={handleChange}
+                            className="text-slate-800 w-full px-4 py-2 mt-0 border border-slate-400 rounded-lg"
+                        >
+                            <option value={true}>Active</option>
+                            <option value={false}>Inactive</option>
+                        </select>
+                    </div>
+                </div>
 
                 <button
                     type="submit"
