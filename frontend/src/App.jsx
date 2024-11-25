@@ -9,6 +9,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import EmployerProfile from "./components/employer/EmployerProfile";
 import EmployerDashboard from "./pages/EmployerDashboard";
 import CreateJobPost from "./components/employer/CreateJob";
+import EditJobPage from "./components/employer/EditJob";
 import ManageJobs from "./components/employer/ManageJobs";
 import UserLayout from "./layouts/UserLayout";
 import EmployerLayout from "./layouts/EmloyerLayout";
@@ -77,6 +78,8 @@ export default function App() {
                         element={<EmployerProfile />}
                     />
                     <Route path="/manage-jobs" element={<ManageJobs />} />
+                    <Route path="/edit-job/:jobId" element={<EditJobPage />} />
+
                 </Route>
 
                 
