@@ -22,6 +22,11 @@ class IndustrySerializer(serializers.ModelSerializer):
         model = Industry
         fields = ['id', 'name']
 
+class EmployerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employer
+        fields = ['id', 'company_name', 'company_logo']        
+
 class JobSerializer(serializers.ModelSerializer):
     # Nested serializers remain unchanged
     location = LocationSerializer(read_only=True)
@@ -39,6 +44,11 @@ class JobSerializer(serializers.ModelSerializer):
     industry = IndustrySerializer(read_only=True)
     industry_id = serializers.PrimaryKeyRelatedField(
         source='industry', queryset=Industry.objects.all(), write_only=True
+    )
+
+    employer = EmployerSerializer(read_only=True)  
+    employer_id = serializers.PrimaryKeyRelatedField(
+        source='employer', queryset=Employer.objects.all(), write_only=True
     )
 
     class Meta:

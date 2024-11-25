@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Badge from "../user/Badge";
 import {
@@ -7,38 +7,44 @@ import {
     FaBriefcase,
     FaRegBookmark,
 } from "react-icons/fa";
-// import { formatTimeAgo } from "../../lib/dateTimeConvert";
+import { formatTimeAgo } from "../../lib/dateTimeConvert";
 
 export default function JobBox({ jobs }) {
     return (
-        <div className="container max-w-[85rem] mx-auto p-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="mx-auto p-4 max-w-[85rem] container">
+            <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
                 {jobs.length > 0 ? (
                     jobs.map((job) => (
                         <Link
                             to={`/job/${job.id}`}
                             key={job.id}
-                            className="card overflow-hidden border rounded-lg shadow hover:shadow-lg transition"
+                            className="shadow hover:shadow-lg border rounded-lg transition overflow-hidden card"
                         >
                             <div className="px-6 py-4 pb-0">
-                                <div className="flex items-center justify-between">
+                                <div className="flex justify-between items-center">
                                     <div className="flex items-center space-x-4">
-                                        <img
-                                            src={
-                                                job.logo ||
-                                                "https://via.placeholder.com/40"
-                                            }
-                                            alt={job.company || "Company Logo"}
-                                            className="w-10 h-10 rounded"
-                                        />
+                                        {job ? (
+                                            job.logo ? (
+                                                <img
+                                                    src={job.employer?.company_logo}
+                                                    alt={job.employer?.company_name || "Company Logo"}
+                                                    className="rounded w-10 h-10"
+                                                />
+                                            ) : (
+                                                <div className="flex justify-center items-center bg-blue-500 rounded w-10 h-10 font-bold text-white">
+                                                    {job.employer?.company_name ? job.employer?.company_name?.charAt(0) : "?"}
+                                                </div>
+                                            )
+                                        ) : null}
                                         <div>
-                                            <h3 className="text-lg text-gray-950 font-semibold">
-                                                {job.employer}
+                                            <h3 className="font-semibold text-gray-950 text-lg">
+                                                {job.employer?.company_name || "Unknown Employer"}
                                             </h3>
-                                            <p className="job-location flex items-center">
+                                            <p className="flex items-center job-location">
                                                 <FaMapMarkerAlt className="mr-1" />{" "}
-                                                {job.location ||
-                                                    "Location not provided"}
+                                                {job.location
+                                                    ? `${job.location.city}, ${job.location.state}`
+                                                    : "Location not provided"}
                                             </p>
                                         </div>
                                     </div>
@@ -48,39 +54,49 @@ export default function JobBox({ jobs }) {
                                 </div>
                             </div>
                             <div className="px-6 py-4">
-                                <h6 className="text-l text-gray-950 font-semibold mb-2">
-                                    {job.title}
+                                <h6 className="mb-2 font-semibold text-gray-950 text-l">
+                                    {job.title || "Job Title Not Available"}
                                 </h6>
-                                <div className="flex items-center space-x-2 text-sm text-gray-500 mb-2">
-                                    <span className="job-type flex items-center">
+                                <div className="flex items-center space-x-2 mb-2 text-gray-500 text-sm">
+                                    <span className="flex items-center job-type">
                                         <FaBriefcase className="mr-1" />{" "}
                                         {job.job_type || "N/A"}
                                     </span>
-                                    <span className="job-time flex items-center">
-                                        {/* <FaClock className="mr-1" /> {formatTimeAgo(job.posted_at) || "N/A"} */}
+                                    <span className="flex items-center job-time">
+                                        <FaClock className="mr-1" />{" "}
+                                        {job.posted_at
+                                            ? formatTimeAgo(job.posted_at)
+                                            : "N/A"}
                                     </span>
                                 </div>
-                                <p className="text-sm text-gray-800 mb-4">
-                                    {job.description ||
-                                        "No description available."}
+                                <p className="mb-4 text-gray-800 text-sm">
+                                    {job.short_description || "No description available."}
                                 </p>
-                                {/* <div className="flex flex-wrap gap-2">
-                  {job.skills?.map((skill, skillIndex) => (
-                    <Badge key={skillIndex} variant="secondary">
-                      {skill}
-                    </Badge>
-                  ))}
-                </div> */}
+                                <div className="flex flex-wrap gap-2">
+                                    {job.skill?.length > 0 ? (
+                                        job.skill.slice(0, 3).map((skill, skillIndex) => (
+                                            <Badge key={skillIndex} variant="secondary">
+                                                {skill.skill_name}
+                                            </Badge>
+                                        ))
+                                    ) : (
+                                        <span>No skills listed</span>
+                                    )}
+                                </div>
                             </div>
                             <div className="flex justify-between items-center px-6 py-4 border-t">
-                                <span className="text-xl font-semibold text-blue-600">
-                                    {job.salary_range || "$0"}
-                                    <span className="text-sm font-normal text-gray-600">
+                                <span className="font-semibold text-blue-600 text-xl">
+                                    {job.salary_range ||
+                                        `${job.min_salary && job.max_salary
+                                            ? `$${job.min_salary} - $${job.max_salary}`
+                                            : "Salary Not Provided"
+                                        }`}
+                                    <span className="font-normal text-gray-600 text-sm">
                                         /Hour
                                     </span>
                                 </span>
                                 <a
-                                    className="btn-job-apply inline-flex justify-center items-center gap-x-3 text-center py-3 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                                    className="inline-flex justify-center items-center gap-x-3 bg-blue-500 hover:bg-blue-600 px-4 py-3 rounded text-center text-white transition btn-job-apply"
                                     href={`/apply/${job.id}`}
                                 >
                                     Apply Now

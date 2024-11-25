@@ -22,13 +22,17 @@ export default function JobFilterHead({ params }) {
                         <span className="left-0 absolute inset-y-0 flex items-center pl-3">
                             <FaBuilding className="text-gray-700" />
                         </span>
-                        <input
+                        <select
                             className="py-2 pl-10 w-full placeholder-gray-600"
-                            type="text"
-                            placeholder="Industry or Company"
+                            value={params.queryIndustry}
                             onChange={(e) => params.setQueryIndustry(e.target.value)}
-                            value={params.setQueryIndustry}
-                        />
+
+                        >
+                            <option value="">All Industries</option>
+                            {params.industries.map((industry) => (
+                                <option key={industry.id} value={industry.id}>{industry.name}</option>
+                            ))}
+                        </select>
                     </div>
                     {/* Location Input */}
                     <div className="relative flex-1 border-gray-400 border-r text-gray-600">
@@ -75,10 +79,12 @@ export default function JobFilterHead({ params }) {
                                 value={params.queryJobType}
                                 onChange={(e) => params.setQueryJobType(e.target.value)}
                             >
-                                <option value="full-time">Full Time</option>
-                                <option value="part-time">Part Time</option>
+                                <option value="">Job Type</option>
+                                <option value="fulltime">Full Time</option>
+                                <option value="parttime">Part Time</option>
                                 <option value="hybrid">Hybrid</option>
-                            
+                                <option value="contract">Contract</option>
+                                <option value="permanent">Permanent</option>
                                 <svg
                                     className="ml-2 w-5 h-5 text-zinc-700"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -98,43 +104,64 @@ export default function JobFilterHead({ params }) {
                     </div>
                     <div className="relative">
                         <button className="flex items-center border-gray-300 px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-zinc-700">
-                            <span className='text-gray-600'>Date Posted</span>
-                            <svg
-                                className="ml-2 w-5 h-5 text-zinc-700"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
+                            <select
+                                className="bg-transparent ml-2 border-none text-gray-600 outline-none"
+                                value={params.queryPostedTime}
+                                onChange={(e) => params.setQueryPostedTime(e.target.value)}
                             >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M19 9l-7 7-7-7"
-                                />
-                            </svg>
+                                <option value="">All Dates</option>
+                                <option value="now">Just Now</option>
+                                <option value="last24hours">Last 24 hours</option>
+                                <option value="lastWeek">Last Week</option>
+                                <option value="lastMonth">Last Month</option>
+                                <option value="last3Months">Last 3 Months</option>
+                                <svg
+                                    className="ml-2 w-5 h-5 text-zinc-700"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M19 9l-7 7-7-7"
+                                    />
+                                </svg>
+                            </select>
                         </button>
                     </div>
                     <div className="relative">
                         <button className="flex items-center border-gray-300 px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-zinc-700">
-                            <span className='text-gray-600'>Experience Level</span>
-                            <svg
-                                className="ml-2 w-5 h-5 text-zinc-700"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
+                            <select className='bg-transparent border-none text-gray-600 outline-none'
+                                value={params.queryExperienceLevels}
+                                onChange={(e) => params.setExperienceLevels(e.target.value)}
                             >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M19 9l-7 7-7-7"
-                                />
-                            </svg>
+                                <option value="">Experience Level</option>
+                                <option value="entry">Entry/Fresher Level</option>
+                                <option value="Entry Level">Entry Level</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="Mid-Senior Level">Mid-Senior Level</option>
+                                <option value="Senior Level">Senior Level</option>
+                                <svg
+                                    className="ml-2 w-5 h-5 text-zinc-700"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M19 9l-7 7-7-7"
+                                    />
+                                </svg>
+                            </select>
                         </button>
                     </div>
-                    <div className="relative">
+                    {/* <div className="relative">
                         <button className="flex items-center border-gray-300 px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-zinc-700">
                             <span className='text-gray-600'>Pay</span>
                             <svg
@@ -152,7 +179,7 @@ export default function JobFilterHead({ params }) {
                                 />
                             </svg>
                         </button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div >
