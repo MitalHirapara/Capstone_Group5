@@ -9,6 +9,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import EmployerProfile from "./components/employer/EmployerProfile";
 import EmployerDashboard from "./pages/EmployerDashboard";
 import CreateJobPost from "./components/employer/CreateJob";
+import EditJobPage from "./components/employer/EditJob";
 import ManageJobs from "./components/employer/ManageJobs";
 import UserLayout from "./layouts/UserLayout";
 import EmployerLayout from "./layouts/EmloyerLayout";
@@ -57,9 +58,9 @@ export default function App() {
                     {/* <Route path="/apply-job/:jobId" element={<ApplyJobPage />} /> */}
                     <Route path="/apply-job/" element={<ApplyJobPage />} />
                 </Route>
-                <Route element={<AdminLayout/>}>
-                <Route path="/admin" element={<Admin />} />
-                <Route path="/users" element={<Users />} />
+                <Route element={<AdminLayout />}>
+                    <Route path="/admin" element={<Admin />} />
+                    <Route path="/users" element={<Users />} />
                 </Route>
 
                 {/* Private routes - only accessible by authenticated employers */}
@@ -77,7 +78,7 @@ export default function App() {
                         element={<EmployerProfile />}
                     />
                     <Route path="/manage-jobs" element={<ManageJobs />} />
-                    
+                    <Route path="/edit-job/:jobId" element={<EditJobPage />} />
                 </Route>
             </Routes>
         </Provider>
