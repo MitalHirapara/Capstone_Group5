@@ -467,3 +467,14 @@ input {
     font-size: 17px;
 }
 
+@media screen and (max-width: 1285px) {
+    .jobfilterhead::before ,.jobfilterhead::after {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 767px){
+    .border-responsive{
+        border: 1px solid red !important;
+    }
+}
