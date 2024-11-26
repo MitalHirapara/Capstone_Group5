@@ -25,7 +25,7 @@ class IndustrySerializer(serializers.ModelSerializer):
 class EmployerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employer
-        fields = ['id', 'company_name', 'company_logo']        
+        fields = '__all__'        
 
 class JobSerializer(serializers.ModelSerializer):
     # Nested serializers remain unchanged

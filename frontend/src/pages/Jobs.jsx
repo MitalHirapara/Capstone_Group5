@@ -97,6 +97,8 @@ export default function Jobs() {
       filtered = filtered.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate)); // Sort by latest posted time
     }
 
+    filtered = filtered.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
+
     setFilteredJobs(filtered);
   }, [queryIndustry, queryLocation, queryJobTitle, queryJobType, queryExperienceLevels, queryPostedTime, querySort, jobs, startDate]);
 
@@ -121,14 +123,16 @@ export default function Jobs() {
     setOpenDropdown(null);
 
     if (dropdown === "sort") {
-      setQuerySort(option); // Set the sort option dynamically
+      setQuerySort(option); 
     }
   };
 
   const totalJobs = filteredJobs.length;
   const jobsToShow = Math.min(totalJobs, parseInt(selectedOptions.show, 10));
 
-  const displayedJobs = filteredJobs.slice(0, jobsToShow);
+  const displayedJobs = filteredJobs
+  .sort((a, b) => b.id - a.id) 
+  .slice(0, jobsToShow); 
 
   return (
     <>

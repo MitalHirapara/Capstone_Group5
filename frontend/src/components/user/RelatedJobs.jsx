@@ -1,109 +1,129 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { formatTimeAgo } from '../../lib/dateTimeConvert';
 
-import Badge from "../user/Badge";
-import { FaMapMarkerAlt, FaClock, FaBriefcase, FaBookmark, FaRegBookmark } from "react-icons/fa";
+import Badge from '../user/Badge';
+import { FaMapMarkerAlt, FaClock, FaBriefcase, FaBookmark, FaRegBookmark } from 'react-icons/fa';
 
-export default function RelatedJobs() {
-  const jobs = [
-    {
-      logo: "https://img.icons8.com/color/48/duolingo-logo.png",
-      company: "LinkedIn",
-      title: "UI / UX Designer fulltime",
-      location: "New York, US",
-      type: "Full time",
-      postedAgo: "4 minutes ago",
-      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur.",
-      skills: ["Adobe XD", "Figma", "Photoshop"],
-      rate: "$500",
-    },
-    {
-      logo: "https://img.icons8.com/fluency/48/facebook.png",
-      company: "Adobe Illustrator",
-      title: "Full Stack Engineer",
-      location: "New York, US",
-      type: "Part time",
-      postedAgo: "5 minutes ago",
-      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur.",
-      skills: ["React", "NodeJS"],
-      rate: "$800",
-    },
-    {
-      logo: "https://img.icons8.com/color/48/duolingo-logo.png",
-      company: "Bing Search",
-      title: "Java Software Engineer",
-      location: "New York, US",
-      type: "Full time",
-      postedAgo: "6 minutes ago",
-      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur.",
-      skills: ["Python", "AWS", "Photoshop"],
-      rate: "$250",
-    },
-    {
-      logo: "https://img.icons8.com/fluency/48/facebook.png",
-      company: "Bing Search",
-      title: "Java Software Engineer",
-      location: "New York, US",
-      type: "Full time",
-      postedAgo: "6 minutes ago",
-      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur.",
-      skills: ["Python", "AWS", "Photoshop"],
-      rate: "$250",
-    },
-  ]
+export default function RelatedJobs({ id }) {
+  console.log(id);
+  const [jobs, setJobs] = useState([]);
 
+  const fetchJobs = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/jobs/');
+
+      const filteredJobs = response.data.filter((job) => job.id != id);
+      console.log(filteredJobs);
+      
+      setJobs(filteredJobs.slice(0, 4));
+    } catch (error) {
+      console.error('Error fetching jobs:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchJobs();
+  }, [id]); 
+  
   return (
-    <div className="container max-w-[85rem] mx-auto p-4">
-        <h2 className="text-4xl font-bold text-gray-900 mt-8 mb-2 ml-3">Related Jobs</h2>
-        <p className='text-lg text-gray-900 mb-5 ml-3 font-normal'>Get the latest news, updates and tips</p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {jobs.map((job, index) => (
-          <div key={index} className="card overflow-hidden">
-            <div className="px-6 py-4 pb-0">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <img src={job.logo} alt={job.company} className="w-10 h-10 rounded" />
-                  <div>
-                    <h3 className="text-lg text-gray-950 font-semibold">{job.company}</h3>
-                    <p className="job-location flex items-center">
-                      <FaMapMarkerAlt className="job-location mr-1" /> {job.location} {/* Location icon */}
-                    </p>
+    <div className="mx-auto p-4 max-w-[85rem] container">
+      <h2 className="mt-8 mb-2 ml-3 font-bold text-4xl text-gray-900">Related Jobs</h2>
+      <p className='mb-5 ml-3 font-normal text-gray-900 text-lg'>Get the latest news, updates, and tips</p>
+      <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+        {jobs.length > 0 ? (
+          jobs.map((job) => (
+            <Link
+              to={`/job/${job.id}`}
+              key={job.id}
+              className="shadow hover:shadow-lg border rounded-lg transition overflow-hidden card"
+            >
+              <div className="px-6 py-4 pb-0">
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center space-x-4">
+                    {job.logo ? (
+                      <img
+                        src={job.employer?.company_logo}
+                        alt={job.employer?.company_name || 'Company Logo'}
+                        className="rounded w-10 h-10"
+                      />
+                    ) : (
+                      <div className="flex justify-center items-center bg-blue-500 rounded w-10 h-10 font-bold text-white">
+                        {job.employer?.company_name
+                          ? job.employer?.company_name.charAt(0)
+                          : '?'}
+                      </div>
+                    )}
+                    <div>
+                      <h3 className="font-semibold text-gray-950 text-lg">
+                        {job.employer?.company_name || 'Unknown Employer'}
+                      </h3>
+                      <p className="flex items-center job-location">
+                        <FaMapMarkerAlt className="mr-1" />
+                        {job.location
+                          ? `${job.location.city}, ${job.location.state}`
+                          : 'Location not provided'}
+                      </p>
+                    </div>
                   </div>
+                  <a className="bookmark-job" href="#!">
+                    <FaRegBookmark className="text-gray-800" />
+                  </a>
                 </div>
-                <a className="bookmark-job" href="#">
-                  <FaRegBookmark className="text-gray-800" /> 
-                </a>
               </div>
-            </div>
-            <div className="px-6 py-4">
-              <h6 className="text-l text-gray-950 font-semibold mb-2">{job.title}</h6>
-              <div className="flex items-center space-x-2 text-sm text-gray-500 mb-2">
-                <span className="job-type flex  items-center"><FaBriefcase className="job-type mr-1" /> {job.type} {/* Job type icon */}</span>
-                <span className="job-time flex items-center"><FaClock className="job-time mr-1" /> {job.postedAgo} {/* Posted time icon */}</span>
+              <div className="px-6 py-4">
+                <h6 className="mb-2 font-semibold text-gray-950 text-l">
+                  {job.title || 'Job Title Not Available'}
+                </h6>
+                <div className="flex items-center space-x-2 mb-2 text-gray-500 text-sm">
+                  <span className="flex items-center uppercase job-type">
+                    <FaBriefcase className="mr-1" /> {job.job_type || 'N/A'}
+                  </span>
+                  <span className="flex items-center job-time">
+                    <FaClock className="mr-1" />
+                    {job.posted_at ? formatTimeAgo(job.posted_at) : 'N/A'}
+                  </span>
+                </div>
+                <p className="mb-4 text-gray-800 text-sm">
+                  {job.short_description || 'No description available.'}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {job.skill?.length > 0 ? (
+                    job.skill.slice(0, 3).map((skill, skillIndex) => (
+                      <Badge key={skillIndex} variant="secondary">
+                        {skill.skill_name}
+                      </Badge>
+                    ))
+                  ) : (
+                    <span>No skills listed</span>
+                  )}
+                </div>
               </div>
-              <p className="text-sm text-gray-800 mb-4">{job.description}</p>
-              <div className="flex flex-wrap gap-2">
-                {job.skills.map((skill, skillIndex) => (
-                  <Badge key={skillIndex} variant="secondary">
-                    {skill}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-            <div className="flex justify-between items-center px-6 py-4 border-t">
-              <span className="text-xl font-semibold text-blue-600">{job.rate}<span className="text-sm font-normal text-gray-600">/Hour</span></span>
-              <div>
+              <div className="flex justify-between items-center px-6 py-4 border-t">
+                <span className="font-semibold text-blue-600 text-l">
+                  {job.salary_range
+                    ? `${job.salary_range}`
+                    : job.min_salary && job.max_salary
+                    ? `$${job.min_salary} - $${job.max_salary}`
+                    : 'Negotiable'}
+                  {(job.salary_range || (job.min_salary && job.max_salary)) && (
+                    <span className="font-normal text-gray-600 text-sm">/hr</span>
+                  )}
+                </span>
                 <a
-                  className="btn-job-apply inline-flex justify-center items-center gap-x-3 text-center py-3 px-4"
-                  href="/jobs"
+                  className="inline-flex justify-center items-center gap-x-3 bg-blue-500 hover:bg-blue-600 px-4 py-3 rounded text-center text-white transition btn-job-apply"
+                  href={`/apply/${job.id}`}
                 >
                   Apply Now
                 </a>
               </div>
-            </div>
-          </div>
-        ))}
+            </Link>
+          ))
+        ) : (
+          <div className="text-center text-gray-500">No related jobs available at the moment.</div>
+        )}
       </div>
     </div>
-  )
+  );
 }
-

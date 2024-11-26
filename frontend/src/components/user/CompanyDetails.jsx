@@ -1,21 +1,41 @@
 import React from 'react'
 import { FaMapMarkerAlt, FaClock, FaBriefcase, FaBookmark, FaRegBookmark } from "react-icons/fa";
 
-const CompanyDetails = () => {
+const CompanyDetails = ({ job }) => {
+
+    if (!job) {
+        return <div>Loading...</div>; // Handle the case when job data is not yet available
+    }
+    console.log(job);
+
     return (
         <>
-            <div className="bg-white box-border-right p-6 mt-4">
-                <div className='company-info flex text-gray-900 items-center'>
-                    <img src='/company-logo.png' />
+            <div className="box-border-right bg-white mt-4 p-6">
+                <div className='flex items-center text-gray-900 company-info'>
+                    {job ? (
+                        job.logo ? (
+                            <img
+                                src={job.employer?.company_logo}
+                                alt={job.employer?.company_name || "Company Logo"}
+                                className="rounded w-10 h-10"
+                            />
+                        ) : (
+                            <div className="flex justify-center items-center bg-blue-500 rounded w-10 h-10 font-bold text-white text-xl">
+                                {job.employer?.company_name ? job.employer?.company_name?.charAt(0) : "?"}
+                            </div>
+                        )
+                    ) : null}
                     <div className='ml-4'>
-                        <h3 className="text-lg font-bold">LinkedIn</h3>
-                        <p className="job-location flex items-center">
-                            <FaMapMarkerAlt className="job-location mr-1" /> New York, US {/* Location icon */}
+                        <h3 className="font-bold text-lg">{job.employer?.company_name}</h3>
+                        <p className="flex items-center job-location">
+                            <FaMapMarkerAlt className="mr-1 job-location" /> {job.location
+                                ? `${job.location.city}, ${job.location.state}`
+                                : "Location not provided"}
                         </p>
                     </div>
                 </div>
 
-                <hr className="border-gray-300 mb-6 mt-6" />
+                <hr className="border-gray-300 mt-6 mb-6" />
 
                 <div className="mt-4">
                     <iframe
@@ -27,7 +47,7 @@ const CompanyDetails = () => {
                         referrerpolicy="no-referrer-when-downgrade"
                     ></iframe>
 
-                    <ul className="list-disc text-sm pl-5 text-gray-500 font-normal mb-4 mt-4">
+                    <ul className="mt-4 mb-4 pl-5 font-normal text-gray-500 text-sm list-disc">
                         <li className='mt-8 mb-4'>205 North Michigan Avenue, Suite 810 Chicago, 60601, USA</li>
                         <li className='mt-4 mb-4'><strong>Phone: </strong>+1 (123) 456-7890</li>
                         <li className='mt-4 mb-4'><strong>Email: </strong>contact@ejara.com</li>

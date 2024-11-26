@@ -58,7 +58,7 @@ export default function JobBox({ jobs }) {
                                     {job.title || "Job Title Not Available"}
                                 </h6>
                                 <div className="flex items-center space-x-2 mb-2 text-gray-500 text-sm">
-                                    <span className="flex items-center job-type">
+                                    <span className="flex items-center uppercase job-type">
                                         <FaBriefcase className="mr-1" />{" "}
                                         {job.job_type || "N/A"}
                                     </span>
@@ -85,15 +85,19 @@ export default function JobBox({ jobs }) {
                                 </div>
                             </div>
                             <div className="flex justify-between items-center px-6 py-4 border-t">
-                                <span className="font-semibold text-blue-600 text-xl">
-                                    {job.salary_range ||
-                                        `${job.min_salary && job.max_salary
+                                <span className="font-semibold text-blue-600 text-l">
+                                    {job.salary_range
+                                        ? `${job.salary_range}`
+                                        : job.min_salary && job.max_salary
                                             ? `$${job.min_salary} - $${job.max_salary}`
-                                            : "Salary Not Provided"
-                                        }`}
-                                    <span className="font-normal text-gray-600 text-sm">
-                                        /Hour
-                                    </span>
+                                            : "Negotiable"
+                                    }
+                                    {(job.salary_range || (job.min_salary && job.max_salary)) && (
+                                        <span className="font-normal text-gray-600 text-sm">
+                                            /hr
+                                        </span>
+                                    )}
+
                                 </span>
                                 <a
                                     className="inline-flex justify-center items-center gap-x-3 bg-blue-500 hover:bg-blue-600 px-4 py-3 rounded text-center text-white transition btn-job-apply"
