@@ -14,7 +14,8 @@ class QuestionSerializer(serializers.ModelSerializer):
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Answer
-        fields = '__all__'
+        fields = ['question', 'job_application', 'answer_text', 'answer_option']
+
 
 class AnswerOptionSerializer(serializers.ModelSerializer):
     class Meta:

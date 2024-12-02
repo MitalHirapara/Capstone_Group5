@@ -8,13 +8,13 @@ class JobApplication(models.Model):
         ('pending', 'Pending'),
         ('reviewed', 'Reviewed'),
         ('shortlisted', 'Shortlisted'),
-        ('rejected', 'Rejcted'),
+        ('rejected', 'Rejected'),
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
-    resume_url = models.URLField(max_length=500, blank=True, null=True)
-    cover_letter_url = models.URLField(max_length=500, blank=True, null=True)
+    resume = models.FileField(upload_to='resumes/', blank=True, null=True)
+    cover_letter = models.FileField(upload_to='cover_letters/', blank=True, null=True)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='pending')
     applied_at = models.DateTimeField(auto_now_add=True)
 
