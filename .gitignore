@@ -11,7 +11,6 @@ node_modules
 dist
 dist-ssr
 *.local
-backend/career_trail_project/career_trail/firebase/capstone-firebase-adminsdk.json
 
 
 # Editor directories and files

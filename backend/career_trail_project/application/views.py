@@ -3,7 +3,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import JobApplication, Question, Answer, AnswerOption
 from .serializers import JobApplicationSerializer, QuestionSerializer, AnswerSerializer
-from career_trail.firebase_config import upload_to_firebase
 
 # @api_view(['POST'])
 # def create_job_application(request):
