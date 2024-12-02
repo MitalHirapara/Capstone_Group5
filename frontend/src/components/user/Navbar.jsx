@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 export default function Navbar() {
     return (
         <>
@@ -66,9 +68,9 @@ export default function Navbar() {
                             <div className="py-2 md:py-0  flex flex-col md:flex-row md:items-center gap-0.5 md:gap-1">
                                 <div className="grow">
                                     <div className="flex flex-col md:flex-row md:justify-end md:items-center gap-0.5 md:gap-1">
-                                        <a
+                                        <Link
                                             className="p-2 flex items-center text-sm text-gray-800 hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                                            href="/"
+                                            to="/"
                                         >
                                             <svg
                                                 className="shrink-0 size-4 me-3 md:me-2 block md:hidden"
@@ -86,10 +88,10 @@ export default function Navbar() {
                                                 <circle cx="12" cy="7" r="4" />
                                             </svg>
                                             Home
-                                        </a>
-                                        <a
+                                        </Link>
+                                        <Link
                                             className="p-2 flex items-center text-sm text-gray-800 hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                                            href="#"
+                                            to="/jobs"
                                         >
                                             <svg
                                                 className="shrink-0 size-4 me-3 md:me-2 block md:hidden"
@@ -114,11 +116,11 @@ export default function Navbar() {
                                                     y="6"
                                                 />
                                             </svg>
-                                            Company Reviews
-                                        </a>
-                                        <a
+                                            Jobs
+                                        </Link>
+                                        <Link
                                             className="p-2 flex items-center text-sm text-gray-800 hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                                            href="/resume-builder"
+                                            to="/resume-builder"
                                         >
                                             <svg
                                                 className="shrink-0 size-4 me-3 md:me-2 block md:hidden"
@@ -138,10 +140,10 @@ export default function Navbar() {
                                                 <path d="M10 6h8v4h-8V6Z" />
                                             </svg>
                                             Build Resume{" "}
-                                        </a>
-                                        <a
+                                        </Link>
+                                        <Link
                                             className="p-2 flex items-center text-sm text-gray-800 hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                                            href="/resume1"
+                                            to="/apply-job"
                                         >
                                             <svg
                                                 className="shrink-0 size-4 me-3 md:me-2 block md:hidden"
@@ -160,8 +162,8 @@ export default function Navbar() {
                                                 <path d="M15 18h-5" />
                                                 <path d="M10 6h8v4h-8V6Z" />
                                             </svg>
-                                            Build Resume 1{" "}
-                                        </a>
+                                            Apply Job{" "}
+                                        </Link>
                                     </div>
                                 </div>
                                 <div className="my-2 md:my-0 md:mx-2">

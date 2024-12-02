@@ -1,9 +1,14 @@
+from datetime import datetime, timedelta
+from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
+
+
 from .serializers import RegisterSerializer
+from .serializers import UserSerializer
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
@@ -76,3 +81,10 @@ class ResetPasswordView(APIView):
     def post(self, request, uidb64, token):
         # Logic to reset the user's password goes here
         return Response({"message": "Password has been reset."}, status=status.HTTP_200_OK)
+    
+class UserListView(APIView):
+    def get(self, request):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
+

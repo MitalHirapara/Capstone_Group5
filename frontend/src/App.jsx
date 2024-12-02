@@ -2,14 +2,18 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Navbar from "./components/user/Navbar";
 import Signup from "./components/Signup";
+import UserProfile from "./components/user/UserProfile";
+import VerifyEmail from "./components/user/VerifyEmail";
 import ForgotPassword from "./pages/ForgotPassword";
+import EmployerProfile from "./components/employer/EmployerProfile";
 import EmployerDashboard from "./pages/EmployerDashboard";
 import CreateJobPost from "./components/employer/CreateJob";
+import EditJobPage from "./components/employer/EditJob";
 import ManageJobs from "./components/employer/ManageJobs";
 import UserLayout from "./layouts/UserLayout";
 import EmployerLayout from "./layouts/EmloyerLayout";
+import JobDetails from "./pages/JobDetail";
 import Jobs from "./pages/Jobs";
 import { Provider } from "react-redux";
 import store from "./store/store";
@@ -17,6 +21,11 @@ import store from "./store/store";
 // Resume builder imports
 import ResumeTemplates from "./pages/ResumeTemplates";
 import ResumeBuilderSteps from "./pages/ResumeBuilderSteps";
+import Admin from "./components/admin/Admin";
+import AdminLayout from "./layouts/AdminLayout";
+import Users from "./components/admin/Users";
+import ApplyJobPage from "./pages/ApplyJobPage";
+    
 
 export default function App() {
     return (
@@ -28,9 +37,15 @@ export default function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/jobs" element={<Jobs />} />
+                    <Route path="/job/:id" element={<JobDetails />} />
                     <Route
                         path="/forgot-password"
                         element={<ForgotPassword />}
+                    />
+                    <Route path="/user-profile" element={<UserProfile />} />
+                    <Route
+                        path="/verify-email/:token"
+                        element={<VerifyEmail />}
                     />
                     <Route
                         path="/resume-builder"
@@ -39,8 +54,13 @@ export default function App() {
                     <Route
                         path="/resume-builder/:templateId"
                         element={<ResumeBuilderSteps />}
-                    />{" "}
-                    {/* Add this route */}
+                    />
+                    <Route path="/apply-job/" element={<ApplyJobPage />} />
+                </Route>
+
+                <Route element={<AdminLayout />}>
+                    <Route path="/admin" element={<Admin />} />
+                    <Route path="/users" element={<Users />} />
                 </Route>
 
                 {/* Private routes - only accessible by authenticated employers */}
@@ -53,8 +73,16 @@ export default function App() {
                         path="/create-job-post"
                         element={<CreateJobPost />}
                     />
+                    <Route
+                        path="/employer-profile"
+                        element={<EmployerProfile />}
+                    />
                     <Route path="/manage-jobs" element={<ManageJobs />} />
+                    <Route path="/edit-job/:jobId" element={<EditJobPage />} />
+
                 </Route>
+
+                
             </Routes>
         </Provider>
     );

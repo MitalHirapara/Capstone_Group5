@@ -62,7 +62,10 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'job'
+    'job',
+    'resume',
+    'application',
+    'common'
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -75,6 +78,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
+    
 }
 
 MIDDLEWARE = [
@@ -173,8 +177,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'auth.User'
 
-# Add this in your settings.py
-DEFAULT_FROM_EMAIL = 'no-reply@example.com'
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
