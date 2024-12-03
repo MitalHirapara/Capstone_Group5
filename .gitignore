@@ -44,6 +44,7 @@ env/
 venv/
 ENV.bak/
 env.bak/
+backend/career_trail_project/career_trail/firebase/capstone-firebase-adminsdk.json
 
 # Django stuff:
 *.log
