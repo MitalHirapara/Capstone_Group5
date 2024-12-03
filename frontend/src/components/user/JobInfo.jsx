@@ -24,7 +24,7 @@ const JobInfo = ({ job }) => {
         <div className="flex job-overview-icon">
           <FaLayerGroup className="mt-1 mr-2 text-[#66789c]" />
           <p className="mr-1 text-[#66789c]">Job level</p>
-          <span className="pl-6 text-[#05264e] capitalize">{job.experience_level}</span>
+          <span className="pl-6 text-[#05264e] capitalize">{job.experience_level} Level</span>
         </div>
         <div className="flex job-overview-icon">
           <FaMoneyBillWave className="mt-1 mr-2 text-[#66789c]" />
@@ -44,7 +44,12 @@ const JobInfo = ({ job }) => {
         <div className="flex job-overview-icon">
           <FaRegClock className="mt-1 mr-2 text-[#66789c]" />
           <p className="mr-1 text-[#66789c]">Experience</p>
-          <span className="pl-6 text-[#05264e]">1 - 2 years</span>
+          <span className="pl-6 text-[#05264e]">
+            {job.experience_level === 'entry' ? '0-2 years' :
+              job.experience_level === 'intermediate' ? '2-5 years' :
+                job.experience_level === 'midsenior' ? '5-8 years' :
+                  job.experience_level === 'senior' ? '8+ years' : ''}
+          </span>
         </div>
         <div className="flex job-overview-icon">
           <FaBriefcase className="mt-1 mr-2 text-[#66789c]" />

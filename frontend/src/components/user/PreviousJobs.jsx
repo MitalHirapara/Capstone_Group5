@@ -58,9 +58,6 @@ export default function PreviousJobs() {
     //                 </p>
     //               </div>
     //             </div>
-    //             <a className="bookmark-job" href="#">
-    //               <FaRegBookmark className="text-gray-800" /> 
-    //             </a>
     //           </div>
     //         </div>
     //         <div className="px-6 py-4">

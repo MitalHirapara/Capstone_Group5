@@ -4,7 +4,7 @@ export default function JobSortBar({ params }) {
   const handleShowChange = (newShowValue) => {
     params.setSelectedOptions((prev) => ({
       ...prev,
-      show: newShowValue, // This properly keeps other values intact
+      show: newShowValue, 
     }));
   };
 
@@ -15,11 +15,10 @@ export default function JobSortBar({ params }) {
   const handleOptionSelect = (dropdown, option) => {
     params.setSelectedOptions((prev) => ({
       ...prev,
-      [dropdown]: option, // Update the specific dropdown (show/sort)
+      [dropdown]: option, 
     }));
     params.setOpenDropdown(null);
 
-    // Pass the selected show option to the parent component
     if (dropdown === "show") {
       handleShowChange(option);
     }

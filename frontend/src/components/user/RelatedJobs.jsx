@@ -26,7 +26,7 @@ export default function RelatedJobs({ id }) {
   useEffect(() => {
     fetchJobs();
   }, [id]); 
-  
+
   return (
     <div className="mx-auto p-4 max-w-[85rem] container">
       <h2 className="mt-8 mb-2 ml-3 font-bold text-4xl text-gray-900">Related Jobs</h2>
@@ -67,9 +67,6 @@ export default function RelatedJobs({ id }) {
                       </p>
                     </div>
                   </div>
-                  <a className="bookmark-job" href="#!">
-                    <FaRegBookmark className="text-gray-800" />
-                  </a>
                 </div>
               </div>
               <div className="px-6 py-4">
