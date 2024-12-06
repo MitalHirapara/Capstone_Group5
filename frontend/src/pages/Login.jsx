@@ -9,6 +9,7 @@ function Login() {
     });
 
     const [errors, setErrors] = useState({});
+    const [message, setMessage] = useState('');
     const navigate = useNavigate();
 
     const handleInputChange = (e) => {
@@ -41,28 +42,19 @@ function Login() {
         return Object.keys(newErrors).length === 0; // Return true if no errors
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validateForm()) return;
-
-        axios
-            .post("http://localhost:8000/api/token/", formData)
-            .then((response) => {
-                console.log(response.data);
-                // Assuming a successful login returns a token
-                if (response.data.access) {
-                    localStorage.setItem("token", response.data.access); // Store token
-                    alert("Login successful! Redirecting to home...");
-                    navigate("/"); // Redirect to home page after successful login
-                } else {
-                    console.error("Login failed");
-                }
-            })
-            .catch((error) => {
-                console.error(error);
-                alert("Login failed. Please check your credentials."); // Alert the user about the login failure
-            });
-    };
+        try {
+          const response = await axios.post('http://localhost:8000/user/login/', formData);
+          localStorage.setItem('access_token', response.data.access);
+          localStorage.setItem('refresh_token', response.data.refresh);
+          navigate(response.data.redirect_url); 
+          setMessage('Login successful!');
+        } catch (error) {
+          setMessage('Error: ' + error.response.data.error);
+        }
+      };
 
     return (
         <div>
@@ -226,6 +218,7 @@ function Login() {
                                         >
                                             Back
                                         </a>
+                                        {message && <p>{message}</p>}
                                     </form>
                                 </div>
                                 <div className="hidden md:block md:absolute md:top-0 md:start-1/2 md:end-0 h-full bg-[url('../public/login.svg')] bg-no-repeat bg-center bg-cover bg-[length:70%] md:bg-[length:80%]"></div>

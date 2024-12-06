@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function Signup() {
+function EmployerRegistration() {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -25,7 +25,8 @@ function Signup() {
     const newErrors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email validation regex
     const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/; // Username must be 3-20 characters long, alphanumeric with underscores
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/; // Password must be at least 8 characters long, with at least one letter, one number, and one special character.
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/; // Password must be at least 8 characters long, with at least one letter, one number, and one special character.
 
     if (!formData.username) {
       newErrors.username = "Username is required.";
@@ -63,12 +64,14 @@ function Signup() {
     if (validateForm()) {
       console.log(formData);
       axios
-        .post("http://localhost:8000/user/register/", formData)
+        .post("http://localhost:8000/user/register/employer/", formData)
         .then((response) => {
-          setMessage("User registered successfully!");
+          setMessage("Employer registered successfully!");
           setTimeout(() => {
             navigate("/login");
-            alert("User Registered Successfully!!Check your email! Try to activate your account !!");
+            alert(
+              "Company Registered Successfully!!Check your email! Try to activate your account !!"
+            );
           }, 2000);
         })
         .catch((error) => {
@@ -83,10 +86,10 @@ function Signup() {
   return (
     <div>
       <div className="relative bg-gradient-to-bl from-blue-100 via-transparent dark:from-blue-950 dark:via-transparent">
-        <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+        <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto mt-0">
           <div className="grid items-center md:grid-cols-2 gap-8 lg:gap-12">
             <div>
-            <div className="hidden md:block md:absolute md:top-0 md:start-0 md:end-1/2 h-full bg-[url('../public/UserSignup.svg')] bg-no-repeat bg-center bg-cover bg-[length:70%] md:bg-[length:80%]"></div>
+              <div className="hidden md:block md:absolute md:top-0 md:start-0 md:end-1/2 h-full bg-[url('../public/Employersignup.svg')] bg-no-repeat bg-center bg-cover bg-[length:70%] md:bg-[length:80%]"></div>
             </div>
             <div>
               <form onSubmit={handleSubmit}>
@@ -94,7 +97,7 @@ function Signup() {
                   <div className="p-4 sm:p-7 flex flex-col bg-white rounded-2xl shadow-lg dark:bg-neutral-900">
                     <div className="text-center">
                       <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
-                        Start your free trial
+                        Start your Free Employer Trial
                       </h1>
                       <p className="mt-2 text-sm text-gray-600 dark:text-neutral-400">
                         Already have an account?
@@ -172,7 +175,7 @@ function Signup() {
                               htmlFor="hs-hero-signup-form-floating-input-username"
                               className="block text-sm mb-2 text-gray-900 dark:text-white"
                             >
-                              Username
+                              Company Name
                             </label>
                             <input
                               type="text"
@@ -288,4 +291,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default EmployerRegistration;
