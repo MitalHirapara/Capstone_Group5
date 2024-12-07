@@ -161,9 +161,9 @@ SITE_ID = 1  # Required for django-allauth
 # Emailing settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_FROM = 'careertrail123@gmail.com'
-EMAIL_HOST_USER = 'careertrail123@gmail.com'
-EMAIL_HOST_PASSWORD = 'uwkbrpvjvxoqcqno'
+EMAIL_FROM = os.getenv('EMAIL_FROM')
+EMAIL_HOST_USER = os.getenv('EMAIL_FROM')
+EMAIL_HOST_PASSWORD = os.getenv('SMTP_KEY')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
