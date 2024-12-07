@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import enhance_work_experience
+# from .views import generate_pdf, enhance_work_experience
 
 urlpatterns = [
-    path('api/enhance-work-experience/', enhance_work_experience, name='enhance_work_experience'),
+    # path('resume/generate-pdf', generate_pdf, name='generate_pdf'),
+    # path('api/enhance-work-experience/', enhance_work_experience, name='enhance_work_experience')
 ]

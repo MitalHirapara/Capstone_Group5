@@ -9,9 +9,11 @@ import ForgotPassword from "./pages/ForgotPassword";
 import EmployerProfile from "./components/employer/EmployerProfile";
 import EmployerDashboard from "./pages/EmployerDashboard";
 import CreateJobPost from "./components/employer/CreateJob";
+import EditJobPage from "./components/employer/EditJob";
 import ManageJobs from "./components/employer/ManageJobs";
 import UserLayout from "./layouts/UserLayout";
 import EmployerLayout from "./layouts/EmloyerLayout";
+import JobDetails from "./pages/JobDetail";
 import Jobs from "./pages/Jobs";
 import { Provider } from "react-redux";
 import store from "./store/store";
@@ -22,7 +24,6 @@ import ResumeBuilderSteps from "./pages/ResumeBuilderSteps";
 import Admin from "./components/admin/Admin";
 import AdminLayout from "./layouts/AdminLayout";
 import Users from "./components/admin/Users";
-
 import ApplyJobPage from "./pages/ApplyJobPage";
 import EmployerRegistration from "./pages/EmployerRegistration";
 

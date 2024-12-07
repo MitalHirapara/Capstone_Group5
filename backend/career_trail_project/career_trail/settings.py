@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'job',
     'resume',
+    'application',
     'common'
 ]
 
@@ -79,6 +80,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
+    
 }
 
 MIDDLEWARE = [
@@ -185,3 +187,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'auth.User'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
