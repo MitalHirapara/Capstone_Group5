@@ -32,6 +32,8 @@ SECRET_KEY = 'django-insecure-uet_u-p1@0cus_e!_40=^_hw1q38-xlasu(%sxe9_(*og76nwa
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# Frontend URL
+FRONTEND_URL = 'http://localhost:5173'
 
 # CORS configuration
 CORS_ALLOWED_ORIGINS = [
@@ -157,8 +159,17 @@ SOCIALACCOUNT_PROVIDERS = {
 
 SITE_ID = 1  # Required for django-allauth
 
-# Email backend for password reset
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # For development
+
+# Emailing settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_FROM = os.getenv('EMAIL_FROM')
+EMAIL_HOST_USER = os.getenv('EMAIL_FROM')
+EMAIL_HOST_PASSWORD = os.getenv('SMTP_KEY')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+PASSWORD_RESET_TIMEOUT = 14400
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
