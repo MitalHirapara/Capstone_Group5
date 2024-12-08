@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-uet_u-p1@0cus_e!_40=^_hw1q38-xlasu(%sxe9_(*og76nwa
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ 'https://career-trail.onrender.com/' ]
+ALLOWED_HOSTS = [ 'career-trail.onrender.com' ]
 # Frontend URL
 FRONTEND_URL = 'http://localhost:5173'
 
