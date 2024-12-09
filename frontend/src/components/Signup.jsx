@@ -63,12 +63,16 @@ function Signup() {
     if (validateForm()) {
       console.log(formData);
       axios
+
         .post("http://localhost:8000/user/register/", formData)
+
         .then((response) => {
           setMessage("User registered successfully!");
           setTimeout(() => {
             navigate("/login");
+
             alert("User Registered Successfully!!Check your email! Try to activate your account !!");
+
           }, 2000);
         })
         .catch((error) => {
@@ -82,24 +86,26 @@ function Signup() {
 
   return (
     <div>
-      <div className="relative bg-gradient-to-bl from-blue-100 via-transparent dark:from-blue-950 dark:via-transparent">
-        <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-          <div className="grid items-center md:grid-cols-2 gap-8 lg:gap-12">
+      <div className="relative bg-gradient-to-bl from-blue-100 dark:from-blue-950 via-transparent dark:via-transparent">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14 max-w-[85rem]">
+          <div className="items-center gap-8 lg:gap-12 grid md:grid-cols-2">
             <div>
-            <div className="hidden md:block md:absolute md:top-0 md:start-0 md:end-1/2 h-full bg-[url('../public/UserSignup.svg')] bg-no-repeat bg-center bg-cover bg-[length:70%] md:bg-[length:80%]"></div>
+
+            <div className="md:block md:top-0 md:absolute hidden bg-[url('../public/UserSignup.svg')] bg-[length:70%] md:bg-[length:80%] bg-cover bg-no-repeat bg-center h-full md:start-0 md:end-1/2"></div>
+
             </div>
             <div>
               <form onSubmit={handleSubmit}>
-                <div className="lg:max-w-lg lg:mx-auto lg:me-0 ms-auto">
-                  <div className="p-4 sm:p-7 flex flex-col bg-white rounded-2xl shadow-lg dark:bg-neutral-900">
+                <div className="lg:mx-auto lg:max-w-lg lg:me-0 ms-auto">
+                  <div className="flex flex-col bg-white dark:bg-neutral-900 shadow-lg p-4 sm:p-7 rounded-2xl">
                     <div className="text-center">
-                      <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
+                      <h1 className="block font-bold text-2xl text-gray-800 dark:text-white">
                         Start your free trial
                       </h1>
-                      <p className="mt-2 text-sm text-gray-600 dark:text-neutral-400">
+                      <p className="mt-2 text-gray-600 text-sm dark:text-neutral-400">
                         Already have an account?
                         <a
-                          className="text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
+                          className="font-medium text-blue-600 dark:text-blue-500 hover:underline focus:underline decoration-2 focus:outline-none"
                           href="/login"
                         >
                           Sign in here
@@ -110,7 +116,7 @@ function Signup() {
                     <div className="mt-5">
                       <button
                         type="button"
-                        className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+                        className="inline-flex justify-center items-center gap-x-2 border-gray-200 dark:border-neutral-700 bg-white hover:bg-gray-50 dark:hover:bg-neutral-800 focus:bg-gray-50 dark:focus:bg-neutral-800 dark:bg-neutral-900 disabled:opacity-50 shadow-sm px-4 py-3 border rounded-lg w-full font-medium text-gray-800 text-sm dark:text-white disabled:pointer-events-none focus:outline-none"
                       >
                         <svg
                           className="w-4 h-auto"
@@ -139,22 +145,22 @@ function Signup() {
                         Sign up with Google
                       </button>
 
-                      <div className="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-1 before:border-t before:border-gray-200 before:me-6 after:flex-1 after:border-t after:border-gray-200 after:ms-6 dark:text-neutral-500 dark:before:border-neutral-700 dark:after:border-neutral-700">
+                      <div className="flex before:flex-1 after:flex-1 items-center before:border-gray-200 dark:before:border-neutral-700 after:border-gray-200 dark:after:border-neutral-700 py-3 before:border-t after:border-t text-gray-400 text-xs dark:text-neutral-500 uppercase before:me-6 after:ms-6">
                         Or
                       </div>
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="gap-4 grid grid-cols-2">
                         <div className="relative col-span-full">
                           <div className="relative">
                             <label
                               htmlFor="hs-hero-signup-form-floating-input-email"
-                              className="block text-sm mb-2 text-gray-900 dark:text-white"
+                              className="block mb-2 text-gray-900 text-sm dark:text-white"
                             >
                               Email
                             </label>
                             <input
                               type="email"
                               id="hs-hero-signup-form-floating-input-email"
-                              className="text-gray-800 w-full px-4 py-2 border rounded-lg border-gray-300"
+                              className="border-gray-300 px-4 py-2 border rounded-lg w-full text-gray-800"
                               placeholder="you@email.com"
                               onChange={handleChange}
                               name="email"
@@ -170,7 +176,7 @@ function Signup() {
                           <div className="relative">
                             <label
                               htmlFor="hs-hero-signup-form-floating-input-username"
-                              className="block text-sm mb-2 text-gray-900 dark:text-white"
+                              className="block mb-2 text-gray-900 text-sm dark:text-white"
                             >
                               Username
                             </label>
@@ -178,7 +184,7 @@ function Signup() {
                               type="text"
                               onChange={handleChange}
                               id="hs-hero-signup-form-floating-input-username"
-                              className="text-gray-800 w-full px-4 py-2 border rounded-lg border-gray-300"
+                              className="border-gray-300 px-4 py-2 border rounded-lg w-full text-gray-800"
                               placeholder="Username"
                               name="username"
                             />
@@ -194,7 +200,7 @@ function Signup() {
                           <div className="relative">
                             <label
                               htmlFor="hs-hero-signup-form-floating-input-new-password"
-                              className="block text-sm mb-2 text-gray-900 dark:text-white"
+                              className="block mb-2 text-gray-900 text-sm dark:text-white"
                             >
                               Password
                             </label>
@@ -202,7 +208,7 @@ function Signup() {
                               type="password"
                               onChange={handleChange}
                               id="hs-hero-signup-form-floating-input-new-password"
-                              className="text-gray-800 w-full px-4 py-2 border rounded-lg border-gray-300"
+                              className="border-gray-300 px-4 py-2 border rounded-lg w-full text-gray-800"
                               placeholder="********"
                               name="password"
                             />
@@ -217,7 +223,7 @@ function Signup() {
                           <div className="relative">
                             <label
                               htmlFor="hs-hero-signup-form-floating-input-current-password"
-                              className="block text-sm mb-2 text-gray-900 dark:text-white"
+                              className="block mb-2 text-gray-900 text-sm dark:text-white"
                             >
                               Confirm Password
                             </label>
@@ -225,7 +231,7 @@ function Signup() {
                               type="password"
                               onChange={handleChange}
                               id="hs-hero-signup-form-floating-input-current-password"
-                              className="text-gray-800 w-full px-4 py-2 border rounded-lg border-gray-300"
+                              className="border-gray-300 px-4 py-2 border rounded-lg w-full text-gray-800"
                               placeholder="********"
                               name="password2"
                             />
@@ -237,23 +243,23 @@ function Signup() {
                           </div>
                         </div>
                       </div>
-                      <div className="mt-5 flex items-center">
+                      <div className="flex items-center mt-5">
                         <div className="flex">
                           <input
                             id="remember-me"
                             name="remember-me"
                             type="checkbox"
-                            className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                            className="border-gray-200 dark:border-neutral-700 dark:bg-neutral-900 dark:checked:bg-blue-500 mt-0.5 dark:checked:border-blue-500 rounded focus:ring-blue-500 dark:focus:ring-offset-gray-800 text-blue-600 shrink-0"
                           />
                         </div>
                         <div className="ms-3">
                           <label
                             htmlFor="remember-me"
-                            className="text-sm dark:text-white text-gray-900"
+                            className="text-gray-900 text-sm dark:text-white"
                           >
                             I accept the{" "}
                             <a
-                              className="text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
+                              className="font-medium text-blue-600 dark:text-blue-500 hover:underline focus:underline decoration-2 focus:outline-none"
                               href="#"
                             >
                               Terms and Conditions
@@ -264,14 +270,14 @@ function Signup() {
                       <div className="mt-5">
                         <button
                           type="submit"
-                          className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                          className="inline-flex justify-center items-center gap-x-2 bg-blue-600 hover:bg-blue-700 focus:bg-blue-700 disabled:opacity-50 px-4 py-3 border border-transparent rounded-lg w-full font-medium text-sm text-white disabled:pointer-events-none focus:outline-none"
                         >
                           Sign Up
                         </button>
                       </div>
                     </div>
                     <a
-                      className="mt-3 text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
+                      className="mt-3 font-medium text-blue-600 dark:text-blue-500 hover:underline focus:underline decoration-2 focus:outline-none"
                       href="/"
                     >
                       Back

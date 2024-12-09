@@ -1,27 +1,37 @@
-import React from 'react'
-import { FaMapMarkerAlt, FaClock, FaBriefcase, FaBookmark, FaRegBookmark } from "react-icons/fa";
 
-const JobHeader = () => {
+import React from 'react';
+import { FaMapMarkerAlt, FaClock, FaBriefcase, FaBookmark, FaRegBookmark } from "react-icons/fa";
+import { formatTimeAgo } from "../../lib/dateTimeConvert";
+
+const JobHeader = ({ job }) => {
+    if (!job) {
+        return <div>Loading...</div>; // Handle the case when job data is not yet available
+    }
+    console.log(job);
+
     return (
         <>
-        <div className="bg-white p-6 rounded-lg flex flex-col justify-between ">
-            <div className='flex justify-between'>
-                <h1 className="text-3xl text-gray-950 font-bold mb-2">UI / UX Designer fulltime</h1>
-                <a
-                    className="inline-flex justify-center items-center gap-x-3 text-center bg-blue-600 from-blue-600 to-violet-600 hover:from-violet-600 hover:to-blue-600 border border-transparent text-white text-sm font-medium rounded-md focus:outline-none focus:from-violet-600 focus:to-blue-600 py-3 px-4"
-                    href="#"
-                >Apply Now
-                </a>
+            <div className="flex flex-col justify-between bg-white p-6 rounded-lg">
+                <div className="flex justify-between">
+                    <h1 className="mb-2 font-bold text-3xl text-gray-950">{job.title}</h1>
+                    <a
+                        className="inline-flex justify-center items-center gap-x-3 bg-blue-600 from-blue-600 hover:from-violet-600 focus:from-violet-600 to-violet-600 hover:to-blue-600 focus:to-blue-600 px-4 py-3 border border-transparent rounded-md font-medium text-center text-sm text-white focus:outline-none"
+                        href={job.applyUrl || "#"}
+                    >
+                        Apply Now
+                    </a>
+                </div>
+                <div className="flex items-center space-x-2 mb-2 text-gray-500 text-sm">
+                    <span className="flex items-center uppercase job-type"><FaBriefcase className="mr-1 job-type" />  {job.job_type || "N/A"}</span>
+                    <span className="flex items-center job-time"><FaClock className="mr-1 job-time" /> {job.posted_at
+                        ? formatTimeAgo(job.posted_at)
+                        : "N/A"}</span>
+                </div>
             </div>
-            <div className="flex items-center space-x-2 text-sm text-gray-500 mb-2">
-                <span className="job-type flex  items-center"><FaBriefcase className="job-type mr-1" /> Full Time {/* Job type icon */}</span>
-                <span className="job-time flex items-center"><FaClock className="job-time mr-1" /> 4 minutes ago{/* Posted time icon */}</span>
+            <div className="mb-10 job-det-border"></div>
+            <div className="job-header-img">
+                <img src='/job-header.png' alt="Job Header" />
             </div>
-        </div>
-        <div className='job-det-border mb-10'></div>
-        <div className='job-header-img'>
-            <img src='/job-header.png' />
-        </div>
         </>
     );
 };

@@ -3,11 +3,13 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Job, Employer
 from common.models import Location, Skill, Certificate, Industry
-from .serializers import JobSerializer, EmployerSerializer, LocationSerializer
-from django.http import HttpResponse
+from .serializers import JobSerializer, EmployerSerializer, LocationSerializer, IndustrySerializer
 
-def home(request):
-    return HttpResponse("Welcome to the Job Portal!")
+@api_view(['GET'])
+def get_industries(request):
+    industries = Industry.objects.all()
+    serializer = IndustrySerializer(industries, many=True)
+    return Response(serializer.data)
 
 @api_view(['GET'])
 def get_locations(request):

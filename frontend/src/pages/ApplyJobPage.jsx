@@ -105,20 +105,20 @@ const ApplyJobPage = () => {
     const progressPercent = (currentStep / 4) * 100;
 
     return (
-        <div className="container mx-auto p-6">
+        <div className="mx-auto p-6 container">
             <div className="mb-8">
                 <div className="relative pt-1">
                     <div className="flex justify-between items-center mb-2">
-                        <span className="text-gray-600 text-sm font-medium">
+                        <span className="font-medium text-gray-600 text-sm">
                             Step {currentStep} of 4
                         </span>
-                        <span className="text-gray-600 text-sm font-medium">
+                        <span className="font-medium text-gray-600 text-sm">
                             {Math.round(progressPercent)}% Completed
                         </span>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className="bg-gray-200 rounded-full w-full h-2">
                         <div
-                            className="bg-blue-500 h-2 rounded-full"
+                            className="bg-blue-500 rounded-full h-2"
                             style={{ width: `${progressPercent}%` }}
                         ></div>
                     </div>
@@ -126,27 +126,27 @@ const ApplyJobPage = () => {
             </div>
 
             {isSubmitted ? (
-                <div className="text-center text-green-600 text-xl font-semibold">
+                <div className="font-semibold text-center text-green-600 text-xl">
                     Your application has been submitted successfully!
                     <div className="mt-4">
                         <button
                             onClick={() => navigate("/")} // Navigate to home page
-                            className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600"
+                            className="bg-blue-500 hover:bg-blue-600 px-6 py-3 rounded-md text-white"
                         >
                             Explore More Jobs
                         </button>
                     </div>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="gap-8 grid grid-cols-1 md:grid-cols-2">
                     <div className="space-y-8">
-                        <h2 className="text-3xl font-bold text-slate-950 mb-6">
+                        <h2 className="mb-6 font-bold text-3xl text-slate-950">
                             Apply for Job
                         </h2>
 
                         {currentStep === 1 && (
                             <div>
-                                <h3 className="text-xl text-gray-800 font-semibold mb-4">
+                                <h3 className="mb-4 font-semibold text-gray-800 text-xl">
                                     Step 1: Upload Resume
                                 </h3>
                                 <input
@@ -155,11 +155,11 @@ const ApplyJobPage = () => {
                                     onChange={(e) =>
                                         setResume(e.target.files[0])
                                     }
-                                    className="block w-full border rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="block p-3 border rounded-md focus:ring-2 focus:ring-blue-500 w-full focus:outline-none"
                                 />
                                 <button
                                     onClick={handleNextStep}
-                                    className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                                    className="bg-blue-500 hover:bg-blue-600 mt-4 px-4 py-2 rounded-md text-white"
                                 >
                                     Next
                                 </button>
@@ -168,13 +168,13 @@ const ApplyJobPage = () => {
 
                         {currentStep === 2 && (
                             <div>
-                                <h3 className="text-xl font-semibold text-slate-950 mb-4">
+                                <h3 className="mb-4 font-semibold text-slate-950 text-xl">
                                     Step 2: Answer Questions
                                 </h3>
                                 <div className="space-y-4 text-slate-950">
                                     {questions.map((question) => (
                                         <div key={question.id}>
-                                            <label className="block font-medium mb-2">
+                                            <label className="block mb-2 font-medium">
                                                 {question.question_text}
                                             </label>
                                             <input
@@ -184,7 +184,7 @@ const ApplyJobPage = () => {
                                                     answers[question.id] || ""
                                                 }
                                                 onChange={handleInputChange}
-                                                className="block w-full border rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                className="block p-3 border rounded-md focus:ring-2 focus:ring-blue-500 w-full focus:outline-none"
                                             />
                                         </div>
                                     ))}
@@ -192,13 +192,13 @@ const ApplyJobPage = () => {
                                 <div className="flex justify-between mt-4">
                                     <button
                                         onClick={handlePrevStep}
-                                        className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+                                        className="bg-gray-500 hover:bg-gray-600 px-4 py-2 rounded-md text-white"
                                     >
                                         Previous
                                     </button>
                                     <button
                                         onClick={handleNextStep}
-                                        className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                                        className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-md text-white"
                                     >
                                         Next
                                     </button>
@@ -208,7 +208,7 @@ const ApplyJobPage = () => {
 
                         {currentStep === 3 && (
                             <div>
-                                <h3 className="text-xl text-slate-950 font-semibold mb-4">
+                                <h3 className="mb-4 font-semibold text-slate-950 text-xl">
                                     Step 3: Upload Cover Letter
                                 </h3>
                                 <input
@@ -217,18 +217,18 @@ const ApplyJobPage = () => {
                                     onChange={(e) =>
                                         setCoverLetter(e.target.files[0])
                                     }
-                                    className="block w-full border rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="block p-3 border rounded-md focus:ring-2 focus:ring-blue-500 w-full focus:outline-none"
                                 />
                                 <div className="flex justify-between mt-4">
                                     <button
                                         onClick={handlePrevStep}
-                                        className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+                                        className="bg-gray-500 hover:bg-gray-600 px-4 py-2 rounded-md text-white"
                                     >
                                         Previous
                                     </button>
                                     <button
                                         onClick={handleNextStep}
-                                        className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                                        className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-md text-white"
                                     >
                                         Next
                                     </button>
@@ -238,12 +238,12 @@ const ApplyJobPage = () => {
 
                         {currentStep === 4 && (
                             <div>
-                                <h3 className="text-xl text-slate-950 font-semibold mb-4">
+                                <h3 className="mb-4 font-semibold text-slate-950 text-xl">
                                     Step 4: Review Your Application
                                 </h3>
                                 <div className="space-y-6">
                                     <div>
-                                        <h4 className="text-lg font-bold text-gray-800">
+                                        <h4 className="font-bold text-gray-800 text-lg">
                                             Resume
                                         </h4>
                                         {resume ? (
@@ -257,7 +257,7 @@ const ApplyJobPage = () => {
                                         )}
                                     </div>
                                     <div>
-                                        <h4 className="text-lg font-bold text-gray-800">
+                                        <h4 className="font-bold text-gray-800 text-lg">
                                             Cover Letter
                                         </h4>
                                         {coverLetter ? (
@@ -271,7 +271,7 @@ const ApplyJobPage = () => {
                                         )}
                                     </div>
                                     <div>
-                                        <h4 className="text-lg font-bold text-gray-800">
+                                        <h4 className="font-bold text-gray-800 text-lg">
                                             Answers to Questions
                                         </h4>
                                         <ul className="space-y-2 text-gray-800">
@@ -291,13 +291,13 @@ const ApplyJobPage = () => {
                                 <div className="flex justify-between mt-8">
                                     <button
                                         onClick={handlePrevStep}
-                                        className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+                                        className="bg-gray-500 hover:bg-gray-600 px-4 py-2 rounded-md text-white"
                                     >
                                         Previous
                                     </button>
                                     <button
                                         onClick={handleSubmit}
-                                        className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+                                        className="bg-green-500 hover:bg-green-600 px-4 py-2 rounded-md text-white"
                                     >
                                         Submit Application
                                     </button>
@@ -307,10 +307,10 @@ const ApplyJobPage = () => {
                     </div>
 
                     <div className="space-y-6">
-                        <h2 className="text-2xl font-bold text-slate-950 mb-4">
+                        <h2 className="mb-4 font-bold text-2xl text-slate-950">
                             Job Description
                         </h2>
-                        <div className="bg-white border text-gray-800 rounded-md p-6 shadow-lg">
+                        <div className="bg-white shadow-lg p-6 border rounded-md text-gray-800">
                             <p
                                 dangerouslySetInnerHTML={{
                                     __html: jobDescription,

@@ -4,7 +4,11 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./components/Signup";
 import UserProfile from "./components/user/UserProfile";
+
+import VerifyEmail from "./components/user/VerifyEmail";
+
 import Activate from "./components/user/Activate";
+
 import ForgotPassword from "./pages/ForgotPassword";
 import EmployerProfile from "./components/employer/EmployerProfile";
 import EmployerDashboard from "./pages/EmployerDashboard";
@@ -25,6 +29,7 @@ import Admin from "./components/admin/Admin";
 import AdminLayout from "./layouts/AdminLayout";
 import Users from "./components/admin/Users";
 import ApplyJobPage from "./pages/ApplyJobPage";
+
 import EmployerRegistration from "./pages/EmployerRegistration";
 
 export default function App() {
@@ -65,4 +70,5 @@ export default function App() {
       </Routes>
     </Provider>
   );
+
 }
