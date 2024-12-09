@@ -36,6 +36,7 @@ FRONTEND_URL = 'http://localhost:5173'
 
 # CORS configuration
 CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5174',
     'http://localhost:5173',  # URL of your React app
     'http://127.0.0.1:5173',  # Handle both localhost and 127.0.0.1
     'https://career-trail.onrender.com'

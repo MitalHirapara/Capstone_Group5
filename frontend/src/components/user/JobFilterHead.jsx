@@ -74,7 +74,7 @@ export default function JobFilterHead({ params }) {
                     </div> */}
                 </div>
                 {/* Filter Options */}
-                <div className="flex md:flex-row flex-col justify-center items-center md:space-x-4 space-y-4 md:space-y-0 mx-auto mt-4 max-w-[60rem]">
+                <div className="flex md:flex-row justify-center items-center md:space-x-4 md:space-y-0 mx-auto mt-4 max-w-[60rem] job-sorting-option">
                     <div className="relative">
                         <div className="flex items-center border-gray-300 px-4 py-2 border rounded-lg focus:ring-1 focus:ring-zinc-700 focus:outline-none">
                             <select className='bg-transparent border-none text-gray-600 outline-none'

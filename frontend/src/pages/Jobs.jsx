@@ -48,13 +48,13 @@ export default function Jobs() {
   useEffect(() => {
     const now = new Date();
     let calculatedStartDate = null;
-    
+
     if (queryPostedTime === "now") {
-      calculatedStartDate = now; 
-    }else if (queryPostedTime === "now") {
+      calculatedStartDate = now;
+    } else if (queryPostedTime === "now") {
       calculatedStartDate = "";
     }
-     else if (queryPostedTime === "last24hours") {
+    else if (queryPostedTime === "last24hours") {
       calculatedStartDate = new Date(now.getTime() - 24 * 60 * 60 * 1000); // Last 24 hours
     } else if (queryPostedTime === "lastWeek") {
       calculatedStartDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000); // Last 7 days
@@ -67,19 +67,20 @@ export default function Jobs() {
       lastThreeMonths.setMonth(now.getMonth() - 3);
       calculatedStartDate = lastThreeMonths; // Last 3 months
     }
-    
+
     // Convert to ISO string with date and time
     const formattedDate = calculatedStartDate
       ? calculatedStartDate.toISOString() // Full ISO format (YYYY-MM-DDTHH:mm:ss.sssZ)
       : null;
-    
+
     console.log("calculatedStartDate with time:", formattedDate);
     setStartDate(formattedDate);
-     
+
   }, [queryPostedTime]);
-  
+
 
   useEffect(() => {
+    
     let filtered = jobs.filter((job) => {
       return (
         (queryIndustry === "" || job.industry.id == queryIndustry) &&
@@ -91,23 +92,18 @@ export default function Jobs() {
       );
     });
 
-console.log("querySort", querySort);
-    // Sorting based on selected sort option
-    if (querySort === "Ascending") {
-      filtered = filtered.sort((a, b) => a.title.localeCompare(b.title)); // Ascending order based on job title
-    } else if (querySort === "Descending") {
-      filtered = filtered.sort((a, b) => b.title.localeCompare(a.title)); // Descending order based on job title
-    } else if (querySort === "Default") {
-      filtered = filtered.sort((a, b) => new Date(b.posted_at) - new Date(a.posted_at)); // Sort by latest posted time
-    }
-    
-    filtered = filtered.sort((a, b) => 
-      new Date(b.posted_at || 0) - new Date(a.posted_at || 0)
-  );
-  setFilteredJobs(filtered);
 
-    console.log("Filtered jobs before sorting:", filtered);
-console.log("QuerySort:", querySort);
+    if (querySort === "Ascending") {
+      filtered = filtered.sort((a, b) => a.title.localeCompare(b.title)); // Ascending by title
+    } else if (querySort === "Descending") {
+      console.log("Sorting in descending order");
+      filtered = filtered.sort((a, b) => b.title.localeCompare(a.title)); // Descending by title
+    } else if (querySort === "Default") {
+      filtered = filtered.sort((a, b) => new Date(b.posted_at) - new Date(a.posted_at)); // Latest posted time
+    }
+
+    setFilteredJobs(filtered);
+
   }, [queryIndustry, queryLocation, queryJobTitle, queryJobType, queryExperienceLevels, queryPostedTime, querySort, jobs, startDate]);
 
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -131,7 +127,7 @@ console.log("QuerySort:", querySort);
     setOpenDropdown(null);
 
     if (dropdown === "sort") {
-      setQuerySort(option); 
+      setQuerySort(option);
     }
   };
 
@@ -139,8 +135,8 @@ console.log("QuerySort:", querySort);
   const jobsToShow = Math.min(totalJobs, parseInt(selectedOptions.show, 10));
 
   const displayedJobs = filteredJobs
-  .sort((a, b) => b.id - a.id) 
-  .slice(0, jobsToShow); 
+    .sort((a, b) => b.id - a.id)
+    .slice(0, jobsToShow);
 
   return (
     <>

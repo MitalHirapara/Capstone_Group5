@@ -36,7 +36,7 @@ const JobDetail = () => {
     return (
         <>
             <div className='mx-auto mt-10 mb-6 max-w-[85rem]'>
-                <div className="flex md:flex-row flex-col">
+                <div className="flex flex-row jobdetail-component">
                     {/* Left Column */}
                     <div className="box-border-single w-full md:w-3/4">
                         <JobHeader job={job} />
