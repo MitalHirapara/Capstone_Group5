@@ -12,7 +12,7 @@ export default function Header() {
               href="#"
               aria-label="Preline"
             >
-              <img src="./public/logo.png" alt="Logo" />
+              <img src="/logo.png" alt="Logo" />
             </a>
           </div>
           <div className="w-full flex items-center justify-end ms-auto md:justify-between gap-x-1 md:gap-x-3">
