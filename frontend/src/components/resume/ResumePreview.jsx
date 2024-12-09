@@ -5,7 +5,6 @@ import {
     selectEducation,
     selectExperience,
     selectSkills,
-    selectCertifications,
 } from "../../store/resume/resumeSlice";
 
 // Import all resume templates
@@ -22,7 +21,6 @@ const ResumePreview = ({ templateId }) => {
     const education = useSelector(selectEducation);
     const experience = useSelector(selectExperience);
     const skills = useSelector(selectSkills);
-    const certifications = useSelector(selectCertifications);
 
     // Choose the template based on templateId
     const renderTemplate = () => {
@@ -36,7 +34,6 @@ const ResumePreview = ({ templateId }) => {
                         education={education}
                         experience={experience}
                         skills={skills}
-                        certifications={certifications}
                     />
                 </React.Suspense>
             );
@@ -45,7 +42,11 @@ const ResumePreview = ({ templateId }) => {
         }
     };
 
-    return <div className="space-y-6">{renderTemplate()}</div>;
+    return (
+        <div className={`space-y-6 resume-${templateId}`}>
+            {renderTemplate()}
+        </div>
+    );
 };
 
 export default ResumePreview;
