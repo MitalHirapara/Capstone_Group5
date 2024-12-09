@@ -17,7 +17,7 @@ export default function RelatedJobs({ id }) {
 
       const filteredJobs = response.data.filter((job) => job.id != id);
       console.log(filteredJobs);
-      
+
       setJobs(filteredJobs.slice(0, 4));
     } catch (error) {
       console.error('Error fetching jobs:', error);
@@ -26,7 +26,7 @@ export default function RelatedJobs({ id }) {
 
   useEffect(() => {
     fetchJobs();
-  }, [id]); 
+  }, [id]);
 
   return (
     <div className="mx-auto p-4 max-w-[85rem] container">
@@ -36,7 +36,7 @@ export default function RelatedJobs({ id }) {
         {jobs.length > 0 ? (
           jobs.map((job) => (
             <Link
-              to={`/job/${job.id}`}
+              to={`/job/detail/${job.id}`}
               key={job.id}
               className="shadow hover:shadow-lg border rounded-lg transition overflow-hidden card"
             >
@@ -103,8 +103,8 @@ export default function RelatedJobs({ id }) {
                   {job.salary_range
                     ? `${job.salary_range}`
                     : job.min_salary && job.max_salary
-                    ? `$${job.min_salary} - $${job.max_salary}`
-                    : 'Negotiable'}
+                      ? `$${job.min_salary} - $${job.max_salary}`
+                      : 'Negotiable'}
                   {(job.salary_range || (job.min_salary && job.max_salary)) && (
                     <span className="font-normal text-gray-600 text-sm">/hr</span>
                   )}
