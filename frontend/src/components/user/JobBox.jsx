@@ -20,7 +20,7 @@ export default function JobBox({ jobs }) {
                 {jobs.length > 0 ? (
                     jobs.map((job) => (
                         <Link
-                            to={`/job/${job.id}`}
+                        to={`/job/detail/${job.id}`}
                             key={job.id}
 
                             className="shadow hover:shadow-lg border rounded-lg transition overflow-hidden card"

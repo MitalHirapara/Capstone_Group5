@@ -40,6 +40,7 @@ export default function App() {
         <Route element={<UserLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/jobs" element={<Jobs />} />
+          <Route path="/job/detail/:id" element={<JobDetails />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/user-profile" element={<UserProfile />} />
           <Route path="/resume-builder" element={<ResumeTemplates />} />

@@ -12,6 +12,7 @@ import PreviousJobs from '../components/user/PreviousJobs';
 const JobDetail = () => {
     
     const { id } = useParams(); 
+    
     const [job, setJob] = useState(null); 
     
     const fetchJobDetails = async () => {
