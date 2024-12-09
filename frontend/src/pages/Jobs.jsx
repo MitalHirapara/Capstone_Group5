@@ -23,7 +23,7 @@ export default function Jobs() {
 
   const fetchJobs = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/jobs/");
+      const response = await axios.get("http://127.0.0.1:8000/jobs/");
       setJobs(response.data);
       setFilteredJobs(response.data);
     } catch (error) {
@@ -33,7 +33,7 @@ export default function Jobs() {
 
   const fetchIndustries = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/job/industries/");
+      const response = await axios.get("http://127.0.0.1:8000/job/industries/");
       setIndustries(response.data);
     } catch (error) {
       console.error("Error fetching industries:", error);

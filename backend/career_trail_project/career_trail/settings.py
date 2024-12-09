@@ -18,8 +18,6 @@ import dj_database_url
 # Load environment variables from .env file
 load_dotenv()
 
-
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -32,7 +30,7 @@ SECRET_KEY = 'django-insecure-uet_u-p1@0cus_e!_40=^_hw1q38-xlasu(%sxe9_(*og76nwa
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ 'career-trail.onrender.com' ]
+ALLOWED_HOSTS = [ 'career-trail.onrender.com', '127.0.0.1' ]
 # Frontend URL
 FRONTEND_URL = 'http://localhost:5173'
 
@@ -40,7 +38,7 @@ FRONTEND_URL = 'http://localhost:5173'
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',  # URL of your React app
     'http://127.0.0.1:5173',  # Handle both localhost and 127.0.0.1
-    'https://career-trail.onrender.com/'
+    'https://career-trail.onrender.com'
 ]
 
 REST_FRAMEWORK = {
@@ -120,11 +118,15 @@ WSGI_APPLICATION = 'career_trail.wsgi.application'
 
 # Database
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL', 'postgres://user:password@localhost:5432/mydb')
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('NAME'),
+        'USER': os.getenv('USER'),
+        'PASSWORD': os.getenv('PASSWORD'),
+        'HOST': os.getenv('HOST'),
+        'PORT': os.getenv('PORT'),
+    }
 }
-
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
