@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Badge from "../user/Badge";
+
 import { FaMapMarkerAlt, FaClock, FaBriefcase, FaBookmark, FaRegBookmark, FaArrowRight, FaBullhorn } from "react-icons/fa";
 
 export default function PreviousJobs() {

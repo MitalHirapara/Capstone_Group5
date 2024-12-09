@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+import dj_database_url
 
 # Load environment variables from .env file
 load_dotenv()
@@ -31,12 +32,15 @@ SECRET_KEY = 'django-insecure-uet_u-p1@0cus_e!_40=^_hw1q38-xlasu(%sxe9_(*og76nwa
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ 'career-trail.onrender.com' ]
+# Frontend URL
+FRONTEND_URL = 'http://localhost:5173'
 
 # CORS configuration
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',  # URL of your React app
     'http://127.0.0.1:5173',  # Handle both localhost and 127.0.0.1
+    'https://career-trail.onrender.com/'
 ]
 
 REST_FRAMEWORK = {
@@ -116,14 +120,9 @@ WSGI_APPLICATION = 'career_trail.wsgi.application'
 
 # Database
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('NAME'),
-        'USER': os.getenv('USER'),
-        'PASSWORD': os.getenv('PASSWORD'),
-        'HOST': os.getenv('HOST'),
-        'PORT': os.getenv('PORT'),
-    }
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL', 'postgres://user:password@localhost:5432/mydb')
+    )
 }
 
 # Password validation
@@ -157,8 +156,17 @@ SOCIALACCOUNT_PROVIDERS = {
 
 SITE_ID = 1  # Required for django-allauth
 
-# Email backend for password reset
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # For development
+
+# Emailing settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_FROM = os.getenv('EMAIL_FROM')
+EMAIL_HOST_USER = os.getenv('EMAIL_FROM')
+EMAIL_HOST_PASSWORD = os.getenv('SMTP_KEY')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+PASSWORD_RESET_TIMEOUT = 14400
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
@@ -176,3 +184,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'auth.User'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+

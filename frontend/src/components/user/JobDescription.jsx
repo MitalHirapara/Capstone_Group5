@@ -51,13 +51,14 @@ const JobDescription = ({ job }) => {
             <hr className="border-gray-300 mb-6" />
             <div className='flex'>
                 <a
+
                     className="inline-flex justify-center items-center gap-x-3 bg-blue-600 from-blue-600 hover:from-violet-600 focus:from-violet-600 to-violet-600 hover:to-blue-600 focus:to-blue-600 px-4 py-3 border border-transparent rounded-md font-medium text-center text-sm text-white focus:outline-none"
                     href="#"
                 >Apply Now
                 </a>
                 {/* <button
                         type="button"
-                        className="inline-flex relative items-center gap-x-2 border-gray-200 bg-white hover:bg-gray-50 focus:bg-gray-50 disabled:opacity-50 shadow-sm ml-4 pt-2 pr-4 pb-2 pl-4 border rounded-lg font-mono text-gray-800 text-sm disabled:pointer-events-none group ps-3 focus:outline-none"
+                        className="inline-flex relative items-center gap-x-2 border-gray-200 bg-white hover:bg-gray-50 focus:bg-gray-50 disabled:opacity-50 shadow-sm ml-4 pt-2 pr-4 pb-2 pl-4 border rounded-lg font-mono text-gray-800 text-sm disabled:pointer-events-none focus:outline-none group ps-3"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

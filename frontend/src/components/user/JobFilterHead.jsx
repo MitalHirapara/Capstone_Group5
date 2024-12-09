@@ -22,6 +22,7 @@ export default function JobFilterHead({ params }) {
                         <span className="left-0 absolute inset-y-0 flex items-center pl-3">
                             <FaBuilding className="text-gray-700" />
                         </span>
+
                         <select
                             className="py-2 pl-10 w-full placeholder-gray-600"
                             value={params.queryIndustry}
@@ -33,6 +34,7 @@ export default function JobFilterHead({ params }) {
                                 <option key={industry.id} value={industry.id}>{industry.name}</option>
                             ))}
                         </select>
+
                     </div>
                     {/* Location Input */}
                     <div className="relative flex-1 border-gray-400 border-r text-gray-600">
@@ -74,17 +76,19 @@ export default function JobFilterHead({ params }) {
                 {/* Filter Options */}
                 <div className="flex md:flex-row flex-col justify-center items-center md:space-x-4 space-y-4 md:space-y-0 mx-auto mt-4 max-w-[60rem]">
                     <div className="relative">
-                        <div className="flex items-center border-gray-300 px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-zinc-700">
+                        <div className="flex items-center border-gray-300 px-4 py-2 border rounded-lg focus:ring-1 focus:ring-zinc-700 focus:outline-none">
                             <select className='bg-transparent border-none text-gray-600 outline-none'
                                 value={params.queryJobType}
                                 onChange={(e) => params.setQueryJobType(e.target.value)}
                             >
+
                                 <option value="">Job Type</option>
                                 <option value="fulltime">Full Time</option>
                                 <option value="parttime">Part Time</option>
                                 <option value="hybrid">Hybrid</option>
                                 <option value="contract">Contract</option>
                                 <option value="permanent">Permanent</option>
+
                                 <svg
                                     className="ml-2 w-5 h-5 text-zinc-700"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +107,8 @@ export default function JobFilterHead({ params }) {
                         </div>
                     </div>
                     <div className="relative">
-                        <button className="flex items-center border-gray-300 px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-zinc-700">
+                        <button className="flex items-center border-gray-300 px-4 py-2 border rounded-lg focus:ring-1 focus:ring-zinc-700 focus:outline-none">
+
                             <select
                                 className="bg-transparent ml-2 border-none text-gray-600 outline-none"
                                 value={params.queryPostedTime}
@@ -130,10 +135,12 @@ export default function JobFilterHead({ params }) {
                                     />
                                 </svg>
                             </select>
+
                         </button>
                     </div>
                     <div className="relative">
-                        <button className="flex items-center border-gray-300 px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-zinc-700">
+                        <button className="flex items-center border-gray-300 px-4 py-2 border rounded-lg focus:ring-1 focus:ring-zinc-700 focus:outline-none">
+
                             <select className='bg-transparent border-none text-gray-600 outline-none'
                                 value={params.queryExperienceLevels}
                                 onChange={(e) => params.setExperienceLevels(e.target.value)}
@@ -162,7 +169,7 @@ export default function JobFilterHead({ params }) {
                         </button>
                     </div>
                     {/* <div className="relative">
-                        <button className="flex items-center border-gray-300 px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-zinc-700">
+                        <button className="flex items-center border-gray-300 px-4 py-2 border rounded-lg focus:ring-1 focus:ring-zinc-700 focus:outline-none">
                             <span className='text-gray-600'>Pay</span>
                             <svg
                                 className="ml-2 w-5 h-5 text-zinc-700"
@@ -180,6 +187,7 @@ export default function JobFilterHead({ params }) {
                             </svg>
                         </button>
                     </div> */}
+
                 </div>
             </div>
         </div >

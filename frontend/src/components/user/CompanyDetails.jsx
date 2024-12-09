@@ -1,6 +1,7 @@
 import React from 'react'
 import { FaMapMarkerAlt, FaClock, FaBriefcase, FaBookmark, FaRegBookmark } from "react-icons/fa";
 
+
 const CompanyDetails = ({ job }) => {
 
     if (!job) {
@@ -35,7 +36,9 @@ const CompanyDetails = ({ job }) => {
                     </div>
                 </div>
 
+
                 <hr className="border-gray-300 mt-6 mb-6" />
+
 
                 <div className="mt-4">
                     <iframe
@@ -47,7 +50,9 @@ const CompanyDetails = ({ job }) => {
                         referrerpolicy="no-referrer-when-downgrade"
                     ></iframe>
 
+
                     <ul className="mt-4 mb-4 pl-5 font-normal text-gray-500 text-sm list-disc">
+
                         <li className='mt-8 mb-4'>205 North Michigan Avenue, Suite 810 Chicago, 60601, USA</li>
                         <li className='mt-4 mb-4'><strong>Phone: </strong>+1 (123) 456-7890</li>
                         <li className='mt-4 mb-4'><strong>Email: </strong>contact@ejara.com</li>

@@ -1,4 +1,6 @@
+
 import React from "react";
+
 import { Link } from "react-router-dom";
 import Badge from "../user/Badge";
 import {
@@ -7,17 +9,20 @@ import {
     FaBriefcase,
     FaRegBookmark,
 } from "react-icons/fa";
+
 import { formatTimeAgo } from "../../lib/dateTimeConvert";
 
 export default function JobBox({ jobs }) {
     return (
         <div className="mx-auto p-4 max-w-[85rem] container">
             <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+
                 {jobs.length > 0 ? (
                     jobs.map((job) => (
                         <Link
                             to={`/job/${job.id}`}
                             key={job.id}
+
                             className="shadow hover:shadow-lg border rounded-lg transition overflow-hidden card"
                         >
                             <div className="px-6 py-4 pb-0">
