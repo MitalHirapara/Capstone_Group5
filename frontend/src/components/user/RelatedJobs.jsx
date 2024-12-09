@@ -13,7 +13,7 @@ export default function RelatedJobs({ id }) {
 
   const fetchJobs = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/jobs/');
+      const response = await axios.get('http://127.0.0.1:8000/jobs/');
 
       const filteredJobs = response.data.filter((job) => job.id != id);
       console.log(filteredJobs);

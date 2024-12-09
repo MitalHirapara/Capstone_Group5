@@ -95,14 +95,19 @@ console.log("querySort", querySort);
     // Sorting based on selected sort option
     if (querySort === "Ascending") {
       filtered = filtered.sort((a, b) => a.title.localeCompare(b.title)); // Ascending order based on job title
-      console.log("filtered", filtered);
     } else if (querySort === "Descending") {
       filtered = filtered.sort((a, b) => b.title.localeCompare(a.title)); // Descending order based on job title
     } else if (querySort === "Default") {
-      filtered = filtered.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate)); // Sort by latest posted time
-    } 
+      filtered = filtered.sort((a, b) => new Date(b.posted_at) - new Date(a.posted_at)); // Sort by latest posted time
+    }
+    
+    filtered = filtered.sort((a, b) => 
+      new Date(b.posted_at || 0) - new Date(a.posted_at || 0)
+  );
+  setFilteredJobs(filtered);
 
-    setFilteredJobs(filtered);
+    console.log("Filtered jobs before sorting:", filtered);
+console.log("QuerySort:", querySort);
   }, [queryIndustry, queryLocation, queryJobTitle, queryJobType, queryExperienceLevels, queryPostedTime, querySort, jobs, startDate]);
 
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -111,7 +116,7 @@ console.log("querySort", querySort);
     sort: "Default",
   });
 
-  const showOptions = ["2", "3", "4", "5", "6"];
+  const showOptions = ["8", "12", "16", "20", "24"];
   const sortOptions = ["Default", "Ascending", "Descending"];
 
   const toggleDropdown = (dropdown) => {
