@@ -5,55 +5,63 @@ import {
     updateExperience,
 } from "../../store/resume/resumeSlice";
 
-const Experience = () => {
+const Experience = ({ steps, currentStep }) => {
     const dispatch = useDispatch();
-    const experience = useSelector(selectExperience);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [currentlyWorking, setCurrentlyWorking] = useState(
-        experience.currentlyWorking || false
-    );
-    const [enhancedExperience, setEnhancedExperience] = useState(""); // State for enhanced experience
-    const [showEnhanced, setShowEnhanced] = useState(false); // State to show the enhanced experience textbox
+    const experience = useSelector(selectExperience) || [];
+    const [loadingIndex, setLoadingIndex] = useState(null); // Track which experience is being enhanced
+    const [errorIndex, setErrorIndex] = useState(null); // Track errors for each experience
 
-    useEffect(() => {
-        // Ensure the component initializes with the experience data from the store
-        setCurrentlyWorking(experience.currentlyWorking || false);
-    }, [experience]);
-
-    const handleInputChange = (e) => {
+    const handleExperienceChange = (index, e) => {
         const { name, value } = e.target;
-        // Update only the specific field without resetting the entire form
-        dispatch(updateExperience({ ...experience, [name]: value }));
+        const updatedExperience = [...experience];
+        updatedExperience[index] = {
+            ...updatedExperience[index],
+            [name]: value,
+        };
+        dispatch(updateExperience(updatedExperience));
     };
 
-    const handleCheckboxChange = () => {
-        const newCurrentlyWorking = !currentlyWorking;
-        setCurrentlyWorking(newCurrentlyWorking);
-
-        // If currently working, we don't need an end date, so we clear it
-        if (!newCurrentlyWorking) {
-            dispatch(updateExperience({ ...experience, endDate: "" }));
-        } else {
-            // Set 'currentlyWorking' to true, ensure no endDate exists
-            dispatch(
-                updateExperience({ ...experience, currentlyWorking: true })
-            );
+    const handleCheckboxChange = (index) => {
+        const updatedExperience = [...experience];
+        updatedExperience[index].currentlyWorking =
+            !updatedExperience[index].currentlyWorking;
+        if (updatedExperience[index].currentlyWorking) {
+            updatedExperience[index].endDate = "";
         }
+        dispatch(updateExperience(updatedExperience));
     };
 
-    const enhanceExperience = async () => {
-        setLoading(true);
-        setError(null);
+    const handleAddExperience = () => {
+        const newExperience = {
+            jobTitle: "",
+            company: "",
+            startDate: "",
+            endDate: "",
+            currentlyWorking: false,
+            description: "",
+            enhancedDescription: "", // Placeholder for enhanced description
+        };
+        dispatch(updateExperience([...experience, newExperience]));
+    };
+
+    const handleRemoveExperience = (index) => {
+        const updatedExperience = experience.filter((_, i) => i !== index);
+        dispatch(updateExperience(updatedExperience));
+    };
+
+    const enhanceExperience = async (index) => {
+        setLoadingIndex(index);
+        setErrorIndex(null);
+
         try {
-            // Ensure the body is sent in the correct format for the API
+            const exp = experience[index];
             const requestPayload = {
-                jobTitle: experience.jobTitle || "",
-                company: experience.company || "",
-                startDate: experience.startDate || "",
-                endDate: experience.endDate || "",
-                currentlyWorking: currentlyWorking,
-                description: experience.description || "",
+                jobTitle: exp.jobTitle || "",
+                company: exp.company || "",
+                startDate: exp.startDate || "",
+                endDate: exp.endDate || "",
+                currentlyWorking: exp.currentlyWorking || false,
+                description: exp.description || "",
             };
 
             const response = await fetch(
@@ -74,136 +82,179 @@ const Experience = () => {
             }
 
             const data = await response.json();
-            if (data.enhanced_experience) {
-                // Update the experience with the enhanced data from the response
-                setEnhancedExperience(data.enhanced_experience); // Set enhanced experience
-                setShowEnhanced(true); // Show the enhanced experience text box
-                dispatch(
-                    updateExperience({
-                        ...experience,
-                        enhancedExperience: data.enhanced_experience,
-                    })
-                );
-            } else {
-                setError("No enhancement data returned from AI.");
-            }
+
+            const updatedExperience = [...experience];
+            updatedExperience[index] = {
+                ...updatedExperience[index],
+                enhancedDescription: data.enhanced_experience || "",
+            };
+
+            dispatch(updateExperience(updatedExperience));
         } catch (error) {
             console.error("Error enhancing experience:", error);
-            setError(
-                "An error occurred while enhancing your experience. Please try again."
-            );
+            setErrorIndex(index);
         } finally {
-            setLoading(false);
+            setLoadingIndex(null);
         }
     };
 
     return (
-        <div className="max-w-xl mx-auto bg-white shadow-md rounded-lg p-6 space-y-6 border border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-800">
-                Work Experience
-            </h2>
-            <div className="space-y-4">
-                <div className="flex flex-col space-y-2">
-                    <label className="block text-sm font-medium text-gray-600">
-                        Job Title
-                    </label>
-                    <input
-                        type="text"
-                        name="jobTitle"
-                        value={experience.jobTitle || ""}
-                        onChange={handleInputChange}
-                        className="form-input w-full px-4 py-2 border rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                        placeholder="Enter job title"
-                    />
-                </div>
-                <div className="flex flex-col space-y-2">
-                    <label className="block text-sm font-medium text-gray-600">
-                        Company
-                    </label>
-                    <input
-                        type="text"
-                        name="company"
-                        value={experience.company || ""}
-                        onChange={handleInputChange}
-                        className="form-input w-full px-4 py-2 border rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                        placeholder="Enter company name"
-                    />
-                </div>
-                <div className="flex items-center space-x-2">
-                    <input
-                        type="checkbox"
-                        checked={currentlyWorking}
-                        onChange={handleCheckboxChange}
-                    />
-                    <label className="block text-sm font-medium text-gray-600">
-                        I currently work here
-                    </label>
-                </div>
-                <div className="flex space-x-4">
-                    <div className="flex flex-col space-y-2 w-1/2">
-                        <label className="block text-sm font-medium text-gray-600">
-                            Start Month/Year
-                        </label>
-                        <input
-                            type="month"
-                            name="startDate"
-                            value={experience.startDate || ""}
-                            onChange={handleInputChange}
-                            className="form-input w-full px-4 py-2 border rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                        />
-                    </div>
-                    <div className="flex flex-col space-y-2 w-1/2">
-                        <label className="block text-sm font-medium text-gray-600">
-                            End Month/Year
-                        </label>
-                        <input
-                            type="month"
-                            name="endDate"
-                            value={experience.endDate || ""}
-                            onChange={handleInputChange}
-                            className="form-input w-full px-4 py-2 border rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                            disabled={currentlyWorking}
-                        />
-                    </div>
-                </div>
-                <div className="flex flex-col space-y-2">
-                    <label className="block text-sm font-medium text-gray-600">
-                        Description
-                    </label>
-                    <textarea
-                        name="description"
-                        value={experience.description || ""}
-                        onChange={handleInputChange}
-                        className="form-input w-full px-4 py-2 border text-slate-950 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                        placeholder="Describe your roles and responsibilities"
-                    />
-                </div>
+        <div className="p-4 border border-gray-200 rounded-lg shadow-md">
+            <div className="resume-steps-title mb-5 text-center">
+                <h2 className="text-xs font-medium text-gray-600 mb-2">
+                    Step {currentStep} of {steps.length}
+                </h2>
+                <h3 className=" text-2xl font-semibold text-gray-800 mb-4">
+                    {steps[currentStep - 1].label}
+                </h3>
+                <p className="text-sm font-semibold text-gray-500 mb-4">
+                    {steps[currentStep - 1].description}
+                </p>
             </div>
-            <button
-                onClick={enhanceExperience}
-                disabled={loading}
-                className="w-full mt-4 px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:ring focus:ring-blue-500 focus:ring-opacity-50 transition duration-150 ease-in-out"
-            >
-                {loading ? "Enhancing..." : "Enhance with AI"}
-            </button>
-            {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
 
-            {/* Conditionally render enhanced experience */}
-            {showEnhanced && (
-                <div className="space-y-4 mt-6">
+            {experience.map((exp, index) => (
+                <div key={index} className="space-y-6">
+                    <h3 className="font-medium text-blue-600">
+                        Role {index + 1}
+                    </h3>
                     <div className="flex flex-col space-y-2">
-                        <label className="block text-sm font-medium text-gray-600">
-                            Enhanced Experience
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Job Title
+                        </label>
+                        <input
+                            type="text"
+                            name="jobTitle"
+                            value={exp.jobTitle || ""}
+                            onChange={(e) => handleExperienceChange(index, e)}
+                            className="block w-full border-gray-300 rounded-lg shadow-md focus:ring-blue-500 focus:border-blue-500 px-4 py-2"
+                            placeholder="Enter job title"
+                        />
+                    </div>
+
+                    <div className="flex flex-col space-y-2">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Company
+                        </label>
+                        <input
+                            type="text"
+                            name="company"
+                            value={exp.company || ""}
+                            onChange={(e) => handleExperienceChange(index, e)}
+                            className="block w-full border-gray-300 rounded-lg shadow-md focus:ring-blue-500 focus:border-blue-500 px-4 py-2"
+                            placeholder="Enter company name"
+                        />
+                    </div>
+
+                    <div className="flex items-center space-x-2">
+                        <input
+                            type="checkbox"
+                            checked={exp.currentlyWorking || false}
+                            onChange={() => handleCheckboxChange(index)}
+                        />
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            I currently work here
+                        </label>
+                    </div>
+
+                    <div className="flex space-x-4">
+                        <div className="flex flex-col space-y-2 w-1/2">
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Start Month/Year
+                            </label>
+                            <input
+                                type="month"
+                                name="startDate"
+                                value={exp.startDate || ""}
+                                onChange={(e) =>
+                                    handleExperienceChange(index, e)
+                                }
+                                className="block w-full border-gray-300 rounded-lg shadow-md focus:ring-blue-500 focus:border-blue-500 px-4 py-2"
+                            />
+                        </div>
+                        <div className="flex flex-col space-y-2 w-1/2">
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                End Month/Year
+                            </label>
+                            <input
+                                type="month"
+                                name="endDate"
+                                value={exp.endDate || ""}
+                                onChange={(e) =>
+                                    handleExperienceChange(index, e)
+                                }
+                                className="block w-full border-gray-300 rounded-lg shadow-md focus:ring-blue-500 focus:border-blue-500 px-4 py-2"
+                                disabled={exp.currentlyWorking}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col space-y-2">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Description
                         </label>
                         <textarea
-                            value={enhancedExperience || ""}
-                            readOnly
-                            className="form-input w-full px-4 py-2 border text-slate-950 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                            placeholder="Enhanced work experience will appear here"
+                            name="description"
+                            value={exp.description || ""}
+                            onChange={(e) => handleExperienceChange(index, e)}
+                            className="block w-full border-gray-300 text-gray-700 rounded-lg shadow-md focus:ring-blue-500 focus:border-blue-500 px-4 py-2"
+                            placeholder="Describe your roles and responsibilities"
                         />
                     </div>
+
+                    {exp.enhancedDescription && (
+                        <div className="flex flex-col space-y-2">
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Enhanced Description
+                            </label>
+                            <textarea
+                                value={exp.enhancedDescription}
+                                readOnly
+                                className="block w-full text-gray-700 border-gray-300 rounded-lg shadow-md focus:ring-blue-500 focus:border-blue-500 px-4 py-2 my-2 "
+                                placeholder="Enhanced description will appear here"
+                            />
+                        </div>
+                    )}
+
+                    {index > 0 && (
+                        <div>
+                            <button
+                                type="button"
+                                onClick={() => handleRemoveExperience(index)}
+                                className="text-red-500 hover:underline"
+                            >
+                                Remove Experience
+                            </button>
+                        </div>
+                    )}
+
+                    <button
+                        type="button"
+                        onClick={() => enhanceExperience(index)}
+                        disabled={loadingIndex === index}
+                        className="mt-2 mb-2 px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:ring focus:ring-blue-500 focus:ring-opacity-50 transition duration-150 ease-in-out"
+                    >
+                        {loadingIndex === index
+                            ? "Enhancing..."
+                            : "Enhance with AI"}
+                    </button>
+
+                    <div className="mb-2"></div>
+
+                    {errorIndex === index && (
+                        <p className="text-red-600 text-sm mt-2">
+                            An error occurred while enhancing this experience.
+                        </p>
+                    )}
                 </div>
-            )}
+            ))}
+
+            <button
+                type="button"
+                onClick={handleAddExperience}
+                className="w-full px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:ring focus:ring-blue-500 focus:ring-opacity-50 transition duration-150 ease-in-out"
+            >
+                Add Experience
+            </button>
         </div>
     );
 };
