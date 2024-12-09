@@ -51,7 +51,10 @@ export default function Jobs() {
     
     if (queryPostedTime === "now") {
       calculatedStartDate = now; 
-    } else if (queryPostedTime === "last24hours") {
+    }else if (queryPostedTime === "now") {
+      calculatedStartDate = "";
+    }
+     else if (queryPostedTime === "last24hours") {
       calculatedStartDate = new Date(now.getTime() - 24 * 60 * 60 * 1000); // Last 24 hours
     } else if (queryPostedTime === "lastWeek") {
       calculatedStartDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000); // Last 7 days
@@ -88,16 +91,16 @@ export default function Jobs() {
       );
     });
 
+console.log("querySort", querySort);
     // Sorting based on selected sort option
     if (querySort === "Ascending") {
       filtered = filtered.sort((a, b) => a.title.localeCompare(b.title)); // Ascending order based on job title
+      console.log("filtered", filtered);
     } else if (querySort === "Descending") {
       filtered = filtered.sort((a, b) => b.title.localeCompare(a.title)); // Descending order based on job title
     } else if (querySort === "Default") {
       filtered = filtered.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate)); // Sort by latest posted time
-    }
-
-    filtered = filtered.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
+    } 
 
     setFilteredJobs(filtered);
   }, [queryIndustry, queryLocation, queryJobTitle, queryJobType, queryExperienceLevels, queryPostedTime, querySort, jobs, startDate]);

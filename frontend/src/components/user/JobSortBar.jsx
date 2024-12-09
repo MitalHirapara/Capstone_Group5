@@ -108,6 +108,7 @@ export default function JobSortBar({ params }) {
                 <div className="absolute bg-white ring-opacity-5 shadow-lg mt-2 rounded-md ring-1 ring-black w-48 origin-top-right">
                   <div className="py-1">
                     {params.sortOptions.map((option) => (
+                    
                       <button
                         key={option}
                         onClick={() => handleOptionSelect("sort", option)}

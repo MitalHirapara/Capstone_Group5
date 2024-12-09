@@ -10,7 +10,7 @@ import {
     FaRegBookmark,
 } from "react-icons/fa";
 
-import { formatTimeAgo } from "../../lib/dateTimeConvert";
+import { formatTimeAgo } from "../../assets/JS/dateTimeConvert";
 
 export default function JobBox({ jobs }) {
     return (
