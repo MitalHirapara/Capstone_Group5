@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import get_jobs, create_job, get_job, job_detail,get_employer_profile,update_employer_profile
+from .views import get_jobs, create_job, get_job, job_detail,get_employer_profile,update_employer_profile,home
 
 urlpatterns = [
+    path('', home, name='home'),
     path('jobs/', get_jobs, name='get_jobs'),
     path('job/create/', create_job, name='create_job'),
     path('job/<int:id>/', job_detail, name='Job_detail'),
