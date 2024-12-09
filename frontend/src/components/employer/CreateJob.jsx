@@ -123,7 +123,7 @@ const JobForm = () => {
                 certificate_ids: formData.certificates.map(
                     (cert) => cert.value
                 ), // sending array of certificate IDs
-                employer: 9, // ensure this is a valid ID
+                employer_id: 9, // ensure this is a valid ID
             };
             const response = await fetch("http://127.0.0.1:8000/job/create/", {
                 method: "POST",

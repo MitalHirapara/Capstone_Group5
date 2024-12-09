@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
 
 const JobList = () => {
     const [jobs, setJobs] = useState([]);
@@ -7,6 +8,7 @@ const JobList = () => {
     const [error, setError] = useState(null);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [jobToDelete, setJobToDelete] = useState(null);
+    const [locations, setLocations] = useState([]);
 
     const navigate = useNavigate();
 
@@ -17,6 +19,7 @@ const JobList = () => {
                 const response = await fetch("http://127.0.0.1:8000/jobs/");
                 if (!response.ok) throw new Error("Failed to fetch jobs");
                 const data = await response.json();
+
                 setJobs(data);
             } catch (err) {
                 setError(err.message);
@@ -24,7 +27,22 @@ const JobList = () => {
                 setLoading(false);
             }
         };
+
+        // Fetch locations for dropdown
+        const fetchLocations = async () => {
+            try {
+                const response = await fetch(
+                    "http://127.0.0.1:8000/api/locations/"
+                );
+                const data = await response.json();
+                setLocations(data);
+            } catch (err) {
+                console.error("Failed to fetch locations:", err);
+            }
+        };
+
         fetchJobs();
+        fetchLocations();
     }, []);
 
     const handleDelete = async () => {
@@ -61,15 +79,15 @@ const JobList = () => {
     if (error) return <div className="text-red-500">{error}</div>;
 
     return (
-        <div className="p-8 space-y-6">
-            <h2 className="text-2xl font-semibold text-center text-slate-800">
-                Job Listings
+        <div className="mx-auto bg-white p-8 shadow-lg shadow-slate-400 rounded-lg text-slate-950">
+            <h2 className="text-2xl font-semibold mb-6 text-slate-950">
+                Job List
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {jobs.map((job) => (
                     <div
                         key={job.id}
-                        className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+                        className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
                     >
                         <h3 className="text-xl font-semibold text-slate-800">
                             {job.title}
@@ -78,21 +96,15 @@ const JobList = () => {
                             {job.short_description ||
                                 "No description available"}
                         </p>
-                        <div className="mt-4">
-                            <span className="block text-slate-500">
-                                Location: {job.location_name}
-                            </span>
-                            <span className="block text-slate-500">
-                                Job Type: {job.job_type}
-                            </span>
-                            <span className="block text-slate-500">
-                                Experience Level: {job.experience_level}
-                            </span>
+                        <div className="mt-4 text-slate-600 space-y-1">
+                            <div>Location: {job.location.city}</div>
+                            <div>Job Type: {job.job_type}</div>
+                            <div>Experience Level: {job.experience_level}</div>
                             {job.min_salary && job.max_salary && (
-                                <span className="block text-slate-500">
+                                <div>
                                     Salary: ${job.min_salary} - $
                                     {job.max_salary}
-                                </span>
+                                </div>
                             )}
                         </div>
                         <div className="flex justify-between items-center mt-6">
@@ -116,7 +128,7 @@ const JobList = () => {
             {/* Delete Job Modal */}
             {isDeleteModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-white p-6 rounded-lg shadow-lg ease-out transition-all md:max-w-2xl md:w-full m-3 md:mx-auto">
+                    <div className="bg-white p-6 rounded-lg shadow-lg transition-all ease-out md:max-w-2xl md:w-full m-3 md:mx-auto">
                         <h3 className="text-lg font-semibold text-slate-800 mb-4">
                             Confirm Deletion
                         </h3>
