@@ -146,7 +146,6 @@ export default function JobFilterHead({ params }) {
                                 onChange={(e) => params.setExperienceLevels(e.target.value)}
                             >
                                 <option value="">Experience Level</option>
-                                {/* <option value="entry">Entry/Fresher Level</option> */}
                                 <option value="Entry Level">Entry Level</option>
                                 <option value="intermediate">Intermediate</option>
                                 <option value="Mid-Senior Level">Mid-Senior Level</option>

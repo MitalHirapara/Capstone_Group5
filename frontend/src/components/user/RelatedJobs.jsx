@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { formatTimeAgo } from '../../lib/dateTimeConvert';
+import { formatTimeAgo } from "../../assets/JS/dateTimeConvert";
 
 import Badge from '../user/Badge';
 import { FaMapMarkerAlt, FaClock, FaBriefcase, FaBookmark, FaRegBookmark } from 'react-icons/fa';
