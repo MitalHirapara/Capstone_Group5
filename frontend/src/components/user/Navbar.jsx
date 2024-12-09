@@ -15,7 +15,7 @@ export default function Navbar() {
                             className="flex-none font-semibold text-xl text-black focus:outline-none focus:opacity-80 dark:text-white"
                             href="/"
                         >
-                            <img src="./public/logo.png" alt="Logo" />
+                            <img src="/logo.png" alt="Logo" />
                         </a>
                         <button
                             aria-controls="hs-header-base"
