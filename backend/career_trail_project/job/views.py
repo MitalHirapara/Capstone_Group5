@@ -65,6 +65,7 @@ def job_detail(request, id):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 @api_view(['GET'])
 def get_employer_profile(request):
     try:

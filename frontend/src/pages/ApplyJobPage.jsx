@@ -3,7 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const ApplyJobPage = () => {
-    const jobId = 3;
+    const jobId = useParams();
+    console.log(jobId.id);
     const [currentStep, setCurrentStep] = useState(1);
     const [resume, setResume] = useState(null);
     const [coverLetter, setCoverLetter] = useState(null);
@@ -25,7 +26,7 @@ const ApplyJobPage = () => {
         const fetchJobDetails = async () => {
             try {
                 const response = await axios.get(
-                    `${API_BASE_URL}/job/detail/${jobId}/`
+                    `${API_BASE_URL}/job/detail/${jobId.id}/`
                 );
                 setJobDescription(response.data.description);
             } catch (error) {
