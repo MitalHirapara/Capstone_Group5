@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { FaMapMarkerAlt, FaClock, FaBriefcase, FaBookmark, FaRegBookmark } from "react-icons/fa";
-import { formatTimeAgo } from "../../lib/dateTimeConvert";
+import { formatTimeAgo } from "../../assets/JS/dateTimeConvert";
 
 const JobHeader = ({ job }) => {
     if (!job) {
