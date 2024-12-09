@@ -28,7 +28,7 @@ urlpatterns = [
     path('', include('job.urls')),
     path('resume/', include('resume.urls')),
     path('api/', include('common.urls')),
-    path('', include('application.urls')),
+    path('apply/', include('application.urls')),
 ]
 
 if settings.DEBUG:
