@@ -23,6 +23,7 @@ const JobHeader = ({ job }) => {
                     </h1>
                     <a
                         className="inline-flex justify-center items-center gap-x-3 bg-blue-600 from-blue-600 hover:from-violet-600 focus:from-violet-600 to-violet-600 hover:to-blue-600 focus:to-blue-600 px-4 py-3 border border-transparent rounded-md font-medium text-center text-sm text-white focus:outline-none"
+
                         href={`/apply-job/${job.id}`}
                     >
                         Apply Now

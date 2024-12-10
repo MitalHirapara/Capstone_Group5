@@ -92,7 +92,7 @@ export default function PreviousJobs() {
     //   </div>
     // </div>
 
-    <div className="box-border-right flex justify-center items-center mt-6">
+    <div className="box-border-right flex justify-center items-center mt-6 job-addver">
       <div className="bg-white shadow-xl rounded-2xl w-full max-w-xl overflow-hidden">
         <div className="relative p-8 md:p-12">
           {/* Background Pattern */}

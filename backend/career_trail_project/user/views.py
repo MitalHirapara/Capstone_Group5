@@ -1,5 +1,3 @@
-from datetime import datetime, timedelta
-from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
@@ -7,8 +5,8 @@ from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
 
 
-from .serializers import RegisterSerializer
-from .serializers import UserSerializer
+from .models import Profile
+from .serializers import ProfileSerializer,UserSerializer
 from django.core.mail import send_mail
 from django.conf import settings
 from rest_framework.views import APIView 
@@ -146,17 +144,21 @@ class LoginView(APIView):
         user = authenticate(username=data['username'], password=data['password'])
         if user and user.is_active:
             refresh = RefreshToken.for_user(user)
-            if user.is_staff:
+
+            if user.is_superuser:
+                redirect_url = "/admin"
+            elif user.is_staff:
                 redirect_url = "/dashboard"  # Redirect staff users to the dashboard
             else:
-                redirect_url = "/jobs"
+                redirect_url = "/user-profile"
             return Response({
                 "access": str(refresh.access_token),
                 "refresh": str(refresh),
                 "redirect_url": redirect_url 
             })
         return Response({"error": "Invalid credentials or inactive account."}, status=status.HTTP_401_UNAUTHORIZED)
-    
+
+#Employer Register View 
 class EmployerRegisterView(APIView):
     permission_classes = [AllowAny]
 
@@ -186,4 +188,20 @@ class EmployerRegisterView(APIView):
             return Response({"message": "Employer registration successful! Check your email for the activation link."}, status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+#UserProfile View
+class UserProfileView(APIView):
+    permission_classes = [IsAuthenticated]
 
+    def get(self, request):
+        profile, created = Profile.objects.get_or_create(user=request.user)
+        serializer = ProfileSerializer(profile)
+        return Response(serializer.data)
+
+    def post(self, request):
+        profile, created = Profile.objects.get_or_create(user=request.user)
+        serializer = ProfileSerializer(profile, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)

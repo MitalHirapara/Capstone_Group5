@@ -29,36 +29,39 @@ import Admin from "./components/admin/Admin";
 import AdminLayout from "./layouts/AdminLayout";
 import Users from "./components/admin/Users";
 import ApplyJobPage from "./pages/ApplyJobPage";
+import AboutUS from "./pages/AboutUS";
 
 import EmployerRegistration from "./pages/EmployerRegistration";
 
 export default function App() {
-    return (
-        <Provider store={store}>
-            <Routes>
-                {/* Public routes - accessible by everyone */}
-                <Route element={<UserLayout />}>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/jobs" element={<Jobs />} />
-                    <Route path="/job/detail/:id" element={<JobDetails />} />
-                    <Route
-                        path="/forgot-password"
-                        element={<ForgotPassword />}
-                    />
-                    <Route path="/user-profile" element={<UserProfile />} />
-                    <Route
-                        path="/resume-builder"
-                        element={<ResumeTemplates />}
-                    />
-                    <Route
-                        path="/resume-builder/:templateId"
-                        element={<ResumeBuilderSteps />}
-                    />{" "}
-                    {/* <Route path="/apply-job/:jobId" element={<ApplyJobPage />} /> */}
-                    <Route path="/apply-job/:id" element={<ApplyJobPage />} />
-                </Route>
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
+  return (
+    <Provider store={store}>
+      <Routes>
+        {/* Public routes - accessible by everyone */}
+        <Route element={<UserLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/jobs" element={<Jobs />} />
+          <Route path="/job/detail/:id" element={<JobDetails />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/user-profile" element={<UserProfile />} />
+          <Route path="/resume-builder" element={<ResumeTemplates />} />
+          <Route path="/about-us" element={<AboutUS />} />
+          <Route
+            path="/resume-builder/:templateId"
+            element={<ResumeBuilderSteps />}
+          />{" "}
+          {/* <Route path="/apply-job/:jobId" element={<ApplyJobPage />} /> */}
+          <Route path="/apply-job/" element={<ApplyJobPage />} />
+        </Route>
+        <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+         
+          <Route path="/activate/:uid/:token" element={<Activate />} />
+          <Route path="/employer-signup" element={<EmployerRegistration />}/>
+        <Route element={<AdminLayout />}>
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/users" element={<Users />} />
+        </Route>
 
                 <Route path="/activate/:uid/:token" element={<Activate />} />
                 <Route

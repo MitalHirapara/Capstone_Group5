@@ -16,7 +16,7 @@ const JobInfo = ({ job }) => {
       <hr className="border-gray-300 mb-6" />
 
       {/* Job Details Grid */}
-      <div className="gap-4 grid grid-cols-2 p-6">
+      <div className="gap-4 grid grid-cols-1 md:grid-cols-2 p-6">
         <div className="flex job-overview-icon">
           <FaIndustry className="mt-1 mr-2 text-[#66789c]" />
           <p className="mr-1 text-[#66789c]">Industry</p>

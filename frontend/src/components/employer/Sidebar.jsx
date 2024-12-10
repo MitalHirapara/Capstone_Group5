@@ -25,7 +25,7 @@ export default function Sidebar() {
                             aria-label="Preline"
                         >
                             <img
-                                src="./public/footer_white_logo.png"
+                                src="/footer_white_logo.png"
                                 alt="Logo"
                             />
                         </a>

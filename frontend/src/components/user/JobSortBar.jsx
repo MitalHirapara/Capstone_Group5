@@ -1,11 +1,11 @@
-
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function JobSortBar({ params }) {
+
   const handleShowChange = (newShowValue) => {
     params.setSelectedOptions((prev) => ({
       ...prev,
-      show: newShowValue, 
+      show: newShowValue,
     }));
   };
 
@@ -16,7 +16,7 @@ export default function JobSortBar({ params }) {
   const handleOptionSelect = (dropdown, option) => {
     params.setSelectedOptions((prev) => ({
       ...prev,
-      [dropdown]: option, 
+      [dropdown]: option,
     }));
     params.setOpenDropdown(null);
 
@@ -25,8 +25,8 @@ export default function JobSortBar({ params }) {
     }
 
     if (dropdown === "sort") {
-      // Make sure to update the sort query when the user selects a sort option
-      params.setQuerySort(option); // Update the sort option passed as a prop
+      // Update the sorting query
+      params.setQuerySort(option);
     }
   };
 
@@ -84,7 +84,7 @@ export default function JobSortBar({ params }) {
 
             {/* Sort Dropdown */}
             <div className="inline-block">
-              <button
+              {/* <button
                 onClick={() => toggleDropdown("sort")}
                 className="inline-flex justify-center border-gray-300 bg-white hover:bg-gray-50 shadow-sm px-4 py-2 border rounded-md w-full font-medium text-gray-700 text-sm focus:outline-none"
               >
@@ -102,13 +102,12 @@ export default function JobSortBar({ params }) {
                     clipRule="evenodd"
                   />
                 </svg>
-              </button>
+              </button> */}
 
               {params.openDropdown === "sort" && (
                 <div className="absolute bg-white ring-opacity-5 shadow-lg mt-2 rounded-md ring-1 ring-black w-48 origin-top-right">
                   <div className="py-1">
                     {params.sortOptions.map((option) => (
-                    
                       <button
                         key={option}
                         onClick={() => handleOptionSelect("sort", option)}

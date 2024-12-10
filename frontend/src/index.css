@@ -483,15 +483,158 @@ input {
     font-size: 17px;
 }
 
+.padding {
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
+}
+
 @media screen and (max-width: 1285px) {
+
+
     .jobfilterhead::before,
     .jobfilterhead::after {
         display: none;
     }
+
+    .jobdetail-component {
+        flex-direction: column !important;
+    }
+
+    .box-border-single,
+    .jobdetail-component aside {
+        width: 90% !important;
+        margin: auto;
+    }
+
+    .jobdetail-component aside {
+        display: flex !important;
+    }
+
+    .jobdetail-component aside .job-addver,
+    .jobdetail-component aside .company-information {
+        width: 48% !important;
+        margin: 20px auto;
+        height: max-content;
+    }
+
 }
 
-@media screen and (max-width: 767px) {
-    .border-responsive {
-        border: 1px solid red !important;
+@media (max-width: 1024px) {
+
+    .sub-heading::before,
+    .sub-heading::after,
+    .guideprocesssec::after,
+    .dashimg1::before,
+    .dashimg2::before {
+        display: none;
+    }
+
+    .employe-box .dashimg3 {
+        margin-top: 30px;
+    }
+
+    .employe-box .dashimg3,
+    .employe-box .dashimg2,
+    .employe-box .dashimg1 {
+        width: 65%;
+        margin: auto;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        padding: 25px 30px;
+        border-radius: 8px;
+    }
+
+    .slick-prev,
+    .slick-prev:focus,
+    .slick-prev:active {
+        left: -40px;
+    }
+
+    .slick-next,
+    .slick-next:active,
+    .slick-next:focus {
+        right: -40px;
+    }
+
+    .dashimg1,
+    .dashimg2 {
+        width: 50%;
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    .jobdetail-component aside {
+        flex-direction: column !important;
+    }
+
+    .jobdetail-component aside .job-addver,
+    .jobdetail-component aside .company-information {
+        width: 100% !important;
+        margin: 20px auto;
+        height: max-content;
+    }
+
+    .jobdetail-component aside .job-addver {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+    .job-sorting-option {
+        margin-top: 30px;
+    }
+
+    .employe-box .dashimg3,
+    .employe-box .dashimg2,
+    .employe-box .dashimg1 {
+        width: 85%;
+        margin: auto;
+    }
+
+    .slick-list {
+        width: 90%;
+        margin: auto;
+    }
+
+    .slick-prev,
+    .slick-prev:focus,
+    .slick-prev:active {
+        left: -25px;
+    }
+
+    .slick-next,
+    .slick-next:active,
+    .slick-next:focus {
+        right: -25px;
+    }
+
+    .border-r {
+        border-right-width: 0px;
+    }
+}
+
+@media (max-width: 654px) {
+    .job-sorting-option {
+        display: flex;
+        flex-direction: column !important;
+        width: 100% !important;
+    }
+
+    .job-sorting-option .relative {
+        margin-bottom: 10px;
+    }
+
+    .jobfilterhead {
+        padding-bottom: 10px !important;
+    }
+
+    .jobsortbar {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+
+    .jobfilterheading:before {
+        top: 12% !important;
+
     }
 }
