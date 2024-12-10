@@ -63,15 +63,34 @@ export default function App() {
           <Route path="/users" element={<Users />} />
         </Route>
 
-        {/* Private routes - only accessible by authenticated employers */}
-        <Route element={<EmployerLayout />}>
-          <Route path="/dashboard/*" element={<EmployerDashboard />} />
-          <Route path="/create-job-post" element={<CreateJobPost />} />
-          <Route path="/employer-profile" element={<EmployerProfile />} />
-          <Route path="/manage-jobs" element={<ManageJobs />} />
-        </Route>
-      </Routes>
-    </Provider>
-  );
+                <Route path="/activate/:uid/:token" element={<Activate />} />
+                <Route
+                    path="/employer-signup"
+                    element={<EmployerRegistration />}
+                />
+                <Route element={<AdminLayout />}>
+                    <Route path="/admin" element={<Admin />} />
+                    <Route path="/users" element={<Users />} />
+                </Route>
 
+                {/* Private routes - only accessible by authenticated employers */}
+                <Route element={<EmployerLayout />}>
+                    <Route
+                        path="/dashboard/*"
+                        element={<EmployerDashboard />}
+                    />
+                    <Route
+                        path="/create-job-post"
+                        element={<CreateJobPost />}
+                    />
+                    <Route
+                        path="/employer-profile"
+                        element={<EmployerProfile />}
+                    />
+                    <Route path="/manage-jobs" element={<ManageJobs />} />
+                    <Route path="/edit-job/:id" element={<EditJobPage />} />
+                </Route>
+            </Routes>
+        </Provider>
+    );
 }

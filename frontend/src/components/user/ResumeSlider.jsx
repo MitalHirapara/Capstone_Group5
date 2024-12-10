@@ -51,7 +51,9 @@ export default function ResumeSlider() {
     
 
     const renderTemplate = (template, altText) => (
+
         <div class="bg-sky-100 dark:bg-neutral-800 m-2 p-5 rounded-2xl">
+
             <img src={template} alt={altText} className="mx-auto" />
         </div>
     );

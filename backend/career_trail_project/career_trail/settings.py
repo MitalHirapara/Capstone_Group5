@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-uet_u-p1@0cus_e!_40=^_hw1q38-xlasu(%sxe9_(*og76nwa
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ 'career-trail.onrender.com', '127.0.0.1' ]
+ALLOWED_HOSTS = [ 'career-trail.onrender.com' ,'127.0.0.1','localhost']
 # Frontend URL
 FRONTEND_URL = 'http://localhost:5173'
 
@@ -38,14 +38,18 @@ FRONTEND_URL = 'http://localhost:5173'
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5174',
     'http://localhost:5173',  # URL of your React app
-    'http://127.0.0.1:5173',  # Handle both localhost and 127.0.0.1
+    'http://127.0.0.1:5173',
+    'http://127.0.0.1:8000', # Handle both localhost and 127.0.0.1
     'https://career-trail.onrender.com'
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
 }
 
 # Application definition
@@ -116,7 +120,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'career_trail.wsgi.application'
-
 # Database
 DATABASES = {
     'default': {

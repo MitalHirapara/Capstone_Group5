@@ -1,7 +1,8 @@
-import React from 'react'
+import React from "react";
 
 export default function HireAdSection() {
     return (
+
         <div className='lg:block hidden mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16 max-w-[75rem] hirejob'>
             <div className="flex flex-col border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 m-1 p-12 md:p-12 border rounded-xl hirejobsec">
                 <div className="flex items-center gap-x-3 jobimgcons">
@@ -18,7 +19,7 @@ export default function HireAdSection() {
                                 Let’s <span className='hirehighlight'>Work</span> Together
                                 <p>& <span className='hirehighlight'>Explore</span> Opportunities</p>
                             </p>
-                        </p>
+                        </div>
                         <a
                             className="inline-flex justify-center items-center gap-x-3 bg-blue-600 from-blue-600 hover:from-violet-600 focus:from-violet-600 to-violet-600 hover:to-blue-600 focus:to-blue-600 px-4 py-3 border border-transparent rounded-md font-medium text-center text-sm text-white focus:outline-none"
                             href="/jobs"
@@ -43,5 +44,5 @@ export default function HireAdSection() {
                 </div>
             </div>
         </div>
-    )
+    );
 }

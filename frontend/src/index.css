@@ -408,10 +408,26 @@ input {
 }
 
 .resume-preview {
-    transform: scale(0.502941) !important;
+    transform: scale(0.45999) !important;
     width: 800px !important;
-    margin-left: -200px !important;
-    margin-top: -252.647px !important;
+    margin-left: -220px !important;
+    margin-top: -250px !important;
+    border: 3px solid #2563eb;
+    border-radius: 10px;
+}
+
+.resume-11 .resume-preview {
+    margin-top: -140px !important;
+}
+
+.bg-blue-teal {
+    background-color: #163853;
+}
+
+.final-preview .resume-preview {
+    transform: scale(0.85999) !important;
+    margin-left: -30px !important;
+    margin-top: -40px !important;
 }
 
 .jobtitle-location {
@@ -473,6 +489,7 @@ input {
 }
 
 @media screen and (max-width: 1285px) {
+
 
     .jobfilterhead::before,
     .jobfilterhead::after {
@@ -543,6 +560,7 @@ input {
         width: 50%;
     }
 }
+
 
 @media (max-width: 768px) {
 
@@ -617,5 +635,6 @@ input {
 
     .jobfilterheading:before {
         top: 12% !important;
+
     }
 }

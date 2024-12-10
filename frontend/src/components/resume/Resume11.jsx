@@ -1,177 +1,195 @@
-import React, { useRef, useState } from 'react';
-import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas'; // Import html2canvas to handle CSS and rendering
-import '../../assets/CSS/Resume11.css';
+import React, { useRef } from "react";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas"; // Import html2canvas to handle CSS and rendering
 
-const Resume11 = () => {
-    const [fullName, setFullName] = useState("Samira Hadid");
-    const [role, setRole] = useState("Graphic Designer");
-    const [profilePara, setProfilePara] = useState(
-        "I am a talented, ambitious, and hardworking individual, with broad skills and experience in digital and printed marketing, social media, and leading projects."
-    );
-    const [contact, setContact] = useState({
-        phone: "123-456-7890",
-        email: "contact@example.com",
-        address: "Waterloo, ON, Canada"
-    });
-    const [education, setEducation] = useState([
-        { degree: "BCA", institution: "School of University", year: "April 2020" },
-        { degree: "BCA", institution: "School of University", year: "September 2017" }
-    ]);
-    const [experience, setExperience] = useState([
-        {
-            role: "Graphic Designer",
-            company: "Company XYZ",
-            startDate: "January 2021",
-            endDate: "December 2022",
-            location: "San Francisco, CA",
-            details: [
-                "Worked passionately on customer service in a high-volume office.",
-                "Completed F.A.S.T. customer service training classes.",
-                "Maintained a high average tip thanks to consistent customer satisfaction."
-            ]
-        },
-        {
-            role: "Graphic Designer",
-            company: "Company ABC",
-            startDate: "January 2018",
-            endDate: "December 2020",
-            location: "New York, NY",
-            details: [
-                "Worked passionately on customer service in a high-volume office.",
-                "Completed F.A.S.T. customer service training classes.",
-                "Maintained a high average tip thanks to consistent customer satisfaction."
-            ]
-        }
-    ]);
+const Resume11 = ({ contactInfo, education, experience, skills }) => {
+    const placeholderData = {
+        name: "John Doe",
+        title: "Software Developer",
+        email: "johndoe@example.com",
+        phone: "(123) 456-7890",
+        location: "New York, NY",
+        careerObjective:
+            "Seeking a challenging role as a software developer to utilize my coding skills and contribute to innovative projects.",
+        experience: [
+            {
+                jobTitle: "Software Engineer",
+                company: "Tech Solutions Inc.",
+                startDate: "2019-09",
+                endDate: "2022-06",
+                currentlyWorking: false,
+                description:
+                    "Developed and maintained software solutions for various business needs.",
+            },
+            {
+                jobTitle: "Intern",
+                company: "Startup Co.",
+                startDate: "2018-01",
+                endDate: "2018-12",
+                currentlyWorking: false,
+                description:
+                    "Assisted in the development of mobile applications and web services.",
+            },
+        ],
+        education: [
+            {
+                degree: "Bachelor of Science",
+                institution: "University of New York",
+                startYear: "2015",
+                startMonth: "September",
+                endYear: "2019",
+                endMonth: "June",
+            },
+            {
+                degree: "Master of Science",
+                institution: "Tech University",
+                startYear: "2020",
+                startMonth: "January",
+                endYear: "2022",
+                endMonth: "December",
+            },
+        ],
+        skills: [
+            "Communication",
+            "Time Management",
+            "Teamwork",
+            "Problem Solving",
+            "Adaptability",
+        ],
+    };
 
-    const [skills, setSkills] = useState([
-        { name: "Skill 1", level: "80%" },
-        { name: "Skill 2", level: "70%" },
-        { name: "Skill 3", level: "90%" },
-        { name: "Skill 4", level: "60%" },
-        { name: "Skill 5", level: "75%" }
-    ]);
+    const data = {
+        name: contactInfo?.fullName || placeholderData.name,
+        title: contactInfo?.jobTitle || placeholderData.title,
+        email: contactInfo?.email || placeholderData.email,
+        phone: contactInfo?.phone || placeholderData.phone,
+        location: contactInfo?.location || placeholderData.location,
+        careerObjective: placeholderData.careerObjective,
+        experience:
+            experience.length > 0 ? experience : placeholderData.experience,
+        education: education.length > 0 ? education : placeholderData.education,
+        skills: skills.length > 0 ? skills : placeholderData.skills,
+    };
 
-    // Generate PDF
     const resumeRef = useRef();
 
     const generatePDF = () => {
-        // First, use html2canvas to capture the content with styles
         html2canvas(resumeRef.current, {
             scale: 2, // Adjust the scale for better resolution
-            useCORS: true, // Enable cross-origin resource sharing (for external images)
-            logging: false, // Disable logging for performance
-            width: 595,  // Width in px for A4 size (210mm)
-            height: 842, // Height in px for A4 size (297mm)
+            useCORS: true,
+            logging: false,
         }).then((canvas) => {
-            const imgData = canvas.toDataURL('image/png'); // Convert canvas to image
+            const imgData = canvas.toDataURL("image/png");
 
-            // Now create the PDF with jsPDF
             const doc = new jsPDF({
-                orientation: 'p',  // Portrait
-                unit: 'mm',
-                format: 'a4',
+                orientation: "p",
+                unit: "mm",
+                format: "a4",
                 putOnlyUsedFonts: true,
             });
 
-            // Add the image of the resume to the PDF, scale it to fit one page
-            doc.addImage(imgData, 'PNG', 10, 10, 190, 277);  // Adjust dimensions as necessary
+            doc.addImage(imgData, "PNG", 10, 10, 180, 250);
 
-            // Save the PDF
-            doc.save('resume.pdf');
+            doc.save("resume.pdf");
         });
     };
 
     return (
         <>
-            <button
-                onClick={generatePDF}
-                className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-            >
-                Download as PDF
-            </button>
-            <div className="resume" ref={resumeRef}>
-                <div className="left-section">
-                    <div className="profile-picture"></div>
-                    <div className="about-me">
-                        <h2>About me</h2>
-                        <p>{profilePara}</p>
-                    </div>
-                    <div className="contact">
-                        <h2>Contact</h2>
-                        <p>- {contact.phone}</p>
-                        <p>- {contact.email}</p>
-                        <p>- {contact.address}</p>
-                    </div>
-                    <div className="expertise">
-                        <h2>Expertise Skills</h2>
-                        <ul>
-                            {skills.map((skill, index) => (
-                                <li key={index} className="skill">
-                                    {skill.name}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
+            <div className="resume-preview">
+                <div
+                    id="resume"
+                    ref={resumeRef}
+                    className="flex mx-auto p-8 max-w-3xl font-sans text-gray-800 leading-relaxed resume11"
+                >
+                    {/* Left Panel (Contact and Skills) */}
+                    <div className="w-1/3 pr-6">
+                        <h1 className="font-bold text-4xl">{data.name}</h1>
+                        <h2 className="mt-2 font-medium text-lg">
+                            {data.title}
+                        </h2>
+                        <p className="mt-4 text-sm">{data.careerObjective}</p>
 
-                <div className="right-section">
-                    <div className="personal-header">
-                        <h1>{fullName}</h1>
-                        <span className="pr-border"></span>
-                        <h3>{role}</h3>
-                    </div>
-                    <div className="other-info">
-                        <div className="timeline">
-                            <div className="education">
-                                <h2 className="r-title">Education</h2>
-                                {education.map((edu, index) => (
-                                    <div key={index} className="education-item">
-                                        <div className="lines">
-                                            <div className="dot"></div>
-                                            <div className="line"></div>
-                                        </div>
-                                        <div className="education-sec">
-                                            <h3>{edu.degree}</h3>
-                                            <p>{edu.institution}</p>
-                                            <p>{edu.year}</p>
-                                        </div>
-                                    </div>
+                        <div className="mt-6">
+                            <h3 className="font-semibold text-sm uppercase tracking-wider">
+                                SKILLS
+                            </h3>
+                            <ul className="ml-4 text-sm list-disc list-inside mt-2">
+                                {data.skills.map((skill, index) => (
+                                    <li key={index}>{skill}</li>
                                 ))}
-                            </div>
+                            </ul>
                         </div>
-                        <div className="timeline">
-                            <div className="work-experience">
-                                <h2 className="r-title">Work Experience</h2>
-                                {experience.map((exp, index) => (
-                                    <div key={index} className="experience-item">
-                                        <div className="lines">
-                                            <div className="dot"></div>
-                                            <div className="line"></div>
-                                        </div>
-                                        <div className="role-detail">
-                                            <h3>{exp.role}</h3>
-                                            <div className="dates">
-                                                <span>{exp.startDate} - {exp.endDate}</span>
-                                            </div>
-                                        </div>
-                                        <div className="company-detail">
-                                            <span>{exp.company}</span>
-                                            <span>{exp.location}</span>
-                                        </div>
-                                        <ul className="experience-point">
-                                            {exp.details.map((detail, idx) => (
-                                                <li key={idx}>{detail}</li>
-                                            ))}
-                                        </ul>
-                                    </div>
+
+                        <div className="mt-8">
+                            <h3 className="font-semibold text-sm uppercase tracking-wider">
+                                CONTACT
+                            </h3>
+                            <p className="mt-2 text-sm">{data.email}</p>
+                            <p className="text-sm">{data.phone}</p>
+                            <p className="text-sm">{data.location}</p>
+                        </div>
+                    </div>
+
+                    {/* Right Panel (Summary, Education, Experience) */}
+                    <div className="w-2/3 pl-6">
+                        <div className="mb-8">
+                            <h3 className="font-semibold text-sm uppercase tracking-wider">
+                                SUMMARY
+                            </h3>
+                            <p className="mt-2 text-sm">
+                                {data.careerObjective}
+                            </p>
+                        </div>
+
+                        <div className="mb-8">
+                            <h3 className="font-semibold text-sm uppercase tracking-wider">
+                                EDUCATION
+                            </h3>
+                            <ul className="text-sm list-none mt-2">
+                                {data.education.map((edu, index) => (
+                                    <li key={index} className="mb-4">
+                                        <p className="font-semibold">
+                                            {edu.degree}
+                                        </p>
+                                        <p>{edu.institution}</p>
+                                        <p>
+                                            {edu.startMonth} {edu.startYear} -{" "}
+                                            {edu.endMonth} {edu.endYear}
+                                        </p>
+                                    </li>
                                 ))}
-                            </div>
+                            </ul>
+                        </div>
+
+                        <div className="mb-8">
+                            <h3 className="font-semibold text-sm uppercase tracking-wider">
+                                EXPERIENCE
+                            </h3>
+                            <ul className="text-sm list-none mt-2">
+                                {data.experience.map((job, index) => (
+                                    <li key={index} className="mb-4">
+                                        <p className="border-gray-300 mb-1 pb-1 border-b font-semibold jobtitle-location">
+                                            {job.jobTitle} | {job.company} |{" "}
+                                            {job.startDate} - {job.endDate}
+                                        </p>
+                                        <ul className="mt-1 ml-4 text-sm list-disc list-inside">
+                                            {job.description}
+                                        </ul>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <button
+                onClick={generatePDF}
+                className="bg-blue-500 hover:bg-blue-600 mt-4 px-6 py-2 rounded-lg text-white"
+            >
+                Download as PDF
+            </button>
         </>
     );
 };

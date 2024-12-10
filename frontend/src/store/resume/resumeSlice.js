@@ -4,15 +4,59 @@ const initialState = {
     templateId: null,
     contactInfo: {
         fullName: "Foram",
-        email: "",
-        phone: "123",
-        jobTitle: "admin",
-        location: "",
+        email: "foram@example.com",
+        phone: "1234567890",
+        jobTitle: "Frontend Developer",
+        location: "San Francisco, CA",
+        careerObjective:
+            "To leverage my skills and experience to contribute to organizational growth.",
     },
-    education: [],
-    experience: [],
-    skills: [],
-    certifications: [],
+    education: [
+        {
+            degree: "Bachelor of Science",
+            institution: "University of New York",
+            startYear: "2015",
+            startMonth: "September",
+            endYear: "2019",
+            endMonth: "June",
+        },
+        {
+            degree: "Master of Science",
+            institution: "Tech University",
+            startYear: "2020",
+            startMonth: "January",
+            endYear: "2022",
+            endMonth: "December",
+        },
+    ],
+    experience: [
+        // Default experience data
+        {
+            jobTitle: "Software Engineers",
+            company: "Tech Solutions Inc.",
+            startDate: "2019-09",
+            endDate: "2022-06",
+            currentlyWorking: false,
+            description:
+                "Developed and maintained software solutions for various business needs.",
+        },
+        {
+            jobTitle: "Intern",
+            company: "Startup Co.",
+            startDate: "2018-01",
+            endDate: "2018-12",
+            currentlyWorking: false,
+            description:
+                "Assisted in the development of mobile applications and web services.",
+        },
+    ],
+    skills: [
+        "Communication",
+        "Time Management",
+        "Teamwork",
+        "Problem Solving",
+        "Adaptability",
+    ],
 };
 
 const resumeSlice = createSlice({
@@ -31,11 +75,15 @@ const resumeSlice = createSlice({
         updateExperience(state, action) {
             state.experience = action.payload;
         },
-        updateSkills(state, action) {
-            state.skills = action.payload;
+        addSkill(state, action) {
+            if (!state.skills.includes(action.payload)) {
+                state.skills.push(action.payload);
+            }
         },
-        updateCertifications(state, action) {
-            state.certifications = action.payload;
+        removeSkill(state, action) {
+            state.skills = state.skills.filter(
+                (skill) => skill !== action.payload
+            );
         },
     },
 });
@@ -46,8 +94,8 @@ export const {
     updateContactInfo,
     updateEducation,
     updateExperience,
-    updateSkills,
-    updateCertifications,
+    addSkill,
+    removeSkill,
 } = resumeSlice.actions;
 
 // Selectors
@@ -56,7 +104,6 @@ export const selectContactInfo = (state) => state.resume.contactInfo;
 export const selectEducation = (state) => state.resume.education;
 export const selectExperience = (state) => state.resume.experience;
 export const selectSkills = (state) => state.resume.skills;
-export const selectCertifications = (state) => state.resume.certifications;
 
 // Export the reducer
 export default resumeSlice.reducer;
