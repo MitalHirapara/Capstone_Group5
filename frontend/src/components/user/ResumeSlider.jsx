@@ -24,10 +24,36 @@ export default function ResumeSlider() {
         slidesToShow: 4,
         speed: 500,
         arrows: true,
+        responsive: [
+            {
+                breakpoint: 1024, // Tablet (1024px and below)
+                settings: {
+                    slidesToShow: 2,
+                    centerPadding: "60px",
+                },
+            },
+            {
+                breakpoint: 768, // Mobile (768px and below)
+                settings: {
+                    slidesToShow: 1,
+                    centerPadding: "20px",
+                },
+            },
+            {
+                breakpoint: 480, // Extra Small Mobile (480px and below)
+                settings: {
+                    slidesToShow: 1,
+                    centerPadding: "10px",
+                },
+            },
+        ],
     };
+    
 
     const renderTemplate = (template, altText) => (
-        <div className="bg-sky-100 rounded-2xl dark:bg-neutral-800 p-5 m-2">
+
+        <div class="bg-sky-100 dark:bg-neutral-800 m-2 p-5 rounded-2xl">
+
             <img src={template} alt={altText} className="mx-auto" />
         </div>
     );
@@ -36,24 +62,24 @@ export default function ResumeSlider() {
         <div className="relative bg-zinc-50 overflow-hidden">
             <div
                 aria-hidden="true"
-                className="flex absolute -top-96 start-1/2 transform -translate-x-1/2"
+                className="-top-96 absolute flex transform -translate-x-1/2 start-1/2"
             ></div>
 
             <div className="relative z-10">
-                <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
-                    <div className="resume max-w-2xl text-center mx-auto">
-                        <p className="sub-heading inline-block text-sm font-medium bg-clip-text text-gray-500 ">
+                <div className="mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16 max-w-[85rem]">
+                    <div className="mx-auto max-w-2xl text-center resume">
+                        <p className="inline-block bg-clip-text font-medium text-gray-500 text-sm sub-heading">
                             The Best Online Resume Builder
                         </p>
 
                         <div className="mt-5 max-w-2xl">
-                            <h3 className="block font-semibold text-gray-800 text-2xl md:text-3xl lg:text-4xl dark:text-neutral-200">
+                            <h3 className="block font-semibold text-2xl text-gray-800 md:text-3xl lg:text-4xl dark:text-neutral-200">
                                 Pick one of several world-class templates and
                                 create your resume in minutes
                             </h3>
                         </div>
                     </div>
-                    <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-10">
+                    <div className="mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-10 max-w-[85rem]">
                         <div className="slider-container">
                             <Slider {...settings}>
                                 <div>
