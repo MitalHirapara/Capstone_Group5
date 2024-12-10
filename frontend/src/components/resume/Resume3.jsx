@@ -10,7 +10,7 @@ const Resume3 = ({ contactInfo, education, experience, skills }) => {
         phone: "(123) 456-7890",
         location: "New York, NY",
         careerObjective:
-            "Seeking a challenging role as a software developer to utilize my coding skills and contribute to innovative projects.",
+            "To leverage my skills and experience to contribute to organizational growth.",
         experience: [
             {
                 jobTitle: "Software Engineer",
@@ -64,122 +64,100 @@ const Resume3 = ({ contactInfo, education, experience, skills }) => {
         email: contactInfo?.email || placeholderData.email,
         phone: contactInfo?.phone || placeholderData.phone,
         location: contactInfo?.location || placeholderData.location,
-        careerObjective: placeholderData.careerObjective,
+        careerObjective:
+            contactInfo?.careerObjective || placeholderData.careerObjective,
         experience:
             experience.length > 0 ? experience : placeholderData.experience,
         education: education.length > 0 ? education : placeholderData.education,
         skills: skills.length > 0 ? skills : placeholderData.skills,
     };
 
+    // Generate PDF
     const resumeRef = useRef();
 
     const generatePDF = () => {
+        // First, use html2canvas to capture the content with styles
         html2canvas(resumeRef.current, {
             scale: 2, // Adjust the scale for better resolution
-            useCORS: true,
-            logging: false,
+            useCORS: true, // Enable cross-origin resource sharing (for external images)
+            logging: false, // Disable logging for performance
         }).then((canvas) => {
-            const imgData = canvas.toDataURL("image/png");
+            const imgData = canvas.toDataURL("image/png"); // Convert canvas to image
 
+            // Now create the PDF with jsPDF
             const doc = new jsPDF({
-                orientation: "p",
+                orientation: "p", // Portrait
                 unit: "mm",
                 format: "a4",
                 putOnlyUsedFonts: true,
             });
 
-            doc.addImage(imgData, "PNG", 10, 10, 180, 250);
+            // Add the image of the resume to the PDF, scale it to fit one page
+            doc.addImage(imgData, "PNG", 10, 10, 180, 250); // Adjust dimensions as necessary
 
+            // Save the PDF
             doc.save("resume.pdf");
         });
     };
 
     return (
         <>
+            <button
+                onClick={generatePDF}
+                className="bg-blue-500 hover:bg-blue-600 mt-0 mb-4 px-6 py-2 rounded-lg text-white"
+            >
+                Download as PDF
+            </button>
             <div className="resume-preview">
                 <div
                     id="resume"
                     ref={resumeRef}
-                    className="flex mx-auto p-8 max-w-3xl font-sans text-gray-800 leading-relaxed resume3 "
+                    className="mx-auto p-8 max-w-3xl font-sans text-gray-800 leading-relaxed resume3 text-black-400"
                 >
-                    {/* Left Panel (Contact and Skills) */}
-                    <div className="w-1/3 pr-6 bg-blue-teal p-6 rounded-lg shadow-lg text-gray-100">
-                        <h1 className="font-bold text-4xl">{data.name}</h1>
-                        <h2 className="mt-2 font-medium text-lg">
+                    {/* Name and Title */}
+                    <div className="mb-8 text-left bg-green-100 ">
+                        <h1 className="font-bold text-4xl text-green-800 px-4 pt-2">
+                            {data.name}
+                        </h1>
+                        <h2 className="mt-2 font-medium text-lg px-4">
                             {data.title}
                         </h2>
-                        <p className="mt-4 text-sm">{data.careerObjective}</p>
+                        <p className="mt-4 text-sm pb-2 px-4">
+                            {data.careerObjective}
+                        </p>
+                    </div>
 
-                        <div className="mt-6">
+                    {/* Divider */}
+                    <div className="border-gray-800 my-6 border-t-2"></div>
+
+                    {/* Skills Section */}
+                    <section className="flex mb-8">
+                        <div className="pr-4 w-3/12">
                             <h3 className="font-semibold text-sm uppercase tracking-wider">
                                 SKILLS
                             </h3>
-                            <ul className="ml-4 text-sm list-disc list-inside mt-2">
+                        </div>
+                        <div className="w-9/12">
+                            <ul className="ml-4 text-sm list-disc list-inside">
                                 {data.skills.map((skill, index) => (
                                     <li key={index}>{skill}</li>
                                 ))}
                             </ul>
                         </div>
+                    </section>
 
-                        <div className="mt-8">
-                            <h3 className="font-semibold text-sm uppercase tracking-wider">
-                                CONTACT
-                            </h3>
-                            <p className="mt-2 text-sm">{data.email}</p>
-                            <p className="text-sm">{data.phone}</p>
-                            <p className="text-sm">{data.location}</p>
-                        </div>
+                    {/* Divider */}
+                    <div className="border-gray-800 my-6 border-t-2"></div>
 
-                        <div className="mt-8">
-                            <h3 className="font-semibold text-sm uppercase tracking-wider">
-                                LANGUAGES
-                            </h3>
-                            <ul className="ml-4 text-sm list-disc list-inside mt-2">
-                                {data.languages.map((lang, index) => (
-                                    <li key={index}>{lang}</li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-
-                    {/* Right Panel (Profile, Work Experience, References) */}
-                    <div className="w-2/3 pl-6 bg-white p-6 rounded-lg shadow-lg ml-4">
-                        <div className="mb-8">
-                            <h3 className="font-semibold text-sm uppercase tracking-wider">
-                                PROFILE
-                            </h3>
-                            <p className="mt-2 text-sm">
-                                {data.careerObjective}
-                            </p>
-                        </div>
-
-                        <div className="mb-8">
-                            <h3 className="font-semibold text-sm uppercase tracking-wider">
-                                WORK EXPERIENCE
-                            </h3>
-                            <ul className="text-sm list-none mt-2">
-                                {data.experience.map((job, index) => (
-                                    <li key={index} className="mb-4">
-                                        <p className="border-gray-300 mb-1 pb-1 border-b font-semibold jobtitle-location">
-                                            {job.jobTitle} | {job.company} |{" "}
-                                            {job.startDate} -{" "}
-                                            {job.currentlyWorking
-                                                ? "PRESENT"
-                                                : job.endDate}
-                                        </p>
-                                        <ul className="mt-1 ml-4 text-sm list-disc list-inside">
-                                            {job.description}
-                                        </ul>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        <div className="mb-8">
+                    {/* Education Section */}
+                    <section className="flex mb-8">
+                        <div className="pr-4 w-3/12">
                             <h3 className="font-semibold text-sm uppercase tracking-wider">
                                 EDUCATION
                             </h3>
-                            <ul className="text-sm list-none mt-2">
+                        </div>
+                        <div className="w-9/12" style={{ paddingLeft: "15px" }}>
+                            <ul className="text-sm list-none">
                                 {data.education.map((edu, index) => (
                                     <li key={index} className="mb-4">
                                         <p className="font-semibold">
@@ -190,55 +168,64 @@ const Resume3 = ({ contactInfo, education, experience, skills }) => {
                                             {edu.startMonth} {edu.startYear} -{" "}
                                             {edu.endMonth} {edu.endYear}
                                         </p>
-                                        <p>GPA: {edu.gpa}</p>
                                     </li>
                                 ))}
                             </ul>
                         </div>
+                    </section>
 
-                        <div className="mb-8">
+                    {/* Divider */}
+                    <div className="border-gray-800 my-6 border-t-2"></div>
+
+                    {/* Experience Section */}
+                    <section className="flex mb-8">
+                        <div className="pr-4 w-3/12">
                             <h3 className="font-semibold text-sm uppercase tracking-wider">
-                                REFERENCES
+                                EXPERIENCE
                             </h3>
-                            <ul className="text-sm list-none mt-2">
-                                <li>
-                                    <p>Estelle Darcy</p>
-                                    <p>WARDIERE Inc. / CTO</p>
-                                    <p>
-                                        Phone:{" "}
-                                        {contactInfo?.phone || "123-456-7890"}
-                                    </p>
-                                    <p>
-                                        Email:{" "}
-                                        {contactInfo?.email ||
-                                            "hello@reallygreatsite.com"}
-                                    </p>
-                                </li>
-                                <li className="mt-4">
-                                    <p>Harper Richard</p>
-                                    <p>WARDIERE Inc. / CEO</p>
-                                    <p>
-                                        Phone:{" "}
-                                        {contactInfo?.phone || "123-456-7890"}
-                                    </p>
-                                    <p>
-                                        Email:{" "}
-                                        {contactInfo?.email ||
-                                            "hello@reallygreatsite.com"}
-                                    </p>
-                                </li>
+                        </div>
+                        <div className="w-9/12" style={{ paddingLeft: "15px" }}>
+                            <ul className="text-sm list-none">
+                                {data.experience.map((job, index) => (
+                                    <li key={index} className="mb-4">
+                                        <p className="border-gray-300 mb-1 pb-1 border-b font-semibold jobtitle-location">
+                                            <span>{job.jobTitle}</span>
+                                            {/* <span>{job.location}</span> */}
+                                        </p>
+                                        <p className="text-sm">
+                                            {job.company} | {job.startDate} -{" "}
+                                            {job.endDate}
+                                        </p>
+                                        <ul className="mt-1 ml-4 text-sm list-disc list-inside">
+                                            {job.description}
+                                        </ul>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
-                    </div>
+                    </section>
+
+                    {/* Divider */}
+                    <div className="border-gray-800 my-6 border-t-2"></div>
+
+                    {/* Contact Section */}
+                    <section className="flex mb-8">
+                        <div className="pr-4 w-3/12">
+                            <h3 className="font-semibold text-sm uppercase tracking-wider">
+                                CONTACT
+                            </h3>
+                        </div>
+                        <div
+                            className="w-9/12 text-sm"
+                            style={{ paddingLeft: "15px" }}
+                        >
+                            <p>{data.email}</p>
+                            <p>{data.phone}</p>
+                            <p>{data.location}</p>
+                        </div>
+                    </section>
                 </div>
             </div>
-
-            <button
-                onClick={generatePDF}
-                className="bg-blue-500 hover:bg-blue-600 mt-4 px-6 py-2 rounded-lg text-white"
-            >
-                Download as PDF
-            </button>
         </>
     );
 };
