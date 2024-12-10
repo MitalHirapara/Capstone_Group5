@@ -7,7 +7,7 @@ export default function Sidebar() {
             {/* Sidebar */}
             <div
                 id="hs-application-sidebar"
-                className="hs-overlay  [--auto-close:lg] hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform
+                className="hs-overlay [--auto-close:lg] hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform
                     w-[260px] h-full
                     hidden bg-slate-950
                     fixed inset-y-0 start-0 z-[60]
@@ -33,7 +33,7 @@ export default function Sidebar() {
                     <div className="h-full overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300">
                         <nav
                             className="hs-accordion-group p-3 w-full flex flex-col flex-wrap"
-                            data-hs-accordion-always-open=""
+                            data-hs-accordion-always-open="true"
                         >
                             <ul className="flex flex-col space-y-1">
                                 <li>
@@ -113,34 +113,97 @@ export default function Sidebar() {
                                         Manage Job Posts
                                     </Link>
                                 </li>
-                                <li>
-                                    <Link
-                                        to="/manage-jobs"
-                                        className="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-200 rounded-lg hover:bg-slate-300 hover:text-slate-950 focus:outline-none focus:bg-slate-300 focus:text-slate-950"
-                                    >
-                                        <svg
-                                            className="shrink-0 size-4"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width={24}
-                                            height={24}
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth={2}
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        >
-                                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                                            <circle cx={9} cy={7} r={4} />
-                                            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                                        </svg>
-                                        View Applicants
-                                    </Link>
-                                </li>
                             </ul>
                         </nav>
                     </div>
+                </div>
+            </div>
+            {/* Sidebar Toggle for mobile */}
+            <div className="lg:hidden bg-slate-950 ">
+                <div
+                    id="hs-accordion-group-1"
+                    className="hs-accordion hs-accordion-content-hidden"
+                    aria-hidden="true"
+                >
+                    <ul className=" flex sm:justify-center sm:align-center m-2">
+                        <li>
+                            <Link
+                                to="/dashboard"
+                                className="flex items-center gap-x-3.5 py-2 px-3 text-sm text-gray-200 rounded-lg  hover:text-slate-250 focus:outline-none  focus:text-slate-200"
+                            >
+                                <svg
+                                    className="shrink-0 size-4"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width={24}
+                                    height={24}
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth={2}
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                    <polyline points="9 22 9 12 15 12 15 22" />
+                                </svg>
+                                Dashboard
+                            </Link>
+                        </li>
+
+                        <li>
+                            <Link
+                                to="/create-job-post"
+                                className="flex items-center gap-x-3.5 py-2 px-3 text-sm text-gray-200 rounded-lg  hover:text-slate-250 focus:outline-none  focus:text-slate-200"
+                            >
+                                <svg
+                                    className="shrink-0 size-4"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width={24}
+                                    height={24}
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth={2}
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <rect
+                                        width={20}
+                                        height={14}
+                                        x={2}
+                                        y={7}
+                                        rx={2}
+                                        ry={2}
+                                    />
+                                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                                </svg>
+                                Create Job Post
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/manage-jobs"
+                                className="flex items-center gap-x-3.5 py-2 px-3 text-sm text-gray-200 rounded-lg  hover:text-slate-250 focus:outline-none  focus:text-slate-200"
+                            >
+                                <svg
+                                    className="shrink-0 size-4"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width={24}
+                                    height={24}
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth={2}
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                                </svg>
+                                Manage Job Posts
+                            </Link>
+                        </li>
+                    </ul>
                 </div>
             </div>
             {/* End Sidebar */}
