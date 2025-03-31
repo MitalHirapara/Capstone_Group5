@@ -20,13 +20,28 @@ export default function CategorySlider() {
         centerMode: false,
         infinite: true,
         centerPadding: "120px",
-        slidesToShow: 5,
+        slidesToShow: 4,
         speed: 500,
         arrows: true,
+        responsive: [
+            {
+                breakpoint: 1024, // Tablet
+                settings: {
+                    slidesToShow: 2,
+                },
+            },
+            {
+                breakpoint: 768, // Mobile
+                settings: {
+                    slidesToShow: 1,
+                },
+            },
+        ],
     };
+    
 
     const renderTemplate = (img, categoryname, numofjob) => (
-        <div className="flex m-1 flex-col rounded-xl p-4 md:p-4 bg-white border border-gray-200 dark:bg-neutral-900 dark:border-neutral-700">
+        <div className="flex flex-col border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 m-1 p-4 md:p-4 border rounded-xl">
             <div className="flex items-center gap-x-3">
                 <img
                     className="size-12"
@@ -37,7 +52,7 @@ export default function CategorySlider() {
                     <h3 className="font-medium text-gray-800 dark:text-neutral-200">
                         {categoryname}
                     </h3>
-                    <p className="text-xs uppercase text-gray-500 dark:text-neutral-500">
+                    <p className="text-gray-500 text-xs dark:text-neutral-500 uppercase">
                         {numofjob}
                     </p>
                 </div>
@@ -52,24 +67,24 @@ export default function CategorySlider() {
             <div className="relative bg-zinc-50 overflow-hidden">
                 <div
                     aria-hidden="true"
-                    className="flex absolute -top-96 start-1/2 transform -translate-x-1/2"
+                    className="-top-96 absolute flex transform -translate-x-1/2 start-1/2"
                 >
                 </div>
 
                 <div className="relative z-10">
-                    <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
-                        <div className="category max-w-2xl text-center mx-auto">
-                            <p className="sub-heading inline-block text-sm font-medium bg-clip-text text-gray-500 ">
+                    <div className="mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16 max-w-[85rem]">
+                        <div className="mx-auto max-w-2xl text-center category">
+                            <p className="inline-block bg-clip-text font-medium text-gray-500 text-sm sub-heading">
                             Search and connect with the right candidates faster.
                             </p>
 
                             <div className="mt-5 max-w-2xl">
-                                <h3 className="block font-semibold text-gray-800 text-2xl md:text-3xl lg:text-4xl dark:text-neutral-200">
+                                <h3 className="block font-semibold text-2xl text-gray-800 md:text-3xl lg:text-4xl dark:text-neutral-200">
                                 Popular Job category
                                 </h3>
                             </div>
                         </div>
-                        <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-10">
+                        <div className="mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-10 max-w-[85rem]">
                             <div className="slider-container">
                                 <Slider {...settings}>
                                     <div>

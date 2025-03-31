@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Select from "react-select";
 
 const JobList = () => {
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const [currentJob, setCurrentJob] = useState(null);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [jobToDelete, setJobToDelete] = useState(null);
+    const [locations, setLocations] = useState([]);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
+        // Fetch jobs data
         const fetchJobs = async () => {
             try {
-                const response = await fetch("http://127.0.0.1:8000/job/jobs");
+                const response = await fetch("http://127.0.0.1:8000/jobs/");
                 if (!response.ok) throw new Error("Failed to fetch jobs");
                 const data = await response.json();
+
                 setJobs(data);
             } catch (err) {
                 setError(err.message);
@@ -20,200 +27,128 @@ const JobList = () => {
                 setLoading(false);
             }
         };
+
+        // Fetch locations for dropdown
+        const fetchLocations = async () => {
+            try {
+                const response = await fetch(
+                    "http://127.0.0.1:8000/api/locations/"
+                );
+                const data = await response.json();
+                setLocations(data);
+            } catch (err) {
+                console.error("Failed to fetch locations:", err);
+            }
+        };
+
         fetchJobs();
+        fetchLocations();
     }, []);
 
-    const handleDelete = async (id) => {
-        const confirmed = window.confirm(
-            "Are you sure you want to delete this job?"
-        );
-        if (confirmed) {
-            const response = await fetch(
-                `http://127.0.0.1:8000/job/job/${id}/`,
-                {
-                    method: "DELETE",
-                }
-            );
-            if (response.ok) {
-                setJobs(jobs.filter((job) => job.id !== id));
-            } else {
-                alert("Failed to delete job.");
-            }
-        }
-    };
-
-    const handleEdit = (job) => {
-        setCurrentJob(job);
-        setIsEditModalOpen(true);
-    };
-
-    const handleUpdate = async (e) => {
-        e.preventDefault();
+    const handleDelete = async () => {
+        // Perform the delete operation
         const response = await fetch(
-            `http://127.0.0.1:8000/job/job/${currentJob.id}/`,
+            `http://127.0.0.1:8000/job/${jobToDelete.id}/`,
             {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(currentJob),
+                method: "DELETE",
             }
         );
         if (response.ok) {
-            const updatedJob = await response.json();
-            setJobs(
-                jobs.map((job) => (job.id === updatedJob.id ? updatedJob : job))
-            );
-            setIsEditModalOpen(false);
-            setCurrentJob(null);
+            setJobs(jobs.filter((job) => job.id !== jobToDelete.id));
+            setIsDeleteModalOpen(false);
         } else {
-            alert("Failed to update job.");
+            alert("Failed to delete job.");
         }
     };
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setCurrentJob({ ...currentJob, [name]: value });
+    const handleEdit = (jobId) => {
+        navigate(`/edit-job/${jobId}`);
+    };
+
+    const openDeleteModal = (job) => {
+        setJobToDelete(job);
+        setIsDeleteModalOpen(true);
+    };
+
+    const closeDeleteModal = () => {
+        setIsDeleteModalOpen(false);
+        setJobToDelete(null);
     };
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div className="text-red-500">{error}</div>;
 
     return (
-        <div className=" mx-auto bg-white p-8 shadow-lg shadow-slate-500	 rounded-lg ">
-            <h2 className="text-2xl font-semibold mb-6 text-slate-800 ">
-                Job Listings
+        <div className="mx-auto bg-white p-8 shadow-lg shadow-slate-400 rounded-lg text-slate-950">
+            <h2 className="text-2xl font-semibold mb-6 text-slate-950">
+                Job List
             </h2>
-            <table className="min-w-full bg-white border border-slate-400 rounded-lg">
-                <thead>
-                    <tr className="bg-slate-950">
-                        <th className="py-2 px-4 border-b text-slate-100 text-left ">
-                            Title
-                        </th>
-                        <th className="py-2 px-4 border-b text-slate-100 text-left ">
-                            Location
-                        </th>
-                        <th className="py-2 px-4 border-b text-slate-100 text-left ">
-                            Job Type
-                        </th>
-                        <th className="py-2 px-4 border-b text-slate-100 text-left ">
-                            Salary Range
-                        </th>
-                        <th className="py-2 px-4 border-b text-slate-100 text-left ">
-                            Actions
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {jobs.map((job) => (
-                        <tr key={job.id} className="hover:bg-gray-100">
-                            <td className="py-2 px-4 border-b text-slate-800">
-                                {job.title}
-                            </td>
-                            <td className="py-2 px-4 border-b text-slate-800">
-                                {job.location}
-                            </td>
-                            <td className="py-2 px-4 border-b text-slate-800">
-                                {job.job_type}
-                            </td>
-                            <td className="py-2 px-4 border-b text-slate-800">
-                                {job.salary_range}
-                            </td>
-                            <td className="py-2 px-4 border-b text-slate-800">
-                                <button
-                                    className="text-slate-950 hover:underline"
-                                    onClick={() => handleEdit(job)}
-                                >
-                                    Edit
-                                </button>
-                                <button
-                                    className="text-red-600 hover:underline ml-4"
-                                    onClick={() => handleDelete(job.id)}
-                                >
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-
-            {/* Edit Job Modal */}
-            {isEditModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-white p-6 rounded-lg shadow-lg ease-out transition-all md:max-w-2xl md:w-full m-3 md:mx-auto">
-                        <h3 className="text-lg font-semibold text-slate-800 mb-4">
-                            Edit Job
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {jobs.map((job) => (
+                    <div
+                        key={job.id}
+                        className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                    >
+                        <h3 className="text-xl font-semibold text-slate-800">
+                            {job.title}
                         </h3>
-                        <form onSubmit={handleUpdate} className="space-y-4">
-                            <div>
-                                <label className="block mb-1 text-slate-800">
-                                    Job Title
-                                </label>
-                                <input
-                                    name="title"
-                                    value={currentJob.title}
-                                    onChange={handleChange}
-                                    className="w-full border border-slate-400 text-slate-800 rounded-lg p-2 rounded"
-                                    type="text"
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <label className="block mb-1 text-slate-800">
-                                    Location
-                                </label>
-                                <input
-                                    name="location"
-                                    value={currentJob.location}
-                                    onChange={handleChange}
-                                    className="w-full border border-slate-400 text-slate-800 rounded-lg p-2 rounded"
-                                    type="text"
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <label className="block mb-1 text-slate-800">
-                                    Job Type
-                                </label>
-                                <input
-                                    name="job_type"
-                                    value={currentJob.job_type}
-                                    onChange={handleChange}
-                                    className="w-full border border-slate-400 text-slate-800 rounded-lg p-2 rounded"
-                                    type="text"
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <label className="block mb-1 text-slate-800">
-                                    Salary Range
-                                </label>
-                                <input
-                                    name="salary_range"
-                                    value={currentJob.salary_range}
-                                    onChange={handleChange}
-                                    className="w-full border border-slate-400 text-slate-800 rounded-lg p-2 rounded"
-                                    type="text"
-                                    required
-                                />
-                            </div>
-                            <div className="flex justify-end">
-                                <button
-                                    type="button"
-                                    className="mr-4 text-gray-600 hover:underline"
-                                    onClick={() => setIsEditModalOpen(false)}
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    type="submit"
-                                    className="px-4 py-2 bg-slate-950 text-white rounded-lg hover:bg-slate-500 transition duration-300 "
-                                >
-                                    Update
-                                </button>
-                            </div>
-                        </form>
+                        <p className="text-slate-600 mt-2">
+                            {job.short_description ||
+                                "No description available"}
+                        </p>
+                        <div className="mt-4 text-slate-600 space-y-1">
+                            <div>Location: {job.location.city}</div>
+                            <div>Job Type: {job.job_type}</div>
+                            <div>Experience Level: {job.experience_level}</div>
+                            {job.min_salary && job.max_salary && (
+                                <div>
+                                    Salary: ${job.min_salary} - $
+                                    {job.max_salary}
+                                </div>
+                            )}
+                        </div>
+                        <div className="flex justify-between items-center mt-6">
+                            <button
+                                onClick={() => handleEdit(job.id)}
+                                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-200"
+                            >
+                                Edit
+                            </button>
+                            <button
+                                onClick={() => openDeleteModal(job)}
+                                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200"
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {/* Delete Job Modal */}
+            {isDeleteModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white p-6 rounded-lg shadow-lg transition-all ease-out md:max-w-2xl md:w-full m-3 md:mx-auto">
+                        <h3 className="text-lg font-semibold text-slate-800 mb-4">
+                            Confirm Deletion
+                        </h3>
+                        <p className="text-slate-600 mb-4">
+                            Are you sure you want to delete this job?
+                        </p>
+                        <div className="flex justify-end mt-4">
+                            <button
+                                onClick={closeDeleteModal}
+                                className="mr-4 text-gray-600 hover:underline"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={handleDelete}
+                                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-300"
+                            >
+                                Delete
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}

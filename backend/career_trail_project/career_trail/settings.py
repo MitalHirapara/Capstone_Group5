@@ -13,11 +13,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+import dj_database_url
 
 # Load environment variables from .env file
 load_dotenv()
-
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,18 +30,26 @@ SECRET_KEY = 'django-insecure-uet_u-p1@0cus_e!_40=^_hw1q38-xlasu(%sxe9_(*og76nwa
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ 'career-trail.onrender.com' ,'127.0.0.1','localhost']
+# Frontend URL
+FRONTEND_URL = 'http://localhost:5173'
 
 # CORS configuration
 CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5174',
     'http://localhost:5173',  # URL of your React app
-    'http://127.0.0.1:5173',  # Handle both localhost and 127.0.0.1
+    'http://127.0.0.1:5173',
+    'http://127.0.0.1:8000', # Handle both localhost and 127.0.0.1
+    'https://career-trail.onrender.com'
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
 }
 
 # Application definition
@@ -62,7 +69,10 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'job'
+    'job',
+    'resume',
+    'application',
+    'common'
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -75,6 +85,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
+    
 }
 
 MIDDLEWARE = [
@@ -109,7 +120,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'career_trail.wsgi.application'
-
 # Database
 DATABASES = {
     'default': {
@@ -121,7 +131,6 @@ DATABASES = {
         'PORT': os.getenv('PORT'),
     }
 }
-
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -153,8 +162,17 @@ SOCIALACCOUNT_PROVIDERS = {
 
 SITE_ID = 1  # Required for django-allauth
 
-# Email backend for password reset
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # For development
+
+# Emailing settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_FROM = os.getenv('EMAIL_FROM')
+EMAIL_HOST_USER = os.getenv('EMAIL_FROM')
+EMAIL_HOST_PASSWORD = os.getenv('SMTP_KEY')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+PASSWORD_RESET_TIMEOUT = 14400
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
@@ -173,8 +191,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'auth.User'
 
-# Add this in your settings.py
-DEFAULT_FROM_EMAIL = 'no-reply@example.com'
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 

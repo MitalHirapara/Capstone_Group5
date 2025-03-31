@@ -12,7 +12,10 @@ export default function Header() {
                             href="#"
                             aria-label="Preline"
                         >
-                            <img src="./public/logo.png" alt="Logo" />
+                            <img
+                                src="./public/footer_white_logo.png"
+                                alt="Logo"
+                            />
                         </a>
                     </div>
                     <div className="w-full flex items-center justify-end ms-auto md:justify-between gap-x-1 md:gap-x-3">
@@ -28,11 +31,13 @@ export default function Header() {
                                     aria-expanded="false"
                                     aria-label="Dropdown"
                                 >
-                                    <img
-                                        className="shrink-0 size-[50px] rounded-full"
-                                        src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
-                                        alt="Avatar"
-                                    />
+                                    <a href="/employer-profile">
+                                        <img
+                                            className="shrink-0 size-[50px] rounded-full"
+                                            src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
+                                            alt="Avatar"
+                                        />
+                                    </a>
                                 </button>
                                 <div
                                     className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-white shadow-md rounded-lg mt-2 after:h-4 after:absolute after:-bottom-4 after:start-0 after:w-full before:h-4 before:absolute before:-top-4 before:start-0 before:w-full"
@@ -148,4 +153,5 @@ export default function Header() {
             {/* End Header */}
         </>
     );
+
 }

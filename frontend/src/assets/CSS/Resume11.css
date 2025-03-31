@@ -1,0 +1,221 @@
+.resume {
+    display: flex;
+    font-family: Arial, sans-serif;
+}
+
+.left-section {
+    background-color: #1c1c1c;
+    color: white;
+    padding: 20px;
+    width: 30%;
+}
+
+.profile-picture {
+    background-color: #eee;
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+    margin: 0 auto;
+}
+
+.about-me,
+.contact,
+.expertise {
+    margin-top: 20px;
+}
+
+.skill {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.skill-bar {
+    background-color: #4CAF50;
+    height: 10px;
+    margin-left: 10px;
+    border-radius: 5px;
+}
+
+.right-section {
+    background-color: #ffffff;
+    padding: 0px;
+    width: 70%;
+}
+
+h1,
+h2,
+h3 {
+    color: #333;
+}
+
+.education-item,
+.experience-item {
+    margin-bottom: 20px;
+}
+
+.experience-item ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+h2 {
+    border-bottom: 2px solid #333;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.left-section h1,
+.left-section h2,
+.left-section h3 {
+    color: #fff;
+}
+
+.left-section h2 {
+    border-bottom: 2px solid #fff;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.left-section p {
+    color: #d1d1d1;
+    font-weight: lighter !important;
+}
+
+.skill {
+    margin-bottom: 10px;
+    font-weight: lighter !important;
+    font-size: 16px;
+    color: #d1d1d1;
+}
+
+.r-title {
+    font-size: 18px;
+    color: #1c1c1c;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.word-experience .r-title {
+    padding-top: 10px !important;
+}
+
+.personal-header {
+    background-color: #1c1c1c;
+    padding: 28px;
+    margin-top: 30px;
+}
+
+.personal-header h1 {
+    color: #fff;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #fff;
+}
+
+.personal-header h3 {
+    color: #d1d1d1;
+    font-size: 18px;
+    font-weight: normal;
+    text-align: center;
+    padding-top: 5px;
+}
+
+.other-info {
+    padding: 20px;
+}
+
+.education-item,
+.experience-item {
+    color: #333 !important;
+    position: relative;
+}
+
+.role-detail {
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px !important;
+}
+
+.comapny-detail {
+    margin-top: 5px;
+}
+
+.role-detail,
+.comapny-detail {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 25px;
+}
+
+.experience-point {
+    margin-left: 25px;
+}
+
+.role-detail h3 {
+    color: #1c1c1c;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.role-detail dates,
+.comapny-detail span {
+    color: #333;
+    font-size: 14px;
+    font-weight: lighter;
+    margin-bottom: 10px;
+}
+
+.timeline {
+    overflow: hidden;
+}
+
+.education-sec {
+    margin-left: 25px;
+}
+
+.education-sec h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1c1c1c;
+}
+
+.education-item .lines {
+    margin-top: 6px;
+    position: absolute;
+    top: 0px;
+}
+
+.education-item .dot {
+    width: 14px;
+    height: 14px;
+    background: #D1D6E6;
+    border-radius: 7px;
+}
+
+.education-item .line {
+    height: 82px;
+    width: 2px;
+    background: #D1D6E6;
+    margin-left: 5.3px;
+}
+
+.experience-item .lines {
+    margin-top: 6px;
+    position: absolute;
+    top: 15px;
+}
+
+.experience-item .dot {
+    width: 14px;
+    height: 14px;
+    background: #D1D6E6;
+    border-radius: 7px;
+}
+
+.experience-item .line {
+    height: 200px;
+    width: 2px;
+    background: #D1D6E6;
+    margin-left: 5.3px;
+}

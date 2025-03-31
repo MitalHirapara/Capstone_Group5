@@ -11,6 +11,7 @@ function Signup() {
   });
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -25,7 +26,8 @@ function Signup() {
     const newErrors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email validation regex
     const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/; // Username must be 3-20 characters long, alphanumeric with underscores
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/; // Password must be at least 8 characters long, with at least one letter, one number, and one special character.
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/; // Password must be at least 8 characters long, with at least one letter, one number, and one special character.
 
     if (!formData.username) {
       newErrors.username = "Username is required.";
@@ -61,19 +63,27 @@ function Signup() {
     console.log(formData);
     e.preventDefault();
     if (validateForm()) {
+      setLoading(true);
       console.log(formData);
       axios
-        .post("http://localhost:8000/user/signup/", formData)
+
+        .post("http://localhost:8000/user/register/", formData)
+
         .then((response) => {
           setMessage("User registered successfully!");
           setTimeout(() => {
             navigate("/login");
-            alert("User Registered Successfully!!Login Now!!");
+            alert(
+              "User Registered Successfully!!Check your email! Try to activate your account !!"
+            );
           }, 2000);
         })
         .catch((error) => {
           console.error(error);
           setMessage("Registration failed. Please try again.");
+        })
+        .finally(() => {
+          setLoading(false); // Hide loading spinner
         });
     } else {
       setMessage("Please fix the errors above.");
@@ -82,35 +92,25 @@ function Signup() {
 
   return (
     <div>
-      <div className="relative bg-gradient-to-bl from-blue-100 via-transparent dark:from-blue-950 dark:via-transparent">
-        <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-          <div className="grid items-center md:grid-cols-2 gap-8 lg:gap-12">
+      <div className="relative bg-gradient-to-bl from-blue-100 dark:from-blue-950 via-transparent dark:via-transparent">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14 max-w-[85rem]">
+          <div className="items-center gap-8 lg:gap-12 grid md:grid-cols-2">
             <div>
-              <p className="inline-block text-sm font-medium bg-clip-text bg-gradient-to-l from-blue-600 to-violet-500 text-transparent dark:from-blue-400 dark:to-violet-400">
-                CareerTrail
-              </p>
-              <div className="mt-4 md:mb-12 max-w-2xl">
-                <h1 className="mb-4 font-semibold text-gray-800 text-4xl lg:text-5xl dark:text-neutral-200">
-                  Empower Your Career: Resumes Made Easy, Jobs Within Reach
-                </h1>
-                <p className="text-gray-600 dark:text-neutral-400">
-                  Build the perfect resume, navigate your career path.
-                  Empowering you to land your dream job, one click at a time!
-                </p>
-              </div>
+              <div className="hidden md:block md:absolute md:top-0 md:start-0 md:end-1/2 h-full bg-[url('../public/UserSignup.svg')] bg-no-repeat bg-center bg-cover bg-[length:70%] md:bg-[length:80%]"></div>
             </div>
             <div>
               <form onSubmit={handleSubmit}>
-                <div className="lg:max-w-lg lg:mx-auto lg:me-0 ms-auto">
-                  <div className="p-4 sm:p-7 flex flex-col bg-white rounded-2xl shadow-lg dark:bg-neutral-900">
+                <div className="lg:mx-auto lg:max-w-lg lg:me-0 ms-auto">
+                  <div className="flex flex-col bg-white dark:bg-neutral-900 shadow-lg p-4 sm:p-7 rounded-2xl">
                     <div className="text-center">
+                      <img src="/logo.png" className="mx-auto" />
                       <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
                         Start your free trial
                       </h1>
-                      <p className="mt-2 text-sm text-gray-600 dark:text-neutral-400">
+                      <p className="mt-2 text-gray-600 text-sm dark:text-neutral-400">
                         Already have an account?
                         <a
-                          className="text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
+                          className="font-medium text-blue-600 dark:text-blue-500 hover:underline focus:underline decoration-2 focus:outline-none"
                           href="/login"
                         >
                           Sign in here
@@ -119,53 +119,19 @@ function Signup() {
                     </div>
 
                     <div className="mt-5">
-                      <button
-                        type="button"
-                        className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
-                      >
-                        <svg
-                          className="w-4 h-auto"
-                          width="46"
-                          height="47"
-                          viewBox="0 0 46 47"
-                          fill="none"
-                        >
-                          <path
-                            d="M46 24.0287C46 22.09 45.8533 20.68 45.5013 19.2112H23.4694V27.9356H36.4069C36.1429 30.1094 34.7347 33.37 31.5957 35.5731L31.5663 35.8669L38.5191 41.2719L38.9885 41.3306C43.4477 37.2181 46 31.1669 46 24.0287Z"
-                            fill="#4285F4"
-                          ></path>
-                          <path
-                            d="M23.4694 47C29.8061 47 35.1161 44.9144 39.0179 41.3012L31.625 35.5437C29.6301 36.9244 26.9898 37.8937 23.4987 37.8937C17.2793 37.8937 12.0281 33.7812 10.1505 28.1412L9.88649 28.1706L2.61097 33.7812L2.52296 34.0456C6.36608 41.7125 14.287 47 23.4694 47Z"
-                            fill="#34A853"
-                          ></path>
-                          <path
-                            d="M10.1212 28.1413C9.62245 26.6725 9.32908 25.1156 9.32908 23.5C9.32908 21.8844 9.62245 20.3275 10.0918 18.8588V18.5356L2.75765 12.8369L2.52296 12.9544C0.909439 16.1269 0 19.7106 0 23.5C0 27.2894 0.909439 30.8731 2.49362 34.0456L10.1212 28.1413Z"
-                            fill="#FBBC05"
-                          ></path>
-                          <path
-                            d="M23.4694 9.07688C27.8699 9.07688 30.8622 10.9863 32.5344 12.5725L39.1645 6.11C35.0867 2.32063 29.8061 0 23.4694 0C14.287 0 6.36607 5.2875 2.49362 12.9544L10.0918 18.8588C11.9987 13.1894 17.25 9.07688 23.4694 9.07688Z"
-                            fill="#EB4335"
-                          ></path>
-                        </svg>
-                        Sign up with Google
-                      </button>
-
-                      <div className="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-1 before:border-t before:border-gray-200 before:me-6 after:flex-1 after:border-t after:border-gray-200 after:ms-6 dark:text-neutral-500 dark:before:border-neutral-700 dark:after:border-neutral-700">
-                        Or
-                      </div>
                       <div className="grid grid-cols-2 gap-4">
                         <div className="relative col-span-full">
                           <div className="relative">
                             <label
                               htmlFor="hs-hero-signup-form-floating-input-email"
-                              className="block text-sm mb-2 text-gray-900 dark:text-white"
+                              className="block mb-2 text-gray-900 text-sm dark:text-white"
                             >
                               Email
                             </label>
                             <input
                               type="email"
                               id="hs-hero-signup-form-floating-input-email"
-                              className="text-gray-800 w-full px-4 py-2 border rounded-lg border-gray-300"
+                              className="border-gray-300 px-4 py-2 border rounded-lg w-full text-gray-800"
                               placeholder="you@email.com"
                               onChange={handleChange}
                               name="email"
@@ -181,7 +147,7 @@ function Signup() {
                           <div className="relative">
                             <label
                               htmlFor="hs-hero-signup-form-floating-input-username"
-                              className="block text-sm mb-2 text-gray-900 dark:text-white"
+                              className="block mb-2 text-gray-900 text-sm dark:text-white"
                             >
                               Username
                             </label>
@@ -189,7 +155,7 @@ function Signup() {
                               type="text"
                               onChange={handleChange}
                               id="hs-hero-signup-form-floating-input-username"
-                              className="text-gray-800 w-full px-4 py-2 border rounded-lg border-gray-300"
+                              className="border-gray-300 px-4 py-2 border rounded-lg w-full text-gray-800"
                               placeholder="Username"
                               name="username"
                             />
@@ -205,7 +171,7 @@ function Signup() {
                           <div className="relative">
                             <label
                               htmlFor="hs-hero-signup-form-floating-input-new-password"
-                              className="block text-sm mb-2 text-gray-900 dark:text-white"
+                              className="block mb-2 text-gray-900 text-sm dark:text-white"
                             >
                               Password
                             </label>
@@ -213,7 +179,7 @@ function Signup() {
                               type="password"
                               onChange={handleChange}
                               id="hs-hero-signup-form-floating-input-new-password"
-                              className="text-gray-800 w-full px-4 py-2 border rounded-lg border-gray-300"
+                              className="border-gray-300 px-4 py-2 border rounded-lg w-full text-gray-800"
                               placeholder="********"
                               name="password"
                             />
@@ -228,7 +194,7 @@ function Signup() {
                           <div className="relative">
                             <label
                               htmlFor="hs-hero-signup-form-floating-input-current-password"
-                              className="block text-sm mb-2 text-gray-900 dark:text-white"
+                              className="block mb-2 text-gray-900 text-sm dark:text-white"
                             >
                               Confirm Password
                             </label>
@@ -236,7 +202,7 @@ function Signup() {
                               type="password"
                               onChange={handleChange}
                               id="hs-hero-signup-form-floating-input-current-password"
-                              className="text-gray-800 w-full px-4 py-2 border rounded-lg border-gray-300"
+                              className="border-gray-300 px-4 py-2 border rounded-lg w-full text-gray-800"
                               placeholder="********"
                               name="password2"
                             />
@@ -248,47 +214,30 @@ function Signup() {
                           </div>
                         </div>
                       </div>
-                      <div className="mt-5 flex items-center">
-                        <div className="flex">
-                          <input
-                            id="remember-me"
-                            name="remember-me"
-                            type="checkbox"
-                            className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                          />
-                        </div>
-                        <div className="ms-3">
-                          <label
-                            htmlFor="remember-me"
-                            className="text-sm dark:text-white text-gray-900"
-                          >
-                            I accept the{" "}
-                            <a
-                              className="text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
-                              href="#"
-                            >
-                              Terms and Conditions
-                            </a>
-                          </label>
-                        </div>
-                      </div>
+                    
                       <div className="mt-5">
                         <button
                           type="submit"
-                          className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                          className="inline-flex justify-center items-center gap-x-2 bg-blue-600 hover:bg-blue-700 focus:bg-blue-700 disabled:opacity-50 px-4 py-3 border border-transparent rounded-lg w-full font-medium text-sm text-white disabled:pointer-events-none focus:outline-none"
                         >
                           Sign Up
                         </button>
                       </div>
+                      {loading && (
+                      <div className="animate-spin text-center inline-block size-6 border-[3px] border-current border-t-transparent text-blue-600 rounded-full dark:text-blue-500" role="status" aria-label="loading">
+                      <span className="sr-only">Loading...</span>
+                      </div>
+                )}
                     </div>
                     <a
-                      className="mt-3 text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
+                      className="mt-3 font-medium text-blue-600 dark:text-blue-500 hover:underline focus:underline decoration-2 focus:outline-none"
                       href="/"
                     >
                       Back
                     </a>
                   </div>
                 </div>
+                {message && <p>{message}</p>}
               </form>
             </div>
           </div>
